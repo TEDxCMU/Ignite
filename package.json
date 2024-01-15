@@ -1,5 +1,5 @@
 {
-    "name": "event-name",
+    "name": "Ignite",
     "private": true,
     "scripts": {
         "dev": "next dev",

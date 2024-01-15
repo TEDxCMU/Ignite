@@ -2,7 +2,7 @@ import * as prismic from '@prismicio/client';
 
 const accessToken = '<your access token>';
 
-const endpoint = prismic.getRepositoryEndpoint('tedxcmu-<event-name>');
+const endpoint = prismic.getRepositoryEndpoint('tedxcmu-<Ignite>');
 const client = prismic.createClient(endpoint, { accessToken });
 
 export async function getSpeakers() {
