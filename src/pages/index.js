@@ -1,5 +1,5 @@
 function Home() {
-  return <div>TEDxCMU: <Event Name></div>;
+  return <div>TEDxCMU: Ignite</div>;
 }
 
 export default Home;
