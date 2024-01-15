@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    border-bottom: 0.1rem solid var(--c-white);
+}
+
+.logo {
+    height: 3rem;
+}
+
+.links {
+    text-transform: uppercase;
+}
+
+.link {
+    font-size: 1.5rem;
+}
+
+.link:not(:last-child) {
+    margin-right: 1.5rem;
+}
