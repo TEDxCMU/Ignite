@@ -1,5 +1,5 @@
 {
-    "name": "Ignite",
+    "name": "ignite",
     "private": true,
     "scripts": {
         "dev": "next dev",
