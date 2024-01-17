@@ -22,11 +22,15 @@ function NavBar() {
                 <Link href="/expo" className={styles.link}>
                     Innovation Expo
                 </Link>
+                <Link href="/countdown" className={styles.link}>
+                    Countdown
+                </Link>
             </div>
             {/* Empty div for spacing. */}
             <div />
         </nav>
     );
 }
+
 
 export default NavBar;
