@@ -1,3 +1,4 @@
+import Leaderboard from 'components/leaderboard';
 import Link  from 'next/link';
 
 function Countdown() {
@@ -6,6 +7,7 @@ function Countdown() {
       <Link href="/countdown/game1">game1</Link>
       <Link href="/countdown/game2">game2</Link>
       <Link href="/countdown/game3">game3</Link>
+      <Leaderboard />
     </div>
   );
 }

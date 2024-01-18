@@ -1,6 +1,6 @@
 import * as prismic from '@prismicio/client';
 
-const accessToken = 'MC5aYVdndnhJQUFDRUEzZ1Ja.ce-_vUofeO-_vQw577-9U--_vQBj77-9eyUtPBVm77-977-977-9fHst77-9XXvvv73vv71G';
+const accessToken = process.env.PRISMIC_ACCESS_TOKEN;
 
 const endpoint = prismic.getRepositoryEndpoint('tedxcmu-ignite');
 const client = prismic.createClient(endpoint, { accessToken });
