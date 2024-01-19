@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import Paddle from './paddle'
 import Ball from './ball'
 
 import styles from "../game.module.css"
-import { gameover } from 'components/gameover'
+import { GameOver } from 'components/gameover'
 import { Debug, Physics, usePlane } from '@react-three/cannon'
 
 function Boundary() {
@@ -22,9 +22,21 @@ function Boundary() {
 
 const PongGame = () => {
     const [score, setScore] = useState(0)
+    const [gameOver, setGameOver] = useState(false)
+
+    const updateScore = () => {
+      setScore(prevScore => prevScore + 1)
+    }
+
+    const resetGame = () => {
+      setGameOver(true)
+    }
 
     return (
       <div className={styles.background}>
+
+        {gameOver && <GameOver score={score} />}
+
         <Canvas camera={{ position: [0, 0, 10] }}>
             <Physics
               defaultContactMaterial={{
@@ -35,7 +47,7 @@ const PongGame = () => {
                 <hemisphereLight />
                 <pointLight position={[10, 10, 10]} />
                 <Paddle />
-                <Ball updateScore={() => setScore(score + 1)} resetGame={() => gameover(score)} />
+                <Ball updateScore={updateScore} resetGame={resetGame} />
                 <Boundary />
               </Debug>
             </Physics>
