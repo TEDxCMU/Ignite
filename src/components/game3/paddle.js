@@ -11,6 +11,7 @@ const Paddle = () => {
       args: paddleArgs,
       type: 'Static',
       position: [0, -5, 0],
+      collisionFilterGroup: 2,
     }),
     useRef(null),
   )
