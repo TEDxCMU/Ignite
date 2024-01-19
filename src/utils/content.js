@@ -27,3 +27,24 @@ export async function getSchedule() {
 
     return events;
 }
+
+export function getScores() {
+    return fetch('/api/getScores')
+        .then(res => {
+            if (!res.ok) {
+                console.log("Res error: ", res)
+            }
+            return res.json()
+        })
+        .catch(err => {
+            console.error("Fetch error: ", err)
+        });
+}
+
+export async function addScore(name, score) {
+    await fetch('/api/addScore', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, score })
+    });
+}

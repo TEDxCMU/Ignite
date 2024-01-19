@@ -1,31 +1,19 @@
 import { useState, useEffect } from 'react';
+import { getScores } from 'utils/content';
 
 export default function Leaderboard() {
     const [scores, setScores] = useState([]);
 
     useEffect(() => {
-        fetch('/api/getScores')
-            .then(res => res.json())
-            .then(data => {
-              console.log(data)
-              setScores(data)
-            });
+        getScores().then(data => setScores(data));
     }, []);
 
     const addScore = async () => {
         const name = prompt("Enter your name");
         const score = parseInt(prompt("Enter your score"), 10);
 
-        await fetch('/api/addScore', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, score })
-        });
-
-        // Refresh scores
-        fetch('/api/getScores')
-            .then(res => res.json())
-            .then(data => setScores(data));
+        addScore(name, score);
+        getScores().then(data => setScores(data));
     };
 
     return (
