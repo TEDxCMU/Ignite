@@ -7,6 +7,7 @@ function Countdown() {
       <Link href="/countdown/game1">game1</Link>
       <Link href="/countdown/game2">game2</Link>
       <Link href="/countdown/game3">game3</Link>
+      <Link href="/countdown/game4">game4</Link>
       <Leaderboard />
     </div>
   );
