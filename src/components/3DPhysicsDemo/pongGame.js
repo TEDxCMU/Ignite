@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import Paddle from './paddle'
 import Ball from './ball'
@@ -8,6 +8,8 @@ import { GameOver } from 'components/gameover'
 import { Debug, Physics, usePlane } from '@react-three/cannon'
 
 function Boundary() {
+  // the usePlane (or useSphere, useBox, etc.) hook returns a ref object 
+  // and adds physics to the mesh
   const [ref] = usePlane(() => ({
     rotation: [-Math.PI / 2, 0, 0],
     position: [0, -6, 0],
@@ -31,7 +33,8 @@ const PongGame = () => {
     const resetGame = () => {
       setGameOver(true)
     }
-
+    
+    // wrap game in div with background style
     return (
       <div className={styles.background}>
 
