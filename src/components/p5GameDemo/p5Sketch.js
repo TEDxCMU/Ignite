@@ -8,8 +8,6 @@ const sketch = (p5) => {
   // setup function
   p5.setup = () => {
     p5.createCanvas(window.innerWidth, window.innerHeight, p5.WEBGL);
-
-    let osc = p5.Oscillator();
   }
 
   // draw function (called every frame)
