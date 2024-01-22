@@ -1,4 +1,4 @@
-import Leaderboard from 'components/leaderboard';
+// import Leaderboard from 'components/leaderboard';
 import Link  from 'next/link';
 
 function Countdown() {
@@ -8,7 +8,8 @@ function Countdown() {
       <Link href="/countdown/game2">game2</Link>
       <Link href="/countdown/game3">game3</Link>
       <Link href="/countdown/game4">game4</Link>
-      <Leaderboard />
+      <Link href="/countdown/ethanGame">ethanGame</Link>
+      {/* <Leaderboard /> */}
     </div>
   );
 }
