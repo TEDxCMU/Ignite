@@ -1,4 +1,5 @@
 import * as Matter from 'matter-js';
+import playerImg from '../../assets/Bear.png'; 
 
 const sketch = (p5) => {
 
@@ -9,33 +10,40 @@ const sketch = (p5) => {
     Mouse = Matter.Mouse,
     Bodies = Matter.Bodies;
 
+    //matter.js setup
     let engine;
     let world;
 
-    //board
-    let background = []; 
-    let grounds = []; 
-    let player = [];
+    //player
+    let player;
+    let bear; 
 
     //player position
-    let pos = [40,60]; 
+    let pos = [40,560]; 
 
-    let timerStart = false; 
+    //board
+    let grounds = []; 
 
-    const updatePhysics = () => {
-        Matter.Engine.update(world, deltaTime);
-      };
+    //obstacles
+    let waters = []; 
 
+    let endGame = false; 
+
+    //updating position of player
     const updatePhysicsCirclePosition = (physicsCircle, x, y) => {
         Matter.Body.setPosition(physicsCircle.body, { x, y });
       };
 
+
+    //creating board boundaries
     const createBoundary = (x, y, w, h) => {
         const body = Matter.Bodies.rectangle(x, y, w, h, { isStatic: true });
         Matter.World.add(world, body);
         return { body, w, h };
       };
 
+
+    //creating circle (player)
     const createCircle = (x, y, radius) => {
         const body = Matter.Bodies.circle(x, y, radius);
         Matter.World.add(world, body);
@@ -43,26 +51,44 @@ const sketch = (p5) => {
     };
 
 
-    const showBoundary = (boundary) => {
+    //showing boundaries and walls 
+    const showBoundary = (type, boundary) => {
         let pos = boundary.body.position;
         let angle = boundary.body.angle;
   
+        if (type === "g")
+        {
+            p5.fill(128, 128, 51);
+        }
+
+        if (type === "w")
+        {
+            p5.fill(0, 0, 255);
+        }
+
         p5.push();
         p5.translate(pos.x, pos.y);
         p5.rotate(angle);
         p5.rectMode(p5.CENTER);
         p5.noStroke();
-        p5.fill(128, 128, 51);
         p5.rect(0, 0, boundary.w, boundary.h);
         p5.pop();
     };
 
+
+    //showing player
     const showCircle = (circle) => {
         p5.fill(255, 0, 0); // Set fill color
         p5.noStroke(); // No outline
         p5.ellipse(circle.body.position.x, circle.body.position.y, circle.radius * 2);
+
+        // Draw the image within the circular boundary
+        // p5.imageMode(p5.CENTER);
+        // p5.image(bear, circle.body.position.x, circle.body.position.y, circle.radius * 2, circle.radius * 2);
       };
 
+
+    //setting up physics and world
     const setupPhysics = () => {
         engine = Matter.Engine.create();
         world = engine.world;
@@ -74,10 +100,46 @@ const sketch = (p5) => {
         Matter.World.add(world, grounds);
     };
 
+
+    //applying force on object when jumping
+    const applyJumpForce = (player) => {
+        // Apply an upward force to the circular body
+        const force = { x: 0, y: -0.005 }; // Adjust the force as needed
+        Matter.Body.applyForce(player.body, player.body.position, force);
+      };
+
+       
+    //handles any collisions that may happen
+    const handleCollision = (event) => {
+        const pairs = event.pairs;
+  
+        for (let i = 0; i < pairs.length; i++) {
+          const bodyA = pairs[i].bodyA;
+  
+          console.log(bodyA); 
+          // Check if the colliding bodies are boxes
+          // TODO: Change to not hardcoding ids
+          if (bodyA.id === 239 || bodyA.id === 206) {
+            // Perform actions when boxes collide
+            gameOver(); 
+            console.log('Collision between two boxes!');
+          }
+        }
+      };
+
     //creating the first board
     const createBoardOne = () => {
         for (let i = 0; i < 30; i++) {
-            
+            if (i==25)
+            {
+                waters.push(createBoundary(550, (i-0.25) * 20, 60, 10));
+            }
+
+            if (i==29)
+            {
+                waters.push(createBoundary(500, (i+0.25) * 20, 60, 10));
+            }
+
             // Populate the row with zeros
             for (let j = 0; j < 40; j++) {
 
@@ -91,13 +153,24 @@ const sketch = (p5) => {
                     else
                     {
                         grounds.push(createBoundary((2*p5.width)/3, j * 20, p5.width, 20));
-
                     }
                    
                 }
             }
         }
     }
+
+    const gameOver = () => {
+        console.log("over"); 
+        endGame = true; 
+        updatePhysicsCirclePosition(player, 40, 560); 
+    }
+
+    // p5.preload = () => {
+    //     // Image is 50 x 50 pixels.
+    //     bear = p5.loadImage(playerImg);
+    // };
+
 
     //setup function
     p5.setup = () => {
@@ -107,26 +180,36 @@ const sketch = (p5) => {
 
         setupPhysics();
         createBoardOne(); 
-        player.push(createCircle(pos[0], pos[1], 20));
+        player = createCircle(pos[0], pos[1], 10);
+
+        // Set up collision events
+        Matter.Events.on(engine, 'collisionStart', handleCollision);
 
     }
 
+
     //keypressed function
     p5.keyPressed = () => {
-        let body = player[0].body.position
+        let body = player.body.position
         let x = body.x 
         let y = body.y
         if (p5.keyCode === p5.LEFT_ARROW) {
-            x-=20; 
-            updatePhysicsCirclePosition(player[0], x, y); 
-            pos[0] = x; 
+            if (x-30 > 20)
+            {
+                x-=30; 
+                updatePhysicsCirclePosition(player, x, y); 
+                pos[0] = x; 
+            }
         } else if (p5.keyCode === p5.RIGHT_ARROW) {
-            x += 20; 
-            updatePhysicsCirclePosition(player[0], x, y); 
-            pos[0] = x; 
+            if (x+30 < 780)
+            {
+                x += 30; 
+                updatePhysicsCirclePosition(player, x, y); 
+                pos[0] = x; 
+            }
 
-        } else if (p5.keyCode === p5.UP_ARROW && !timerStart) {
-            jump = true; 
+        } else if (p5.keyCode === p5.UP_ARROW) {
+            applyJumpForce(player); 
         }
 
         pos[0] = x; 
@@ -141,13 +224,14 @@ const sketch = (p5) => {
 
         Engine.update(engine);
         for (let ground of grounds) {
-            showBoundary(ground);
+            showBoundary("g", ground);
           }
         
-        for (let circle of player) {
-            showCircle(circle);
+        for (let water of waters) {
+        showBoundary("w", water);
         }
-
+        
+        showCircle(player);
       
     };
   };
