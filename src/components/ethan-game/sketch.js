@@ -1,5 +1,5 @@
 import * as Matter from 'matter-js';
-import playerImg from '../../assets/Bear.png'; 
+// import playerImg from '/Bear.png'; 
 
 const sketch = (p5) => {
 
@@ -26,11 +26,12 @@ const sketch = (p5) => {
 
     //obstacles
     let waters = []; 
-    let fires = []; 
     let waterId = []; 
+    let fires = []; 
     let ramps = []; 
     let levers = []; 
     let leverId = []; 
+    let boulders = []; 
 
     let endGame = false; 
 
@@ -64,6 +65,14 @@ const sketch = (p5) => {
         return { body, radius };
     };
 
+    //creating circle (player)
+    const createBoulder = (x, y, w, h) => {
+        const body = Matter.Bodies.rectangle(x, y, w, h);
+        Matter.World.add(world, body);
+        return { body, w, h };
+    };
+    
+
 
     //showing boundaries and walls 
     const showBoundary = (type, boundary) => {
@@ -90,6 +99,11 @@ const sketch = (p5) => {
             p5.fill(249, 166, 2); 
         }
 
+        if (type === "b")
+        {
+            p5.fill(128, 128, 128); 
+        }
+
         p5.push();
         p5.translate(pos.x, pos.y);
         p5.rotate(angle);
@@ -102,13 +116,14 @@ const sketch = (p5) => {
 
     //showing player
     const showCircle = (circle) => {
-        p5.fill(255, 0, 0); // Set fill color
+        // p5.fill(255, 0, 0); // Set fill color
+        p5.noFill()
         p5.noStroke(); // No outline
         p5.ellipse(circle.body.position.x, circle.body.position.y, circle.radius * 2);
 
         // Draw the image within the circular boundary
-        // p5.imageMode(p5.CENTER);
-        // p5.image(bear, circle.body.position.x, circle.body.position.y, circle.radius * 2, circle.radius * 2);
+        p5.imageMode(p5.CENTER);
+        p5.image(bear, circle.body.position.x, circle.body.position.y, circle.radius * 2, circle.radius * 2);
       };
 
 
@@ -136,7 +151,7 @@ const sketch = (p5) => {
     //applying force on object when jumping
     const applyJumpForce = (player) => {
         // Apply an upward force to the circular body
-        const force = { x: 0, y: -0.005 }; // Adjust the force as needed
+        const force = { x: 0, y: -0.015 }; // Adjust the force as needed
         Matter.Body.applyForce(player.body, player.body.position, force);
       };
 
@@ -179,11 +194,27 @@ const sketch = (p5) => {
                 ramps.push(createBoundary(p5.width/10, i * 20, 120, 20, "r"));
             }
 
+            if (i == 7)
+            {
+                boulders.push(createBoulder(p5.width/2, i * 20, 25, 25));
+            }
+
+            if (i == 9)
+            {
+                grounds.push(createBoundary(p5.width/2, i * 20, 80, 20, "g"));
+                grounds.push(createBoundary(520, i * 20, 80, 20, "g"));
+            }
+
             if (i == 14)
             {
                 levers.push(createBoundary(200, i * 20, 10, 20, "l"));
             }
 
+            if (i == 15)
+            {
+                waters.push(createBoundary(540, (i-0.25) * 20, 60, 10, "w"));
+                fires.push(createBoundary(380, (i-0.25) * 20, 60, 10, "f"));
+            }
 
             if (i == 20)
             {
@@ -193,12 +224,6 @@ const sketch = (p5) => {
             if (i == 24)
             {
                 levers.push(createBoundary(200, i * 20, 10, 20, "l"));
-            }
-
-            if (i==25)
-            {
-                waters.push(createBoundary(560, (i-0.25) * 20, 60, 10, "w"));
-                fires.push(createBoundary(400, (i-0.25) * 20, 60, 10, "f"));
             }
 
             if (i==29)
@@ -233,10 +258,10 @@ const sketch = (p5) => {
         updatePhysicsCirclePosition(player, 40, 560); 
     }
 
-    // p5.preload = () => {
-    //     // Image is 50 x 50 pixels.
-    //     bear = p5.loadImage(playerImg);
-    // };
+    p5.preload = () => {
+        // Image is 50 x 50 pixels.
+        bear = p5.loadImage('/Bear.png');
+    };
 
 
     //setup function
@@ -247,7 +272,7 @@ const sketch = (p5) => {
 
         setupPhysics();
         createBoardOne(); 
-        player = createCircle(pos[0], pos[1], 10);
+        player = createCircle(pos[0], pos[1], 20);
 
         // Set up collision events
         Matter.Events.on(engine, 'collisionStart', handleCollision);
@@ -261,18 +286,19 @@ const sketch = (p5) => {
         let x = body.x 
         let y = body.y
         if (p5.keyCode === p5.LEFT_ARROW) {
-            if (x-30 > 20)
+            if (x-40 > 0)
             {
-                x-=30; 
-                updatePhysicsCirclePosition(player, x, y); 
-                pos[0] = x; 
+                // x-=40; 
+                // updatePhysicsCirclePosition(player, x, y); 
+                // pos[0] = x; 
+                const force = { x: -0.01, y: 0}
+                Matter.Body.applyForce(player.body, player.body.position, force);
             }
         } else if (p5.keyCode === p5.RIGHT_ARROW) {
-            if (x+30 < 780)
+            if (x+40 < 780)
             {
-                x += 30; 
-                updatePhysicsCirclePosition(player, x, y); 
-                pos[0] = x; 
+                const force = { x: 0.01, y: 0}
+                Matter.Body.applyForce(player.body, player.body.position, force);
             }
 
         } else if (p5.keyCode === p5.UP_ARROW) {
@@ -308,6 +334,10 @@ const sketch = (p5) => {
 
         for (let lever of levers){
             showBoundary("l", lever);
+        }
+
+        for (let boulder of boulders){
+            showBoundary("b", boulder);
         }
         
         showCircle(player);
