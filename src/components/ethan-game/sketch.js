@@ -26,6 +26,11 @@ const sketch = (p5) => {
 
     //obstacles
     let waters = []; 
+    let fires = []; 
+    let waterId = []; 
+    let ramps = []; 
+    let levers = []; 
+    let leverId = []; 
 
     let endGame = false; 
 
@@ -36,9 +41,18 @@ const sketch = (p5) => {
 
 
     //creating board boundaries
-    const createBoundary = (x, y, w, h) => {
+    const createBoundary = (x, y, w, h, t) => {
         const body = Matter.Bodies.rectangle(x, y, w, h, { isStatic: true });
         Matter.World.add(world, body);
+        if (t == "w")
+        {
+            waterId.push(body.id); 
+        }
+
+        if (t == "l")
+        {
+            leverId.push([body.id, true]); 
+        }
         return { body, w, h };
       };
 
@@ -64,6 +78,16 @@ const sketch = (p5) => {
         if (type === "w")
         {
             p5.fill(0, 0, 255);
+        }
+
+        if (type === "f")
+        {
+            p5.fill(255, 0, 0); 
+        }
+
+        if (type === "r" || type ==="l")
+        {
+            p5.fill(249, 166, 2); 
         }
 
         p5.push();
@@ -100,6 +124,14 @@ const sketch = (p5) => {
         Matter.World.add(world, grounds);
     };
 
+    const lowerRamp = (j) => {
+        let ramp = ramps[j];
+        let dx = ramp.body.position.x; 
+        let dy = ramp.body.position.y + 100;
+        console.log("here", dx, dy) 
+        Matter.Body.setPosition(ramp.body, {x: dx, y: dy });
+    };
+
 
     //applying force on object when jumping
     const applyJumpForce = (player) => {
@@ -116,10 +148,21 @@ const sketch = (p5) => {
         for (let i = 0; i < pairs.length; i++) {
           const bodyA = pairs[i].bodyA;
   
-          console.log(bodyA); 
+          //console.log(bodyA); 
           // Check if the colliding bodies are boxes
           // TODO: Change to not hardcoding ids
-          if (bodyA.id === 239 || bodyA.id === 206) {
+
+          for (let j = 0; j < leverId.length; j++)
+          {
+            if (leverId[j][0] == bodyA.id && leverId[j][1])
+            {
+                console.log("lever activated"); 
+                lowerRamp(j); 
+                leverId[j][1] = false; 
+            }
+          }
+
+          if (waterId.includes(bodyA.id)) {
             // Perform actions when boxes collide
             gameOver(); 
             console.log('Collision between two boxes!');
@@ -130,14 +173,38 @@ const sketch = (p5) => {
     //creating the first board
     const createBoardOne = () => {
         for (let i = 0; i < 30; i++) {
+
+            if (i == 10)
+            {
+                ramps.push(createBoundary(p5.width/10, i * 20, 120, 20, "r"));
+            }
+
+            if (i == 14)
+            {
+                levers.push(createBoundary(200, i * 20, 10, 20, "l"));
+            }
+
+
+            if (i == 20)
+            {
+                ramps.push(createBoundary(p5.width/10, i * 20, 120, 20, "r"));
+            }
+
+            if (i == 24)
+            {
+                levers.push(createBoundary(200, i * 20, 10, 20, "l"));
+            }
+
             if (i==25)
             {
-                waters.push(createBoundary(550, (i-0.25) * 20, 60, 10));
+                waters.push(createBoundary(560, (i-0.25) * 20, 60, 10, "w"));
+                fires.push(createBoundary(400, (i-0.25) * 20, 60, 10, "f"));
             }
 
             if (i==29)
             {
-                waters.push(createBoundary(500, (i+0.25) * 20, 60, 10));
+                waters.push(createBoundary(500, (i+0.25) * 20, 60, 10, "w"));
+                fires.push(createBoundary(350, (i+0.25) * 20, 60, 10, "f"));
             }
 
             // Populate the row with zeros
@@ -147,12 +214,12 @@ const sketch = (p5) => {
                 {                   
                     if (j%2 == 1)
                     {
-                        grounds.push(createBoundary(p5.width/3, j * 20, p5.width, 20));
+                        grounds.push(createBoundary(p5.width/3, j * 20, p5.width, 20, "g"));
                     }
 
                     else
                     {
-                        grounds.push(createBoundary((2*p5.width)/3, j * 20, p5.width, 20));
+                        grounds.push(createBoundary((2*p5.width)/3, j * 20, p5.width, 20, "g"));
                     }
                    
                 }
@@ -228,7 +295,19 @@ const sketch = (p5) => {
           }
         
         for (let water of waters) {
-        showBoundary("w", water);
+            showBoundary("w", water);
+        }
+
+        for (let fire of fires) {
+            showBoundary("f", fire);
+        }
+
+        for (let ramp of ramps){
+            showBoundary("r", ramp);
+        }
+
+        for (let lever of levers){
+            showBoundary("l", lever);
         }
         
         showCircle(player);
