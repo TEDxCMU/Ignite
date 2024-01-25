@@ -1,36 +1,36 @@
 import { useEffect } from "react";
 import * as PIXI from "pixi.js";
 import Matter from "matter-js";
+import { recipes } from "./culinaryRecipes";
 
 // creates clickable ingredients
-const createMenu = (app) => {
-  const texture1 = PIXI.Texture.from("/element1.png");
-  const texture2 = PIXI.Texture.from("/element2.png");
-  const texture1sq = PIXI.Texture.from("/element1squared.png");
-  const texture2sq = PIXI.Texture.from("/element2squared.png");
-  const texture3 = PIXI.Texture.from("/element3.png");
+const showMenu = (app) => {
+  for (let i = 0; i < recipes.length; i++) {
+    const recipe = recipes[i];
+    const texture = PIXI.Texture.from(recipe.image);
+    const sprite = new PIXI.Sprite(texture);
+    sprite.scale.x *= 0.1;
+    sprite.scale.y *= 0.1;
+    sprite.anchor.set(0.5, 0.5);
+    sprite.x = 50;
+    sprite.y = 50 + i * 60;
 
-  const sprite1 = new PIXI.Sprite(texture1);
-  const sprite2 = new PIXI.Sprite(texture2);
-  const sprite1sq = new PIXI.Sprite(texture1sq);
-  const sprite2sq = new PIXI.Sprite(texture2sq);
-  const sprite3 = new PIXI.Sprite(texture3);
+    sprite.eventMode = "static";
+    sprite.cursor = "pointer";
 
-  sprite1.anchor.set(0.05);
-  sprite1.scale.x *= 0.2;
-  sprite1.scale.y *= 0.2;
-
-  sprite1.eventMode = "static";
-  sprite1.cursor = "pointer";
-
-  sprite1.on("pointerdown", onClick, sprite1);
-
-  app.stage.addChild(sprite1);
+    sprite.on("pointerdown", onClick, {
+      sprite: sprite,
+      element: recipe.element,
+    });
+    app.stage.addChild(sprite);
+  }
 };
 
 function onClick() {
-  this.scale.x *= 1.25;
-  this.scale.y *= 1.25;
+  // this will summon the ingredient that can be dragged into the pot -
+  // new sprite with matter object attached to it
+  // can trash the object by
+  console.log(this.element);
 }
 
 const CulinaryGame = () => {
@@ -54,7 +54,7 @@ const CulinaryGame = () => {
     });
     Matter.World.add(world, ground);
 
-    createMenu(app);
+    showMenu(app);
 
     // mouse constraint to add mouse interaction
     const mouse = Matter.Mouse.create(app.view);
