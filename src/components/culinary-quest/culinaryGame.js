@@ -9,8 +9,7 @@ const createMenuBase = (app, data) => {
   // make the arrows to switch pages
   const texture = PIXI.Texture.from("/eee.png");
   const next = new PIXI.Sprite(texture);
-  next.scale.x *= 0.3;
-  next.scale.y *= 0.3;
+  next.scale.set(0.3);
   next.anchor.set(0.5, 0.5);
   next.x = 30;
   next.y = 50 + 8 * 60;
@@ -24,8 +23,7 @@ const createMenuBase = (app, data) => {
   app.stage.addChild(next);
 
   const prev = new PIXI.Sprite(texture);
-  prev.scale.x *= 0.3;
-  prev.scale.y *= 0.3;
+  prev.scale.set(0.3);
   prev.anchor.set(0.5, 0.5);
   prev.x = 70;
   prev.y = 50 + 8 * 60;
@@ -39,7 +37,7 @@ const createMenuBase = (app, data) => {
   app.stage.addChild(prev);
 };
 
-const showMenu = (app, page) => {
+const showMenu = (app, page, world) => {
   const start = page * 8;
   const sprites = [];
   for (let i = 0 + page * 8; i < start + 8; i++) {
@@ -49,8 +47,7 @@ const showMenu = (app, page) => {
     const recipe = recipes[i];
     const texture = PIXI.Texture.from(recipe.image);
     const sprite = new PIXI.Sprite(texture);
-    sprite.scale.x *= 0.1;
-    sprite.scale.y *= 0.1;
+    sprite.scale.set(0.1);
     sprite.anchor.set(0.5, 0.5);
     sprite.x = 50;
     sprite.y = 50 + (i - start) * 60;
@@ -61,6 +58,9 @@ const showMenu = (app, page) => {
     sprite.on("pointerdown", onClick, {
       sprite: sprite,
       element: recipe.element,
+      image: recipe.image,
+      app: app,
+      world: world,
     });
     app.stage?.addChild(sprite);
     sprites.push(sprite);
@@ -77,15 +77,40 @@ function changePage() {
   );
 }
 
+function createMatterIngredient(x, y, image, app, world) {
+  console.log(world);
+  const texture = PIXI.Texture.from(image);
+  const sprite = new PIXI.Sprite(texture);
+  sprite.scale.set(0.1);
+  sprite.anchor.set(0.5);
+  sprite.x = x;
+  sprite.y = y;
+
+  const body = Matter.Bodies.rectangle(x, y, sprite.length, sprite.width, {
+    restitution: 0.8,
+  });
+  Matter.Composite.add(world, body);
+  console.log(world);
+
+  app.stage.addChild(sprite);
+  app.ticker.add(() => {
+    sprite.x = body.position.x;
+    sprite.y = body.position.y;
+    sprite.rotation = body.angle;
+  });
+}
+
 function onClick() {
   // this will summon the ingredient that can be dragged into the pot -
   // new sprite with matter object attached to it
   // can trash the object by
   console.log(this.element);
+  console.log(this.sprite);
+  createMatterIngredient(400, 300, this.image, this.app, this.world);
 }
 
 const CulinaryGame = () => {
-  const appRef = useRef(null);
+  //   const appRef = useRef(null);
   const [page, setPage] = useState(0);
   const [menuSprites, setMenuSprites] = useState([]);
 
@@ -98,24 +123,25 @@ const CulinaryGame = () => {
       height: 600,
       backgroundColor: 0x1099bb,
     });
-    appRef.current = app;
+    // appRef.current = app;
     document.body.appendChild(app.view);
+    // set up matterjs world
+    const engine = Matter.Engine.create();
+    const world = engine.world;
+    console.log(world);
+
+    const ground = Matter.Bodies.rectangle(400, 600, 810, 60, {
+      isStatic: true,
+    });
+    Matter.Composite.add(world, ground);
+
     const data = {
       totalPages: Math.ceil(recipes.length / 8),
       setPage: setPage,
       setMenuSprites: setMenuSprites,
     };
-    // set up matterjs world
-    const engine = Matter.Engine.create();
-    const world = engine.world;
-
-    const ground = Matter.Bodies.rectangle(400, 600, 810, 60, {
-      isStatic: true,
-    });
-    Matter.World.add(world, ground);
-
     createMenuBase(app, data);
-    const newSprites = showMenu(app, page);
+    const newSprites = showMenu(app, page, world);
     setMenuSprites(newSprites);
     console.log("after set");
     console.log(menuSprites);
@@ -129,7 +155,7 @@ const CulinaryGame = () => {
         stiffness: 0.2,
       },
     });
-    Matter.World.add(world, mouseConstraint);
+    Matter.Composite.add(world, mouseConstraint);
 
     Matter.Runner.run(engine);
 
@@ -139,19 +165,20 @@ const CulinaryGame = () => {
     };
   }, []);
 
-  useEffect(() => {
-    console.log(page);
-    // remove old sprites
-    for (let i = 0; i < menuSprites.length; i++) {
-      const curr = menuSprites[i];
-      appRef.current?.stage.removeChild(curr);
-    }
-    // regenerate new sprites
-    const newSprites = showMenu(appRef, page);
-    console.log("new");
-    console.log(newSprites);
-    setMenuSprites(newSprites);
-  }, [page]);
+  return null;
+  //   useEffect(() => {
+  //     console.log(page);
+  //     // remove old sprites
+  //     for (let i = 0; i < menuSprites.length; i++) {
+  //       const curr = menuSprites[i];
+  //       appRef.current?.stage.removeChild(curr);
+  //     }
+  //     // regenerate new sprites
+  //     const newSprites = showMenu(appRef, page);
+  //     console.log("new");
+  //     console.log(newSprites);
+  //     setMenuSprites(newSprites);
+  //   }, [page]);
 };
 
 export default CulinaryGame;
