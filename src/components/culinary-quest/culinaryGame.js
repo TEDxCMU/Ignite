@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import * as PIXI from "pixi.js";
-import { useApp } from "@pixi/react";
 import Matter from "matter-js";
 import { recipes } from "./culinaryRecipes";
 
@@ -86,7 +85,7 @@ function onClick() {
 }
 
 const CulinaryGame = () => {
-  const app = useApp();
+  const appRef = useRef(null);
   const [page, setPage] = useState(0);
   const [menuSprites, setMenuSprites] = useState([]);
 
@@ -145,7 +144,7 @@ const CulinaryGame = () => {
     // remove old sprites
     for (let i = 0; i < menuSprites.length; i++) {
       const curr = menuSprites[i];
-      app.stage.removeChild(curr);
+      appRef.current?.stage.removeChild(curr);
     }
     // regenerate new sprites
     const newSprites = showMenu(appRef, page);
