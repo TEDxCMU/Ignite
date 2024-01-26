@@ -1,0 +1,23 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    height: calc(100vh - 7rem); /* 7rem is the height of the navbar */
+    text-align: center;
+}
+
+.name {
+    grid-column: 4 / span 6;
+    grid-row: 4;
+    font-size: 5rem;
+}
+
+.tedx{
+    grid-column: 8 / span 2;
+    grid-row: 7;
+}
+
+.datetime {
+    grid-column: 10 / span 2;
+    grid-row: 7;
+}
