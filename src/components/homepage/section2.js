@@ -13,7 +13,7 @@ function Section2() {
       `.blurb`,
       { x: [-blurbRef.current.offsetWidth-50, 0] },
       {
-        duration: 3,
+        duration: 5,
         repeat: Infinity,
         easing: 'linear'
       }
@@ -22,10 +22,10 @@ function Section2() {
 
   return (
     <div className={style.container}>
-      <div className={`blurb ${style.blurb}`} ref={blurbRef}>Where does it all <span className={style.begin}>begin?</span></div>
-      <div className={`blurb ${style.blurb}`}>Where does it all <span className={style.begin}>begin?</span></div>
-      <div className={`blurb ${style.blurb}`}>Where does it all <span className={style.begin}>begin?</span></div>
-      <div className={`blurb ${style.blurb}`}>Where does it all <span className={style.begin}>begin?</span></div>
+      <div className={`blurb ${style.blurb}`} ref={blurbRef}>Where does it all <span className={style.begin}>begin</span>?</div>
+      <div className={`blurb ${style.blurb}`}>Where does it all <span className={style.begin}>begin</span>?</div>
+      <div className={`blurb ${style.blurb}`}>Where does it all <span className={style.begin}>begin</span>?</div>
+      <div className={`blurb ${style.blurb}`}>Where does it all <span className={style.begin}>begin</span>?</div>
     </div>
   );
 }
