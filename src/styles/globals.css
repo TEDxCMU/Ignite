@@ -1,6 +1,7 @@
 :root {
     --c-black: rgb(0, 0, 0);
     --c-white: rgb(255, 255, 255);
+    --c-green: #1DFFAD;
 }
 
 *, *::before, *::after {

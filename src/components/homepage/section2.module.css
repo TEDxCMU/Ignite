@@ -1,5 +1,24 @@
 .container {
-    background-color: greenyellow;
-    height: 4rem;
-    padding: 2rem;
+    background-color: var(--c-green);
+    height: 8rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.begin {
+    font-family: Pixer, sans-serif;
+    text-transform: uppercase;
+}
+
+.blurb {
+    color: var(--c-black);
+    font-family: Helvetica;
+    font-size: 4rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    margin-right: 50px;
 }
