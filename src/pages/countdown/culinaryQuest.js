@@ -1,11 +1,16 @@
-import { AppProvider } from "@pixi/react";
-import CulinaryGame from "components/culinary-quest/culinaryGame";
+import CulinaryGame from "components/culinary-quest/culinaryGame2";
+import { GameOver } from "components/gameover";
+import { useState } from "react";
 
 function GameCulinaryQuest() {
+
+  const [gameOver, setGameOver] = useState(false);
+
   return (
-    <AppProvider>
-      <CulinaryGame />
-    </AppProvider>
+    <>
+      {gameOver && <GameOver />}
+      <CulinaryGame setGameOver={setGameOver}/>
+    </>
   );
 }
 
