@@ -38,3 +38,17 @@ a:hover {
         font-size: 50%;
     }
 }
+
+@font-face {
+    font-family: 'Pixer';
+    src: url('../assets/typefaces/Pixer-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+  
+@font-face {
+    font-family: 'Space Mono';
+    src: url('../assets/typefaces/SpaceMono-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}

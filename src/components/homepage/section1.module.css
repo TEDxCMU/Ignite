@@ -1,23 +1,55 @@
 .container {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(7, 1fr);
+    grid-template-rows: repeat(8, 1fr);
     height: calc(100vh - 7rem); /* 7rem is the height of the navbar */
     text-align: center;
 }
 
 .name {
-    grid-column: 4 / span 6;
+    grid-column: 3 / span 8;
     grid-row: 4;
-    font-size: 5rem;
+    font-size: 7em;
+    font-family: 'Pixer', sans-serif;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: #1DFFAD;
+    color: transparent;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 15.36rem;
+    letter-spacing: 11.28rem;
+    text-transform: uppercase;
 }
 
 .tedx{
     grid-column: 8 / span 2;
-    grid-row: 7;
+    grid-row: 8;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.29375rem;
+    text-transform: uppercase;
 }
 
 .datetime {
     grid-column: 10 / span 2;
-    grid-row: 7;
+    grid-row: 8;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.29375rem;
+    text-transform: uppercase;
+}
+
+.bgImage {
+    grid-column: 1 / span 12;
+    grid-row: 1 / span 7;
+}
+
+.bgImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
