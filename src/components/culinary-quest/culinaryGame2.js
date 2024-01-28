@@ -11,7 +11,6 @@ const CulinaryGame = (props) => {
   const [playerRecipes, setPlayerRecipes] = useState(startingRecipes);
   const [world, setWorld] = useState(null);
   const recipeMap = new Map();
-  const [numInstances, setNumInstances] = useState(0);
 
   // initialize all the recipes into map so they can easily be checked
   for (let i = 0; i < allRecipes.length; i++) {
@@ -72,7 +71,7 @@ const CulinaryGame = (props) => {
       const sprite = createPixiIngredient(ingredient.image, {
         index: i - start,
       });
-      sprite.on("pointerdown", () => onClick(ingredient, i - start));
+      sprite.on("pointerdown", () => onClick(ingredient));
       app.stage.addChild(sprite);
       newSprites.push(sprite);
     }
@@ -110,6 +109,7 @@ const CulinaryGame = (props) => {
     const body = Matter.Bodies.rectangle(x, y, sprite.width, sprite.height, {
       restitution: 0.8,
       label: `ingredient-${name}`,
+      isStatic: false,
     });
 
     body.pixiSprite = sprite;
@@ -150,7 +150,7 @@ const CulinaryGame = (props) => {
     });
   };
 
-  const onClick = (ingredient, index) => {
+  const onClick = (ingredient) => {
     // this will summon the ingredient that can be dragged into the pot -
     // new sprite with matter object attached to it
     // can trash the object by
@@ -159,7 +159,6 @@ const CulinaryGame = (props) => {
   };
 
   const parseIngredients = (labelA, labelB) => {
-    console.log(labelA, labelB);
     if (!labelA.startsWith("ingredient") || !labelB.startsWith("ingredient")) {
       return "";
     }
@@ -237,18 +236,19 @@ const CulinaryGame = (props) => {
       ) {
         // check if in the recipe list
         const recipeKey = parseIngredients(objALabel, objBLabel);
-        console.log(recipeKey);
         const recipeVal = recipeMap.get(recipeKey);
         if (recipeVal != undefined) {
           // if it is, combine the elements
-          console.log("exists");
           // remove the old elements
-          console.log(objA.position);
-          Matter.World.remove(engine.world, pairs[0].bodyA);
+          Matter.Composite.remove(engine.world, pairs[0].bodyA);
           removePixiSprite(pixiApp, pairs[0].bodyA);
-          Matter.World.remove(engine.world, pairs[0].bodyB);
+          Matter.Composite.remove(engine.world, pairs[0].bodyB);
           removePixiSprite(pixiApp, pairs[0].bodyB);
           // add the new element
+          // const tempGround = Matter.Bodies.rectangle(400, 500, 810, 40, {
+          //   isStatic: true,
+          // });
+          // Matter.Composite.add(matterWorld, tempGround);
           createIngredientWithAppWorld(
             pixiApp,
             matterWorld,
@@ -257,8 +257,9 @@ const CulinaryGame = (props) => {
             recipeVal.image,
             recipeVal.name
           );
+          // Matter.Composite.remove(matterWorld, tempGround);
           // update recipe list if not already in
-          if (playerRecipes.indexOf("bob") == -1) {
+          if (playerRecipes.indexOf(recipeKey) == -1) {
             setPlayerRecipes([...playerRecipes, recipeVal]);
           }
         }
