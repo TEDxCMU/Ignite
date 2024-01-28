@@ -88,7 +88,7 @@ const CulinaryGame = (props) => {
     sprite.x = options.x || 50;
     sprite.y = options.y || 50 + (options.index || 0) * 60;
     sprite.eventMode = "static";
-    sprite.buttonMode = true;
+    sprite.cursor = "pointer";
     return sprite;
   };
 
@@ -199,7 +199,7 @@ const CulinaryGame = (props) => {
     const engine = Matter.Engine.create();
     const matterWorld = engine.world;
 
-    const ground = Matter.Bodies.rectangle(400, 580, 810, 40, {
+    const ground = Matter.Bodies.rectangle(400, 550, 810, 40, {
       isStatic: true,
     });
     Matter.Composite.add(matterWorld, ground);
@@ -236,8 +236,6 @@ const CulinaryGame = (props) => {
         objBLabel.startsWith("ingredient")
       ) {
         // check if in the recipe list
-        console.log("combine elements");
-        console.log();
         const recipeKey = parseIngredients(objALabel, objBLabel);
         console.log(recipeKey);
         const recipeVal = recipeMap.get(recipeKey);
@@ -255,12 +253,14 @@ const CulinaryGame = (props) => {
             pixiApp,
             matterWorld,
             objA.position.x,
-            objA.position.y,
+            objA.position.y - 150,
             recipeVal.image,
             recipeVal.name
           );
-          // update recipe list
-          setPlayerRecipes([...playerRecipes, recipeVal]);
+          // update recipe list if not already in
+          if (playerRecipes.indexOf("bob") == -1) {
+            setPlayerRecipes([...playerRecipes, recipeVal]);
+          }
         }
       }
     });

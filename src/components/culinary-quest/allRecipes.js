@@ -2,7 +2,7 @@
 export const allRecipes = [
   {
     element1: "element 1",
-    element2: "element 2",
+    element2: "element 1",
     name: "element 1 squared",
     image: "/element1squared.png",
   },
