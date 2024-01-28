@@ -239,7 +239,7 @@ const sketch = (p5) => {
 
     const clearBoard = () => {
 
-        world = engine.world;
+        console.log(world); 
         
         for (let d of doors){
             Matter.World.remove(world, d);
@@ -327,7 +327,7 @@ const sketch = (p5) => {
             {
                 waters.push(createBoundary(500, (i+0.25) * 20, 50, 10, "w"));
                 fires.push(createBoundary(350, (i+0.25) * 20, 50, 10, "f"));
-                //doors.push(createBoundary(p5.width/3, i * 20, 40, 60, "d")); 
+                doors.push(createBoundary(p5.width/3, i * 20, 40, 60, "d")); 
             }
 
             // Populate the row with zeros
