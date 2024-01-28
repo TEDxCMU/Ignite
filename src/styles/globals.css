@@ -3,6 +3,7 @@
     --c-white: rgb(255, 255, 255);
     --c-green: #1DFFAD;
     --c-red: #FF3216;
+    --c-gray-3: #828282;
 }
 
 *, *::before, *::after {
