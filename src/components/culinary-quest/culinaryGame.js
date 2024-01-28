@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import * as PIXI from "pixi.js";
 import Matter from "matter-js";
-import { recipes } from "./culinaryRecipes";
+import { recipes } from "./allRecipes";
 
 // creates clickable ingredients
 
