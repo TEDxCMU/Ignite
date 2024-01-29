@@ -18,7 +18,6 @@ const CulinaryGame = (props) => {
     const key = `${currRecipe.element1}-${currRecipe.element2}`;
     recipeMap.set(key, currRecipe);
   }
-  console.log(recipeMap);
 
   // btw call props.setGameOver(true) when game over
 
@@ -154,7 +153,6 @@ const CulinaryGame = (props) => {
     // this will summon the ingredient that can be dragged into the pot -
     // new sprite with matter object attached to it
     // can trash the object by
-    console.log(ingredient.name);
     createIngredient(400, 300, ingredient.image, ingredient.name);
   };
 
@@ -176,7 +174,7 @@ const CulinaryGame = (props) => {
     // if (!app || !world) {
     //   return;
     // }
-    console.log(pixiApp);
+
     // Retrieve the associated Pixi.js sprite
     const pixiSprite = matterBody.pixiSprite;
 
