@@ -242,31 +242,31 @@ const sketch = (p5) => {
         console.log(world); 
         
         for (let d of doors){
-            Matter.World.remove(world, d);
+            Matter.Composite.remove(engine.world, d.body);
         }
 
         for (let r of ramps){
-            Matter.World.remove(world, r);
+            Matter.Composite.remove(engine.world, r.body);
         }
 
         for (let b of boulders){
-            Matter.World.remove(world, b); 
+            Matter.Composite.remove(engine.world, b.body);
         }
 
         for (let g of grounds){
-            Matter.World.remove(world, g); 
+            Matter.Composite.remove(engine.world, g.body);
         }
 
         for (let l of levers){
-            Matter.World.remove(world, l); 
+            Matter.Composite.remove(engine.world, l.body);
         }
 
         for (let f of fires){
-            Matter.World.remove(world, f); 
+            Matter.Composite.remove(engine.world, f.body);
         }
 
         for (let w of waters){
-            Matter.World.remove(world, w); 
+            Matter.Composite.remove(engine.world, w.body);
         }
     }
 
@@ -381,19 +381,22 @@ const sketch = (p5) => {
                 doors.push(createBoundary(p5.width/12, i * 20, 40, 60, "d")); 
             }
 
-            if (i == 9)
-            {
-                grounds.push(createBoundary(p5.width/2, i * 20, 80, 20, "g"));
-                grounds.push(createBoundary(520, i * 20, 80, 20, "g"));
-            }
-
 
             // Populate the row with zeros
             for (let j = 0; j < 40; j++) {
 
+                if (j == 20)
+                {
+                    grounds.push(createBoundary(p5.width/2, j * 20, p5.width/8, 20, "g"));
+                }
+
                 if (j%5 == 0)
                 {                   
-                    if (j%2 == 1)
+                    if (j == 25)
+                    {
+
+                    }
+                    else if (j%2 == 1)
                     {
                         grounds.push(createBoundary(p5.width/3, j * 20, p5.width, 20, "g"));
                     }
