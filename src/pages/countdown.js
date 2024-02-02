@@ -5,41 +5,38 @@ import GameCard from "components/gameCard";
 
 import styles from "./countdown.module.css";
 import DayOfEvent from 'components/dayOfEvent';
+import { getGames } from 'utils/content';
 
 function CountdownGames() {
-    // const [data, setData] = useState(null); // TODO: put the data in prismic
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    const data = [
-      {
-        name: "p5.js Demo",
-        url: "/countdown/p5GameDemo"
-      },
-      {
-        name: "3D Physics Demo",
-        url: "/countdown/3DPhysicsDemo"
-      },
-      {
-        name: "2D Demo with Physics",
-        url: "/countdown/2DDemo"
-      }
-    ]
+    useEffect(() => {
+        init();
+    }, []);
 
-    const [loading, setLoading] = useState(false);
+    async function init() {
+        const content = await getGames();
+        const games = content.map(({ data }) => data);
+        const gamesOrdered = games.sort((a, b) => (a.daysleft > b.daysleft) ? 1 : ((b.daysleft > a.daysleft) ? -1 : 0));
+
+        setData(gamesOrdered);
+        console.log(gamesOrdered)
+        setLoading(false);
+    }
 
     return (
         <div className="pageContainer">
             <div className={styles.bg}>
                 <h2 className="title">Countdown</h2>
+
+                { loading ? <h1>Loading</h1> :
                 <div className={styles.outerContainer}>
                     <div className={styles.innerContainer}>
                       <div className={styles.countdownList}>
-                          {loading ? (
-                              <h1>Loading</h1>
-                          ) : (
-                              data.map((item, id) => (
+                          {data.map((item, id) => (
                                   <GameCard key={id} game={item} />
-                              ))
-                          )}
+                              ))}
                       </div>
                       <Leaderboard />
                   </div>
@@ -47,6 +44,8 @@ function CountdownGames() {
                     <DayOfEvent />
                   </div>
                 </div>
+                }
+
             </div>
         </div>
     );

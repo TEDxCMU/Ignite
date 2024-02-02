@@ -10,7 +10,7 @@ export default function GameCard(props) {
     return (
         <>
             <Link 
-                href={game.url}
+                href={game.link.url}
                 className={styles.container}
             >
                 <Image
@@ -20,7 +20,6 @@ export default function GameCard(props) {
                 />
                 <div className={styles.info}>
                     <h1 className={styles.name}>{game.name}</h1>
-                    <h2 className={styles.title}>{game.title}</h2>
                 </div>
             </Link>
         </>

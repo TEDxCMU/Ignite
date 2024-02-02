@@ -28,6 +28,10 @@ export async function getSchedule() {
     return events;
 }
 
+export async function getGames() {
+    return client.getAllByType('game');
+}
+
 export function getScores() {
     return fetch('/api/getScores')
         .then(res => {
