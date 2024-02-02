@@ -25,6 +25,9 @@ function NavBar() {
                 <Link href="/countdown" className={styles.link}>
                     Countdown
                 </Link>
+                <Link href="/about" className={styles.link}>
+                    About
+                </Link>
             </div>
             {/* Empty div for spacing. */}
             <div />

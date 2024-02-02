@@ -1,0 +1,62 @@
+.description {
+  display: block;
+  grid-column: span 12;
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: var(--t-small);
+  margin: 0 36px 80px;
+}
+
+.countdownList {
+  display: flex;
+}
+
+.countdownList div {
+  width: 10rem;
+}
+
+@media (max-width: 844px) {
+  .countdownList {
+      margin: 0;
+      min-width: auto;
+  }
+}
+
+.headingFull {
+  display: inline-block;
+  font-weight: 600;
+  /* margin: 80px 36px 0px 36px; */
+  padding: 80px 36px 0px 36px;
+  text-transform: capitalize;
+  font-size: var(--t-large);
+  font-family: Bugrino, Inter, "Helvetica Neue";
+}
+
+.bg {
+  /* background-image: url("../assets/speaker_bg.png"); */
+
+  /* Full height */
+  width: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.leaderboardButton {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  height: 100%;
+}
+
+.outerContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.innerContainer {
+  display: flex;
+  flex-direction: column;
+}
