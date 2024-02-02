@@ -55,7 +55,8 @@ const sketch = (p5) => {
     let right = false; 
 
     let gameOne = true; 
-    let gameTwo = false; 
+    let gameTwo = false;
+    let gameThree = false;  
 
     let endGame = false; 
 
@@ -71,6 +72,7 @@ const sketch = (p5) => {
         Matter.World.add(world, body);
         if (t == "w")
         {
+            console.log(waterId)
             waterId.push(body.id); 
         }
 
@@ -203,13 +205,14 @@ const sketch = (p5) => {
   
         for (let i = 0; i < pairs.length; i++) {
           const bodyA = pairs[i].bodyA;
+          const bodyB = pairs[i].bodyB; 
   
           // Check if the colliding bodies are boxes
           // TODO: Change to not hardcoding ids
 
           for (let j = 0; j < leverId.length; j++)
           {
-            if (leverId[j][0] == bodyA.id && leverId[j][1])
+            if ((leverId[j][0] == bodyA.id || leverId[j][0] == bodyB.id )&& leverId[j][1])
             {
                 console.log("lever activated"); 
                 lowerRamp(j); 
@@ -217,20 +220,29 @@ const sketch = (p5) => {
             }
           }
 
-          if (waterId.includes(bodyA.id)) {
+          if (waterId.includes(bodyA.id) || waterId.includes(bodyB.id)) {
             // Perform actions when boxes collide
             gameOver(); 
             console.log('Collision between two boxes!');
           }
 
-          if (doorId.includes(bodyA.id)) {
+          if (doorId.includes(bodyA.id) || doorId.includes(bodyB.id)) {
+            console.log("door")
+            console.log(gameTwo); 
             // Perform actions when boxes collide
             if (gameOne)
             {
                 gameOne = false; 
                 gameTwo = true; 
-
                 createBoardTwo(); 
+            }
+
+            else if (gameTwo)
+            {
+                console.log("penis")
+                gameTwo = false; 
+                gameThree = true; 
+                createBoardThree(); 
             }
           }
         }
@@ -330,29 +342,138 @@ const sketch = (p5) => {
                 doors.push(createBoundary(p5.width/3, i * 20, 40, 60, "d")); 
             }
 
-            // Populate the row with zeros
-            for (let j = 0; j < 40; j++) {
-
-                if (j%5 == 0)
-                {                   
-                    if (j%2 == 1)
-                    {
-                        grounds.push(createBoundary(p5.width/3, j * 20, p5.width, 20, "g"));
-                    }
-
-                    else
-                    {
-                        grounds.push(createBoundary((2*p5.width)/3, j * 20, p5.width, 20, "g"));
-                        grounds.push(createBoundary(760, (j-1) * 20, 60, 60, "g"));
-                    }
-                   
+            else if (i%5 == 0)
+            {                   
+                if (i%2 == 1)
+                {
+                    grounds.push(createBoundary(p5.width/3, i * 20, p5.width, 20, "g"));
                 }
+
+                else
+                {
+                    grounds.push(createBoundary((2*p5.width)/3, i * 20, p5.width, 20, "g"));
+                    grounds.push(createBoundary(760, (i-1) * 20, 60, 60, "g"));
+                }
+                
             }
+
         }
     }
 
 
     const createBoardTwo = () => {
+
+        console.log("here")
+
+        clearBoard(); 
+
+        console.log("cleared")
+
+        //empty arrays
+        doors = [];     
+        doorId  = []; 
+        ramps = []; 
+        boulders = []; 
+        grounds = []; 
+        levers = []; 
+        fires = []; 
+        waters = []; 
+        waterId = []; 
+        ramps = []; 
+        levers = []; 
+        leverId = []; 
+
+
+
+        grounds.push(createBoundary(0, p5.height / 2, 40, p5.height));
+        grounds.push(createBoundary(p5.width, p5.height / 2, 40, p5.height));
+        grounds.push(createBoundary(p5.width/2, 0, p5.width, 40));
+        grounds.push(createBoundary(p5.width/2, p5.height, p5.width, 40));
+
+        for (let i = 0; i < 30; i++) {
+
+            if (i == 3)
+            {
+                doors.push(createBoundary(p5.width/8, i * 20, 40, 60, "d")); 
+            }
+
+            if (i==10)
+            {
+                waters.push(createBoundary(100, (i-0.25) * 20, p5.width, 10, "w")); 
+            }
+
+            if (i == 12)
+            {
+                grounds.push(createBoundary(p5.width, i * 20, p5.width/4, 100, "g"));
+            }
+
+            if (i == 15)
+            {
+                ramps.push(createBoundary(p5.width/10, i * 20, 120, 10, "r"));
+                waters.push(createBoundary(p5.width/2, (i-0.25) * 20, 50, 10, "w"));
+                waters.push(createBoundary(p5.width/3, (i-0.25) * 20, 50, 10, "w"));
+            }
+
+            if (i == 19)
+            {
+                levers.push(createBoundary(200, (i+0.25) * 20, 5, 10, "l"));
+            }
+
+            if (i == 27)
+            {
+                grounds.push(createBoundary(p5.width, i * 20, p5.width/4, 100, "g"));
+                // doors.push(createBoundary(p5.width/4, i * 20, 40, 60, "d")); 
+            }
+
+
+            if (i == 26)
+            {
+                grounds.push(createBoundary(p5.width/3, i * 20, p5.width/8, 20, "g"));
+                grounds.push(createBoundary(2*p5.width/3, i * 20, p5.width/8, 20, "g"));
+            }
+
+
+            if (i == 29)
+            {
+                waters.push(createBoundary(p5.width/3, (i + 0.25)* 20, p5.width/8, 10, "w"));
+                waters.push(createBoundary(2*p5.width/3,(i + 0.25)* 20, p5.width/8, 10, "w"));
+            }
+
+            else if (i%5 == 0)
+            {                   
+
+                if (i%2 == 0 && i !=10)
+                {
+                    grounds.push(createBoundary(p5.width/3, i * 20, p5.width, 20, "g"));
+                }
+
+                else if (i == 5)
+                {
+                    grounds.push(createBoundary(p5.width/8, i * 20, p5.width/12, 20, "g"));
+                    grounds.push(createBoundary(p5.width/4, i * 20, p5.width/12, 20, "g"));
+                    grounds.push(createBoundary(3*p5.width/8, i * 20, p5.width/12, 20, "g"));
+                    grounds.push(createBoundary(p5.width/2, i * 20, p5.width/12, 20, "g"));
+                    grounds.push(createBoundary(5*p5.width/8, i * 20, p5.width/12, 20, "g"));
+                    grounds.push(createBoundary(3*p5.width/4, i * 20, p5.width/12, 20, "g"));
+                }
+
+                else if (i == 10)
+                {
+                    grounds.push(createBoundary(100, i * 20, p5.width, 20, "g"));
+                }
+
+                else if (i%2==1 && i!=25)
+                {
+                    grounds.push(createBoundary((2*p5.width)/3, i * 20, p5.width, 20, "g"));
+                }                  
+            }
+
+            updatePhysicsCirclePosition(player, 40, 560); 
+        }
+    }
+
+
+    const createBoardThree = () => {
 
         console.log("here")
 
@@ -368,6 +489,12 @@ const sketch = (p5) => {
         levers = []; 
         fires = []; 
         waters = []; 
+        waterId = []; 
+        ramps = []; 
+        levers = []; 
+        leverId = []; 
+
+
 
         grounds.push(createBoundary(0, p5.height / 2, 40, p5.height));
         grounds.push(createBoundary(p5.width, p5.height / 2, 40, p5.height));
@@ -376,37 +503,18 @@ const sketch = (p5) => {
 
         for (let i = 0; i < 30; i++) {
 
-            if (i == 3)
-            {
-                doors.push(createBoundary(p5.width/12, i * 20, 40, 60, "d")); 
-            }
+            if (i%5 == 0)
+            {                   
 
-
-            // Populate the row with zeros
-            for (let j = 0; j < 40; j++) {
-
-                if (j == 20)
+                if (i%2 == 0)
                 {
-                    grounds.push(createBoundary(p5.width/2, j * 20, p5.width/8, 20, "g"));
+                    grounds.push(createBoundary(p5.width/3, i * 20, p5.width, 20, "g"));
                 }
 
-                if (j%5 == 0)
-                {                   
-                    if (j == 25)
-                    {
-
-                    }
-                    else if (j%2 == 1)
-                    {
-                        grounds.push(createBoundary(p5.width/3, j * 20, p5.width, 20, "g"));
-                    }
-
-                    else
-                    {
-                        grounds.push(createBoundary((2*p5.width)/3, j * 20, p5.width, 20, "g"));
-                        grounds.push(createBoundary(760, (j-1) * 20, 60, 60, "g"));
-                    }                  
-                }
+                else
+                {
+                    grounds.push(createBoundary((2*p5.width)/3, i * 20, p5.width, 20, "g"));
+                }                  
             }
 
             updatePhysicsCirclePosition(player, 40, 560); 
