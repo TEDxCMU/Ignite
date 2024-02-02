@@ -1,0 +1,36 @@
+.container {
+    /* margin: 5.0rem auto; */
+    min-width: 160rem;
+}
+
+.sidebarContainer {
+    margin: 3rem;
+}
+
+.header {
+    font-family: Void, Bugrino, Inter, "Helvetica Neue";
+    text-transform: lowercase;
+    font-size: var(--t-title);
+}
+
+.description {
+    margin-bottom: 3rem;
+    font-size: var(--t-small);
+    display: block;
+    opacity: 90%;
+}
+
+.background {
+    background-image: url("../assets/expo_bg.svg");
+    height: 80%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@media screen and (max-width: 720px) {
+    .container {
+        margin: 3rem;
+    }
+}
