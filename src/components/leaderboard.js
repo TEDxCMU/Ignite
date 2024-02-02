@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import { getScores } from 'utils/content';
+import Modal from './modal';
+import styles from './leaderboard.module.css';
 
 export default function Leaderboard() {
     const [scores, setScores] = useState([]);
+    const [openModal, setOpenModal] = useState(false);
 
     useEffect(() => {
         getScores().then(data => setScores(data));
@@ -17,14 +20,21 @@ export default function Leaderboard() {
     };
 
     return (
-        <div>
-            <h1>Leaderboard</h1>
-            <button onClick={addScore}>Add Score</button>
-            <ul>
-                {scores.map(score => (
-                    <li key={score._id}>{score.name}: {score.score}</li>
-                ))}
-            </ul>
-        </div>
+        <>
+            <div className={styles.leaderboardButton} onClick={() => setOpenModal(true)}>
+                Leaderboard
+            </div>
+            <Modal large active={openModal} setActive={setOpenModal}>
+                <div>
+                    <h1>Leaderboard</h1>
+                    <button onClick={addScore}>Add Score</button>
+                    <ul>
+                        {scores.map(score => (
+                            <li key={score._id}>{score.name}: {score.score}</li>
+                        ))}
+                    </ul>
+                </div>
+            </Modal>
+        </>
     );
 }

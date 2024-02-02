@@ -41,9 +41,7 @@ function CountdownGames() {
                               ))
                           )}
                       </div>
-                      <div className={styles.leaderboardButton}>
-                        Leaderboard
-                      </div>
+                      <Leaderboard />
                   </div>
                   <div>
                     <DayOfEvent />

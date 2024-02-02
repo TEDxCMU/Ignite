@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { addScore } from "utils/content";
+import Modal from "./modal";
 
 
 export function GameOver(props) {
@@ -23,7 +24,7 @@ export function GameOver(props) {
     }
 
     return (
-        <div>
+        <Modal active={true} setActive={() => false}>
             <div>Game Over</div>
             <div>Score: {props.score}</div>
             
@@ -33,6 +34,6 @@ export function GameOver(props) {
             <input type="text" id="andrewid" value={andrewid} onChange={handleAndrewidChange} placeholder="Andrew ID" />
             <button onClick={submitScore}>Submit to Leaderboard</button>
             <Link href="/countdown">Return Home</Link>
-        </div>
+        </Modal>
     )
 }
