@@ -239,7 +239,6 @@ const sketch = (p5) => {
 
             else if (gameTwo)
             {
-                console.log("penis")
                 gameTwo = false; 
                 gameThree = true; 
                 createBoardThree(); 
