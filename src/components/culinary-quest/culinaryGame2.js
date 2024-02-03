@@ -8,7 +8,8 @@ const CulinaryGame = (props) => {
   const [page, setPage] = useState(0);
   const [menuSprites, setMenuSprites] = useState([]);
   const [app, setApp] = useState(null);
-  const [playerRecipes, setPlayerRecipes] = useState(startingRecipes);
+  const [score, setScore] = useState(0);
+  const [playerRecipes, setPlayerRecipes] = useState([...startingRecipes]);
   const [world, setWorld] = useState(null);
   const recipeMap = new Map();
 
@@ -184,6 +185,8 @@ const CulinaryGame = (props) => {
     }
   };
 
+  const prevRecipesRef = useRef([...startingRecipes]);
+
   // initialize PIXI app
   useEffect(() => {
     const pixiApp = new PIXI.Application({
@@ -235,7 +238,7 @@ const CulinaryGame = (props) => {
         // check if in the recipe list
         const recipeKey = parseIngredients(objALabel, objBLabel);
         const recipeVal = recipeMap.get(recipeKey);
-        if (recipeVal != undefined) {
+        if (recipeVal) {
           // if it is, combine the elements
           // remove the old elements
           Matter.Composite.remove(engine.world, pairs[0].bodyA);
@@ -257,8 +260,17 @@ const CulinaryGame = (props) => {
           );
           // Matter.Composite.remove(matterWorld, tempGround);
           // update recipe list if not already in
-          if (playerRecipes.indexOf(recipeKey) == -1) {
-            setPlayerRecipes([...playerRecipes, recipeVal]);
+          if (
+            !prevRecipesRef.current.some(
+              (recipe) => recipe.name === recipeVal.name
+            )
+          ) {
+            console.log("Adding new recipe:", recipeVal.name);
+            setPlayerRecipes((prevRecipes) => [...prevRecipes, recipeVal]);
+            setScore((prevScore) => prevScore + 1);
+            prevRecipesRef.current = [...prevRecipesRef.current, recipeVal];
+          } else {
+            console.log("Recipe already in playerRecipes:", recipeVal.name);
           }
         }
       }
@@ -287,6 +299,10 @@ const CulinaryGame = (props) => {
 
     showMenu(page);
   }, [page]);
+
+  useEffect(() => {
+    console.log("Updated Score:", score);
+  }, [score]);
 
   return null;
 };
