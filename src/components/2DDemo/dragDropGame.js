@@ -9,23 +9,18 @@ const DragDrop2DGame = () => {
   const [world, setWorld] = useState(null);
 
   const screenShake = (shakeDuration, shakeMagnitude, app) => {
-    app.ticker.add((delta) => {
-      // ... (other update code)
-    
+    app.ticker.add((delta) => {    
       if (shakeDuration > 0) {
         shakeDuration -= delta;
     
-        // Randomly change the x and y of the app.stage
         const shakeX = (Math.random() - 0.5) * shakeMagnitude;
         const shakeY = (Math.random() - 0.5) * shakeMagnitude;
     
         app.stage.x = shakeX;
         app.stage.y = shakeY;
     
-        // Reduce the magnitude over time for a damping effect
         shakeMagnitude *= 0.9;
       } else {
-        // Reset the stage position if the shake is over
         app.stage.x = 0;
         app.stage.y = 0;
         app.ticker.remove(this);
@@ -36,27 +31,24 @@ const DragDrop2DGame = () => {
   const createSparkAnimation = (x, y, app) => {
     const numberOfSparks = 10;
     const sparks = [];
-
-    console.log("app", app)
   
     for (let i = 0; i < numberOfSparks; i++) {
       const spark = new PIXI.Graphics();
-      spark.beginFill(0xFFFFFF); // white color
-      spark.drawCircle(0, 0, 5); // draw a small circle
+      spark.beginFill(0xFFFFFF);
+      spark.drawCircle(0, 0, 5);
       spark.endFill();
   
       spark.x = x;
       spark.y = y;
       spark.alpha = 1;
-      spark.scale.x = spark.scale.y = Math.random() * 0.5 + 0.5; // random size
-      spark.direction = Math.random() * Math.PI * 2; // random direction
-      spark.speed = Math.random() * 1 + 1; // random speed
+      spark.scale.x = spark.scale.y = Math.random() * 0.5 + 0.5; 
+      spark.direction = Math.random() * Math.PI * 2; 
+      spark.speed = Math.random() * 1 + 1;
   
       app.stage.addChild(spark);
       sparks.push(spark);
     }
   
-    // Animate the sparks
     app.ticker.add(() => {
       for (let i = 0; i < sparks.length; i++) {
         const spark = sparks[i];
@@ -65,7 +57,7 @@ const DragDrop2DGame = () => {
         spark.scale.x = spark.scale.y *= 0.95; // shrink
         spark.alpha -= 0.05; // fade out
   
-        // Remove the spark once it's faded out
+        // remove spark once faded out
         if (spark.alpha <= 0) {
           app.stage.removeChild(spark);
           sparks.splice(i, 1);
@@ -73,7 +65,7 @@ const DragDrop2DGame = () => {
         }
       }
   
-      // Stop the ticker if there are no sparks left
+      // stop the ticker if no sparks left
       if (sparks.length === 0) {
         app.ticker.remove(this);
       }
