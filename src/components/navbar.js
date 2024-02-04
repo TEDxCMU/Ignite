@@ -10,9 +10,6 @@ function NavBar() {
                 <Link href="/" className={styles.link}>
                     Home
                 </Link>
-                <Link href="/stage" className={styles.link}>
-                    Stage
-                </Link>
                 <Link href="/schedule" className={styles.link}>
                     Schedule
                 </Link>
