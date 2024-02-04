@@ -103,35 +103,16 @@ const sketch = (p5) => {
   p5.draw = () => {
 
     p5.translate(-p5.width / 2, -p5.height / 2);
-
     p5.background(0);
 
-    graphics.push();
-    graphics.scale(1, -1); // Flip the y-axis
-    graphics.image(seaBg, -p5.width / 2, -p5.height / 2, p5.width, p5.height); // Draw the image centered
-    graphics.image(midBg, -p5.width / 2, -p5.height / 2, p5.width, p5.height);
-    graphics.pop();
-
-    vignetteShaderTexture.shader(vignetteShader);
-    vignetteShader.setUniform('textureID', graphics);
-    vignetteShader.setUniform('resolution', [p5.width, p5.height]);
-    vignetteShader.setUniform('vignetteAmount', 1.0);
-    vignetteShaderTexture.rect(-p5.width / 2, -p5.height / 2, p5.width, p5.height);
-
-    graphics.scale(1, -1);
-    graphics.texture(vignetteShaderTexture);
-    graphics.rect(-p5.width / 2, -p5.height / 2, p5.width, p5.height);
-
-    particlesShaderTexture.shader(particlesShader);
-    particlesShader.setUniform('textureID', graphics);
-    particlesShader.setUniform('resolution', [p5.width, p5.height]);
-    particlesShader.setUniform('time', p5.millis() / 1000);
-    particlesShaderTexture.rect(-p5.width / 2, -p5.height / 2, p5.width, p5.height);
+    // shaders
+    addShaderImageBg(seaBg);
+    addShaderImageBg(midBg);
+    addVignette();
+    addGlowingParticles();
     
     p5.texture(particlesShaderTexture);
     p5.rect(p5.width/2, p5.height/2, p5.width, p5.height);
-
-    
 
     if (shakeDuration > 0) {
       const shakeX = p5.random(-shakeIntensity, shakeIntensity);
@@ -208,6 +189,42 @@ const sketch = (p5) => {
       // Draw the spark as a line from the collision center to the end position
       p5.line(position.x, position.y, endX, endY);
     }
+  }
+
+  let addShaderImageBg = (shaderImage) => {
+    graphics.push();
+    graphics.scale(1, -1);
+    graphics.image(shaderImage, -p5.width / 2, -p5.height / 2, p5.width, p5.height);
+    // graphics.image(midBg, -p5.width / 2, -p5.height / 2, p5.width, p5.height);
+    graphics.pop();
+  }
+
+  let addShaderTexture = (shaderTexture) => {
+    graphics.push();
+    graphics.scale(1, -1);
+    graphics.texture(shaderTexture);
+    graphics.rect(-p5.width / 2, -p5.height / 2, p5.width, p5.height);
+    graphics.pop();
+
+    return shaderTexture;
+  }
+
+  let addVignette = () => {
+    vignetteShaderTexture.shader(vignetteShader);
+    vignetteShader.setUniform('textureID', graphics);
+    vignetteShader.setUniform('resolution', [p5.width, p5.height]);
+    vignetteShader.setUniform('vignetteAmount', 1.0);
+    vignetteShaderTexture.rect(-p5.width / 2, -p5.height / 2, p5.width, p5.height);
+    addShaderTexture(vignetteShaderTexture);
+  }
+
+  let addGlowingParticles = () => {
+    particlesShaderTexture.shader(particlesShader);
+    particlesShader.setUniform('textureID', graphics);
+    particlesShader.setUniform('resolution', [p5.width, p5.height]);
+    particlesShader.setUniform('time', p5.millis() / 1000);
+    particlesShaderTexture.rect(-p5.width / 2, -p5.height / 2, p5.width, p5.height);
+    addShaderTexture(particlesShaderTexture);
   }
 
   class AnimatedSprite {
