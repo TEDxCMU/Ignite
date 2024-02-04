@@ -4,57 +4,372 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type SpeakerDocumentDataSlicesSlice = never;
-
 /**
- * Content for speaker documents
+ * Content for Event documents
  */
-interface SpeakerDocumentData {
+interface EventDocumentData {
   /**
-   * Slice Zone field in *speaker*
-   *
-   * - **Field Type**: Slice Zone
-   * - **Placeholder**: *None*
-   * - **API ID Path**: speaker.slices[]
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
-   */
-  slices: prismic.SliceZone<SpeakerDocumentDataSlicesSlice> /**
-   * Meta Description field in *speaker*
+   * Title field in *Event*
    *
    * - **Field Type**: Text
-   * - **Placeholder**: A brief summary of the page
-   * - **API ID Path**: speaker.meta_description
-   * - **Tab**: SEO & Metadata
+   * - **Placeholder**: *None*
+   * - **API ID Path**: event.title
+   * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#key-text
-   */;
-  meta_description: prismic.KeyTextField;
+   */
+  title: prismic.KeyTextField;
 
   /**
-   * Meta Image field in *speaker*
+   * Speaker field in *Event*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: event.speaker
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  speaker: prismic.LinkField;
+
+  /**
+   * Image field in *Event*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: speaker.meta_image
-   * - **Tab**: SEO & Metadata
+   * - **API ID Path**: event.image
+   * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#image
    */
-  meta_image: prismic.ImageField<never>;
+  image: prismic.ImageField<never>;
 
   /**
-   * Meta Title field in *speaker*
+   * Start Time field in *Event*
+   *
+   * - **Field Type**: Timestamp
+   * - **Placeholder**: *None*
+   * - **API ID Path**: event.start_time
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#timestamp
+   */
+  start_time: prismic.TimestampField;
+
+  /**
+   * End Time field in *Event*
+   *
+   * - **Field Type**: Timestamp
+   * - **Placeholder**: *None*
+   * - **API ID Path**: event.end_time
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#timestamp
+   */
+  end_time: prismic.TimestampField;
+
+  /**
+   * Description field in *Event*
    *
    * - **Field Type**: Text
-   * - **Placeholder**: A title of the page used for social media and search engines
-   * - **API ID Path**: speaker.meta_title
-   * - **Tab**: SEO & Metadata
+   * - **Placeholder**: *None*
+   * - **API ID Path**: event.description
+   * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  meta_title: prismic.KeyTextField;
+  description: prismic.KeyTextField;
+
+  /**
+   * Recording field in *Event*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: event.recording
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  recording: prismic.LinkField;
 }
 
 /**
- * speaker document from Prismic
+ * Event document from Prismic
+ *
+ * - **API ID**: `event`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type EventDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<EventDocumentData>, "event", Lang>;
+
+/**
+ * Content for Game documents
+ */
+interface GameDocumentData {
+  /**
+   * Name field in *Game*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: game.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * DaysLeft field in *Game*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: *None*
+   * - **API ID Path**: game.daysleft
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#number
+   */
+  daysleft: prismic.NumberField;
+
+  /**
+   * dateStart field in *Game*
+   *
+   * - **Field Type**: Date
+   * - **Placeholder**: *None*
+   * - **API ID Path**: game.datestart
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#date
+   */
+  datestart: prismic.DateField;
+
+  /**
+   * image field in *Game*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: game.image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * link field in *Game*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: game.link
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField;
+}
+
+/**
+ * Game document from Prismic
+ *
+ * - **API ID**: `game`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type GameDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<GameDocumentData>, "game", Lang>;
+
+/**
+ * Item in *Innovator → Innovators*
+ */
+export interface InnovatorDocumentDataInnovatorsItem {
+  /**
+   * Image field in *Innovator → Innovators*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: innovator.innovators[].image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Name field in *Innovator → Innovators*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: innovator.innovators[].name
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * Individual Tagline field in *Innovator → Innovators*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: innovator.innovators[].individual_tagline
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  individual_tagline: prismic.KeyTextField;
+}
+
+type InnovatorDocumentDataSlicesSlice = never;
+
+/**
+ * Content for Innovator documents
+ */
+interface InnovatorDocumentData {
+  /**
+   * Name field in *Innovator*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: innovator.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * Description field in *Innovator*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: innovator.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  description: prismic.KeyTextField;
+
+  /**
+   * Image field in *Innovator*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: innovator.image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Innovators field in *Innovator*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: innovator.innovators[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  innovators: prismic.GroupField<Simplify<InnovatorDocumentDataInnovatorsItem>>;
+
+  /**
+   * Slice Zone field in *Innovator*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: innovator.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<InnovatorDocumentDataSlicesSlice>;
+}
+
+/**
+ * Innovator document from Prismic
+ *
+ * - **API ID**: `innovator`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type InnovatorDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<InnovatorDocumentData>,
+    "innovator",
+    Lang
+  >;
+
+/**
+ * Item in *Speaker → Links*
+ */
+export interface SpeakerDocumentDataLinksItem {
+  /**
+   * Text field in *Speaker → Links*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: speaker.links[].text
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  text: prismic.KeyTextField;
+
+  /**
+   * Link field in *Speaker → Links*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: speaker.links[].link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField;
+}
+
+/**
+ * Content for Speaker documents
+ */
+interface SpeakerDocumentData {
+  /**
+   * Name field in *Speaker*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: speaker.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * Title field in *Speaker*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: speaker.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *Speaker*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: speaker.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  description: prismic.KeyTextField;
+
+  /**
+   * Image field in *Speaker*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: speaker.image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Links field in *Speaker*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: speaker.links[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  links: prismic.GroupField<Simplify<SpeakerDocumentDataLinksItem>>;
+}
+
+/**
+ * Speaker document from Prismic
  *
  * - **API ID**: `speaker`
  * - **Repeatable**: `true`
@@ -69,7 +384,11 @@ export type SpeakerDocument<Lang extends string = string> =
     Lang
   >;
 
-export type AllDocumentTypes = SpeakerDocument;
+export type AllDocumentTypes =
+  | EventDocument
+  | GameDocument
+  | InnovatorDocument
+  | SpeakerDocument;
 
 declare module "@prismicio/client" {
   interface CreateClient {
@@ -81,9 +400,17 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      EventDocument,
+      EventDocumentData,
+      GameDocument,
+      GameDocumentData,
+      InnovatorDocument,
+      InnovatorDocumentData,
+      InnovatorDocumentDataInnovatorsItem,
+      InnovatorDocumentDataSlicesSlice,
       SpeakerDocument,
       SpeakerDocumentData,
-      SpeakerDocumentDataSlicesSlice,
+      SpeakerDocumentDataLinksItem,
       AllDocumentTypes,
     };
   }
