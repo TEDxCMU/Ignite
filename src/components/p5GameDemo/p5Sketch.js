@@ -7,10 +7,7 @@ const sketch = (p5) => {
 
   let Engine = Matter.Engine,
   World = Matter.World,
-  Bodies = Matter.Bodies,
-  Body = Matter.Body,
-  Mouse = Matter.Mouse,
-  MouseConstraint = Matter.MouseConstraint;
+  Bodies = Matter.Bodies;
 
   let engine;
   let world;
@@ -43,28 +40,20 @@ const sketch = (p5) => {
 
   // setup function
   p5.setup = () => {
+    // create canvas & shaders
     p5.createCanvas(800, 600, p5.WEBGL);
     graphics = p5.createGraphics(800, 600, p5.WEBGL);
     vignetteShaderTexture = p5.createGraphics(800, 600, p5.WEBGL);
     particlesShaderTexture = p5.createGraphics(800, 600, p5.WEBGL);
 
+    // matterjs setup
     engine = Engine.create();
     world = engine.world;
     Matter.Runner.run(engine);
 
-    // Create ground (static)
+    // ground
     ground = Bodies.rectangle(400, p5.height - 30, 810, 60, { isStatic: true });
     World.add(world, ground);
-
-    // Add mouse control
-    let canvasmouse = Mouse.create(p5.canvas.elt);
-    canvasmouse.pixelRatio = p5.pixelDensity();
-    let options = {
-        mouse: canvasmouse
-    }
-
-    mConstraint = MouseConstraint.create(engine, options);
-    World.add(world, mConstraint);
 
     // collision event
     Matter.Events.on(engine, 'collisionStart', (event) => {
@@ -72,10 +61,9 @@ const sketch = (p5) => {
       for (let i = 0; i < pairs.length; i++) {
         let bodyA = pairs[i].bodyA;
         let bodyB = pairs[i].bodyB;
-    
+        
         if ((bodyA === ground && bodyB.label === 'box') || (bodyB === ground && bodyA.label === 'box')) {
           let collisionPosition = bodyA === ground ? bodyB.position : bodyA.position;
-          p5.print(collisionPosition);
           collisions.push({ position: collisionPosition, startTime: p5.millis() });
           triggerShake(10);
         }
@@ -91,8 +79,7 @@ const sketch = (p5) => {
           mousePos.x < box.body.position.x + box.w / 2 &&
           mousePos.y > box.body.position.y - box.h / 2 &&
           mousePos.y < box.body.position.y + box.h / 2) {
-        // If true, the mouse is on a box, so set isDragging to true and don't create a new box
-        return; // Exit the function early
+        return;
       }
     }
 
@@ -114,6 +101,7 @@ const sketch = (p5) => {
     p5.texture(particlesShaderTexture);
     p5.rect(p5.width/2, p5.height/2, p5.width, p5.height);
 
+    // screen shake
     if (shakeDuration > 0) {
       const shakeX = p5.random(-shakeIntensity, shakeIntensity);
       const shakeY = p5.random(-shakeIntensity, shakeIntensity);
@@ -121,6 +109,7 @@ const sketch = (p5) => {
       shakeDuration--;
     }
 
+    // collision animation
     for (let i = collisions.length - 1; i >= 0; i--) {
       const collision = collisions[i];
       const timeElapsed = p5.millis() - collision.startTime;
@@ -140,14 +129,6 @@ const sketch = (p5) => {
     p5.stroke(255);
     p5.rectMode(p5.CENTER);
     p5.rect(ground.position.x, ground.position.y, 810, 60);
-
-    if (mConstraint.body) {
-        let pos = mConstraint.body.position;
-        let offset = mConstraint.constraint.pointB;
-        let m = mConstraint.mouse.position;
-        p5.stroke(0, 255, 0);
-        p5.line(pos.x + offset.x, pos.y + offset.y, m.x, m.y);
-    }
   }
 
   let triggerShake = (duration) => {
@@ -155,8 +136,8 @@ const sketch = (p5) => {
   }
 
   let renderCircleAnimation = (position, timeElapsed) => {
-    const animationDuration = 500; // duration of the animation in milliseconds
-    const animationSize = p5.map(timeElapsed, 0, animationDuration, 0, 100); // animate from size 0 to 100
+    const animationDuration = 500;
+    const animationSize = p5.map(timeElapsed, 0, animationDuration, 0, 100);
     
     if (timeElapsed < animationDuration) {
       p5.push();
@@ -170,23 +151,20 @@ const sketch = (p5) => {
   }
 
   let renderSparkAnimation = (position, timeElapsed) => {
-    const animationDuration = 300; // duration of the animation in milliseconds
-    const numSparks = 4; // number of sparks
-    const maxSparkLength = p5.random(0, 200); // maximum length of the sparks
+    const animationDuration = 300;
+    const numSparks = 4;
+    const maxSparkLength = p5.random(0, 200);
     
     for (let i = 0; i < numSparks; i++) {
-      const angle = (i / numSparks) * p5.TWO_PI; // angle for this spark
-      const sparkLength = p5.map(timeElapsed, 0, animationDuration, 0, maxSparkLength); // length of the spark decreases over time
+      const angle = (i / numSparks) * p5.TWO_PI;
+      const sparkLength = p5.map(timeElapsed, 0, animationDuration, 0, maxSparkLength);
   
-      // Calculate the spark's end position based on its angle and length
       const endX = position.x + sparkLength * p5.cos(angle);
       const endY = position.y + sparkLength * p5.sin(angle);
   
-      // Set the stroke weight and color of the sparks
       p5.strokeWeight(2);
-      p5.stroke(255, 255, 255, p5.map(timeElapsed, 0, animationDuration, 255, 0)); // spark color
+      p5.stroke(255, 255, 255, p5.map(timeElapsed, 0, animationDuration, 255, 0));
   
-      // Draw the spark as a line from the collision center to the end position
       p5.line(position.x, position.y, endX, endY);
     }
   }
@@ -195,7 +173,6 @@ const sketch = (p5) => {
     graphics.push();
     graphics.scale(1, -1);
     graphics.image(shaderImage, -p5.width / 2, -p5.height / 2, p5.width, p5.height);
-    // graphics.image(midBg, -p5.width / 2, -p5.height / 2, p5.width, p5.height);
     graphics.pop();
   }
 
@@ -240,12 +217,12 @@ const sketch = (p5) => {
         this.img = img;
         World.add(world, this.body);
 
-        // for animation
-        this.baseSize = 1.0; // Base scale size
-        this.sizeVariance = 0.1; // How much the sprite should grow/shrink
-        this.animationSpeed = 0.1; // Speed of size change
-        this.sizeChange = 0; // A value to oscillate the size
-        this.numSteps = 2; // Number of discrete steps in size change
+        // for subtle sprite animation
+        this.baseSize = 1.0
+        this.sizeVariance = 0.1;
+        this.animationSpeed = 0.1;
+        this.sizeChange = 0; 
+        this.numSteps = 2;
     }
 
     show() {
