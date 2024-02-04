@@ -23,6 +23,7 @@ function Expo() {
         <div className="pageContainer">
             <div>
                 <text className={styles.header}>Innovation Expo</text>
+                <text className={styles.subheader}>The advertising industry has taken selfish giving and turned it into cause marketing</text>
                 <div className="grid">
                     {loading ? (
                         <text>Loading</text>

@@ -14,14 +14,15 @@ export default function InnovatorCard(props) {
                 className={styles.container}
                 onClick={() => setOpenModal(true)}
             >
+                <div className={styles.filler}></div>
                 <img className={styles.image} src={innovator.image.url}></img>
                 <div className={styles.info}>
                     <text className={styles.name}>{innovator.name}</text>
                     <text className={styles.caption}>
                         {innovator.description.substring(0, 115) + "..."}
                     </text>
-                    <text className={styles.index}>0{idx + 1}</text>
                 </div>
+                <div className={styles.filler2}></div>
             </div>
             <Modal large active={openModal} setActive={setOpenModal}>
                 <div className={styles.left}>
