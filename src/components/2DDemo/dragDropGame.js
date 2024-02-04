@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as PIXI from 'pixi.js';
 import Matter from 'matter-js';
+import { AsciiFilter, BloomFilter } from 'pixi-filters';
 
 const DragDrop2DGame = () => {
 
@@ -114,6 +115,7 @@ const DragDrop2DGame = () => {
     });
     setApp(pixiApp);
     document.body.appendChild(pixiApp.view);
+    pixiApp.stage.filters = [new AsciiFilter()];
 
     // set up matterjs world
     const engine = Matter.Engine.create();
