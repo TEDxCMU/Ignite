@@ -1,6 +1,7 @@
 import React from "react";
 import { NextReactP5Wrapper } from "@p5-wrapper/next";
 import Matter from "matter-js";
+import { Howl, Howler } from "howler";
 
 // define your sketch here
 const sketch = (p5) => {
@@ -9,12 +10,15 @@ const sketch = (p5) => {
   World = Matter.World,
   Bodies = Matter.Bodies;
 
+  let bgMusic = new Howl({ src: ['/sounds/bgmusic.mp3'] });
+  let sfx1 = new Howl({ src: ['/sounds/sfx1.wav'] });
+  let sfx2 = new Howl({ src: ['/sounds/sfx2.wav'] });
+
   let engine;
   let world;
   let boxes = [];
   let collisions = [];
   let ground;
-  let mConstraint;
   let shakeIntensity = 10;
   let shakeDuration = 0;
 
@@ -66,9 +70,12 @@ const sketch = (p5) => {
           let collisionPosition = bodyA === ground ? bodyB.position : bodyA.position;
           collisions.push({ position: collisionPosition, startTime: p5.millis() });
           triggerShake(10);
+          playSoundEffect(sfx1);
         }
       }
-    });    
+    });
+    
+    bgMusic.play();
   }
 
   p5.mousePressed = () => {
@@ -133,6 +140,10 @@ const sketch = (p5) => {
 
   let triggerShake = (duration) => {
     shakeDuration = duration;
+  }
+
+  let playSoundEffect = (sfx) => {
+    sfx.play();
   }
 
   let renderCircleAnimation = (position, timeElapsed) => {
