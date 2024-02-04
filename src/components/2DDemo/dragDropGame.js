@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import * as PIXI from 'pixi.js';
 import Matter from 'matter-js';
 import { AsciiFilter, BloomFilter } from 'pixi-filters';
+import { Howl } from 'howler';
 
 const DragDrop2DGame = () => {
 
@@ -107,7 +108,11 @@ const DragDrop2DGame = () => {
     });
     setApp(pixiApp);
     document.body.appendChild(pixiApp.view);
-    pixiApp.stage.filters = [new AsciiFilter()];
+    pixiApp.stage.filters = [new BloomFilter()];
+
+    const bgm = new Howl({ src: '/sounds/bgmusic.mp3', loop: true });
+    const sfx1 = new Howl({ src: '/sounds/sfx1.wav' });
+    bgm.play();
 
     // set up matterjs world
     const engine = Matter.Engine.create();
@@ -147,6 +152,7 @@ const DragDrop2DGame = () => {
         const posY = pair.bodyA.position.y + (pair.bodyB.position.y - pair.bodyA.position.y) / 2;
         createSparkAnimation(posX, posY, pixiApp);
         screenShake(10, 10, pixiApp);
+        sfx1.play();
       }
     });
 
@@ -155,6 +161,7 @@ const DragDrop2DGame = () => {
     return () => {
       Matter.Engine.clear(engine);
       document.body.removeChild(pixiApp.view);
+      bgm.stop();
     };
   }, []);
 
