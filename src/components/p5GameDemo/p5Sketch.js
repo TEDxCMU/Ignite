@@ -28,6 +28,8 @@ const sketch = (p5) => {
   let graphics;
   let vignetteShader;
   let vignetteShaderTexture;
+  let particlesShader;
+  let particlesShaderTexture;
 
   p5.preload = () => {
     // preload assets
@@ -35,7 +37,8 @@ const sketch = (p5) => {
     midBg = p5.loadImage('/imgs/mid_background.png');
     bubbleImg = p5.loadImage('/imgs/bubble.png');
 
-    vignetteShader = p5.loadShader('/shaders/vignette.vert', '/shaders/vignette.frag');
+    vignetteShader = p5.loadShader('/shaders/base.vert', '/shaders/vignette.frag');
+    particlesShader = p5.loadShader('/shaders/base.vert', '/shaders/glowingParticles.frag');
   }
 
   // setup function
@@ -43,6 +46,7 @@ const sketch = (p5) => {
     p5.createCanvas(800, 600, p5.WEBGL);
     graphics = p5.createGraphics(800, 600, p5.WEBGL);
     vignetteShaderTexture = p5.createGraphics(800, 600, p5.WEBGL);
+    particlesShaderTexture = p5.createGraphics(800, 600, p5.WEBGL);
 
     engine = Engine.create();
     world = engine.world;
@@ -113,8 +117,18 @@ const sketch = (p5) => {
     vignetteShader.setUniform('resolution', [p5.width, p5.height]);
     vignetteShader.setUniform('vignetteAmount', 1.0);
     vignetteShaderTexture.rect(-p5.width / 2, -p5.height / 2, p5.width, p5.height);
+
+    graphics.scale(1, -1);
+    graphics.texture(vignetteShaderTexture);
+    graphics.rect(-p5.width / 2, -p5.height / 2, p5.width, p5.height);
+
+    particlesShaderTexture.shader(particlesShader);
+    particlesShader.setUniform('textureID', graphics);
+    particlesShader.setUniform('resolution', [p5.width, p5.height]);
+    particlesShader.setUniform('time', p5.millis() / 1000);
+    particlesShaderTexture.rect(-p5.width / 2, -p5.height / 2, p5.width, p5.height);
     
-    p5.texture(vignetteShaderTexture);
+    p5.texture(particlesShaderTexture);
     p5.rect(p5.width/2, p5.height/2, p5.width, p5.height);
 
     
