@@ -1,40 +1,97 @@
 :root {
-    --c-black: rgb(0, 0, 0);
-    --c-white: rgb(255, 255, 255);
+  --c-black: rgb(0, 0, 0);
+  --c-white: rgb(255, 255, 255);
+  --c-border: #4f4f4f;
+  --c-off-white: #c4c4c4;
+  --c-off-white-2: #e5e5e6;
+  --c-gray: #474747;
+  --c-gray-2: #cecece;
+  --c-gray-3: #828282;
+  --c-gray-4: #7f7f7f;
+  --c-off-black: #020202;
+  --c-green: #1DFFAD;
+  --c-red: #FF3216;
+
+  --t-title--large: 96px;
+  --t-title: 64px;
+  --t-large: 48px;
+  --t-medium-large: 32px;
+  --t-medium: 22px;
+  --t-small: 18px;
+  --t-xsmall: 14px;
+
+  --grid-margin: 36px;
+
+  --space: 4px;
+  --space-2x: 8px;
+  --space-3x: 12px;
+  --space-4x: 16px;
+  --space-6x: 24px;
+  --space-8x: 32px;
+  --space-12x: 48px;
+  --space-16x: 64px;
+  --space-32x: 128px;
 }
 
-*, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: inherit;
-    font-weight: 400;
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  font-weight: 400;
 }
 
 html {
-    font-family: Helvetica, sans-serif;
-    font-size: 62.5%;
-    scroll-behavior: smooth;
+  font-family: Helvetica, sans-serif;
+  font-size: 62.5%;
+  scroll-behavior: smooth;
 }
 
-body, #__next {
-    box-sizing: border-box;
-    background-color: var(--c-black);
-    color: var(--c-white);
+body,
+#__next {
+  box-sizing: border-box;
+  background-color: var(--c-black);
+  color: var(--c-white);
 }
 
 a {
-    font-weight: inherit;
-    color: inherit;
-    text-decoration: none;
-    transition: opacity 0.3s;
+  font-weight: inherit;
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.3s;
 }
 
 a:hover {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 @media screen and (max-width: 812px) {
-    html {
-        font-size: 50%;
-    }
+  html {
+    font-size: 50%;
+  }
+}
+
+.title {
+  font-size: var(--t-title);
+  text-transform: uppercase;
+}
+
+.pageContainer {
+  padding: 0px var(--grid-margin);
+  margin: 5rem auto;
+}
+
+@font-face {
+    font-family: 'Pixer';
+    src: url('../assets/typefaces/Pixer-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+  
+@font-face {
+    font-family: 'Space Mono';
+    src: url('../assets/typefaces/SpaceMono-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
 }
