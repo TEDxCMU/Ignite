@@ -4,22 +4,103 @@ import styles from "../game.module.css"
 
 // define your sketch here
 const sketch = (p5) => {
-  let typed = "";
-  // setup function
+  let spr;
+  let k = "";
+  let timer = 0;
+  let score = 0;
+  let currTyping = false;
+  let curr;
+  const arr = [
+    "Spark",
+    "Fire",
+    "Ignition",
+    "Blaze",
+    "Combust",
+    "Inflame",
+    "Kindle",
+    "Inferno",
+    "Flare",
+    "Ember",
+    "Pyre",
+    "Conflagration",
+    "Ardent",
+    "Flash",
+    "Incite",
+    "Intense",
+    "Radiate",
+    "Ignite",
+    "Torch",
+    "Heat",
+    "Scorch",
+    "Firestorm",
+    "Spontaneous",
+    "Fiery",
+    "Illuminate"
+  ];
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+  }
   p5.setup = () => {
-    p5.createCanvas(window.innerWidth, window.innerHeight, p5.WEBGL);
+    p5.createCanvas(800, 600);
+    spr = createSprite(
+      600, 500, 40, 40);
+    spr.shapeColor = color(255);
+    spr.velocity.y = -2;
+    spr.text = arr[getRandomInt(0, 25)];
+    spr.textSize = 20;
+  }
+  p5.draw = () => {
+    p5.background(50);
+    p5.fill("white");
+    p5.textSize(25);
+    p5.text("Score: " + score, 15, 25);
+    if (millis() >= 2000+timer) {
+      spr = createSprite(getRandomInt(100, 760), 500, 40, 40);
+      spr.shapeColor = color(255);
+      spr.velocity.y = -2;
+      spr.text = arr[getRandomInt(0, 25)];
+      spr.textSize = 20;
+      timer = millis();
+    }
+    for (let i = 0; i < allSprites.length; i++) {
+      if (allSprites[i].position.y < 0) {
+        p5.noLoop();
+        p5.fill("red");
+        p5.textSize(50);
+        p5.text("Game Over", 280, 300);
+      }
+    }
+    drawSprites();
   }
 
-  // draw function (called every frame)
-  p5.draw = () => {
-    p5.background(0);
-    p5.textSize(30);
-    p5.fill('cyan');
-    p5.textFont('futura');
-    p5.text(typed, 10, 10, window.innerWidth-40, window.innerHeight-40);
-  };
   p5.keyTyped = () => {
-    typed += p5.key;
+    //contents = contents + key;
+    k = key;
+    if(currTyping){
+      if(k == curr.text[0]){
+        curr.text = curr.text.substring(1);
+        score += 1;
+        if(curr.text == ""){
+          curr.remove();
+          currTyping = false;
+        }
+      }
+    }
+    else{
+      for (let i = 0; i < allSprites.length; i++) {
+        if (allSprites[i].text[0].toLowerCase() == k) {
+          currTyping = true;
+          curr = allSprites[i];
+          curr.text = curr.text.substring(1);
+          curr.shapeColor = color(120);
+            score += 1;
+          return;
+        }
+      }
+    }
+    k = "";
   }
 };
   
