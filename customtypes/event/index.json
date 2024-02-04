@@ -1,0 +1,69 @@
+{
+  "id": "event",
+  "label": "Event",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "Slug",
+          "placeholder": ""
+        }
+      },
+      "title": {
+        "type": "Text",
+        "config": {
+          "label": "Title",
+          "placeholder": ""
+        }
+      },
+      "speaker": {
+        "type": "Link",
+        "config": {
+          "label": "Speaker",
+          "placeholder": "",
+          "select": null
+        }
+      },
+      "image": {
+        "type": "Image",
+        "config": {
+          "label": "Image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "start_time": {
+        "type": "Timestamp",
+        "config": {
+          "label": "Start Time",
+          "placeholder": ""
+        }
+      },
+      "end_time": {
+        "type": "Timestamp",
+        "config": {
+          "label": "End Time",
+          "placeholder": ""
+        }
+      },
+      "description": {
+        "type": "Text",
+        "config": {
+          "label": "Description",
+          "placeholder": ""
+        }
+      },
+      "recording": {
+        "type": "Link",
+        "config": {
+          "label": "Recording",
+          "placeholder": "",
+          "select": null
+        }
+      }
+    }
+  }
+}

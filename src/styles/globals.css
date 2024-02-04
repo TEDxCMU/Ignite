@@ -9,6 +9,8 @@
   --c-gray-3: #828282;
   --c-gray-4: #7f7f7f;
   --c-off-black: #020202;
+  --c-green: #1DFFAD;
+  --c-red: #FF3216;
 
   --t-title--large: 96px;
   --t-title: 64px;
@@ -78,4 +80,18 @@ a:hover {
 .pageContainer {
   padding: 0px var(--grid-margin);
   margin: 5rem auto;
+}
+
+@font-face {
+    font-family: 'Pixer';
+    src: url('../assets/typefaces/Pixer-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+  
+@font-face {
+    font-family: 'Space Mono';
+    src: url('../assets/typefaces/SpaceMono-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
 }

@@ -4,14 +4,25 @@
     "scripts": {
         "dev": "next dev",
         "build": "next build",
-        "start": "next start"
+        "start": "next start",
+        "slicemachine": "start-slicemachine"
     },
     "dependencies": {
-        "@prismicio/client": "^6.4.1",
+        "@prismicio/client": "^7.3.1",
+        "@prismicio/next": "^1.5.0",
+        "@prismicio/react": "^2.7.3",
+        "@react-three/drei": "^9.97.0",
+        "@react-three/fiber": "^8.15.16",
         "@svgr/webpack": "^6.2.1",
         "classnames": "^2.5.1",
+        "motion": "^10.17.0",
         "next": "14.0.4",
         "react": "18.2.0",
-        "react-dom": "18.2.0"
+        "react-dom": "18.2.0",
+        "three": "^0.161.0"
+    },
+    "devDependencies": {
+        "@slicemachine/adapter-next": "^0.3.34",
+        "slice-machine-ui": "^1.23.1"
     }
 }
