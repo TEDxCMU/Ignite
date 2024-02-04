@@ -1,0 +1,148 @@
+.container {
+    background: rgba(0, 0, 0, 0.6);
+    display: grid;
+    grid-template-columns: auto 466px;
+    gap: 2px;
+    background-color: #828282;
+    margin: 5rem auto;
+    width: 1305px;
+    height: 566px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 25px;
+    border-color: white;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #828282;
+    cursor: pointer;
+}
+.filler{
+    background: rgba(0, 0, 0, 0.9);
+    height: 460px;
+    border-bottom: 2px solid #828282;
+}
+
+.filler2{
+    grid-column: 2;
+    background: rgba(0, 0, 0, 0.9);
+    margin-top: -205px;
+    height: 310px;
+    border-bottom: 2px solid #828282;
+}
+
+.name {
+    display: block;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    color: #828282;
+    margin-left: 20px;
+    margin-top: 30px;
+    word-break: break-word;
+}
+
+.caption {
+    display: block;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    margin-left: 25px;
+    color: #828282;
+    padding-top: 2vh;
+}
+
+.header {
+    font-size: var(--t-large);
+    padding-bottom: 20px;
+    text-transform: none;
+    font-family: Bugrino, Inter, "Helvetica Neue";
+}
+
+.hyphen {
+    hyphens: auto;
+}
+
+.image {
+    width: 466px;
+    border-color: #828282;
+    border-width: 2px;
+    height: 253px;
+    float: right;
+}
+
+.info {
+    background: rgba(0, 0, 0, 0.9);
+    height: 100px;
+    padding: 20px 40px;
+}
+
+.index {
+    font-weight: 500;
+    font-size: 30px;
+    float: right;
+    position: absolute;
+    bottom: var(--space-6x);
+    right: var(--space-6x);
+}
+
+.modalImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.left {
+    padding: 7rem 6rem;
+    width: 55rem;
+    border-right: 1px solid var(--c-border);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.right {
+    width: 400px;
+}
+
+.body {
+    font-size: var(--t-xsmall);
+}
+
+.header {
+    font-size: var(--t-large);
+}
+
+.icon {
+    margin-right: 1rem;
+}
+
+.modal {
+    padding: 0;
+}
+
+@media (max-width: 844px) {
+    .container {
+        grid-column: span 12;
+        height: auto;
+    }
+    .index,
+    .modalImage {
+        display: none;
+    }
+    .caption,
+    .name {
+        margin: 0;
+    }
+    .caption {
+        padding: 10px 0;
+    }
+    .info {
+        height: auto;
+    }
+    .header {
+        word-break: break-word;
+    }
+    .left {
+        width: 100%;
+    }
+}
