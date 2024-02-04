@@ -16,13 +16,13 @@ export default function InnovatorCard(props) {
             >
                 <div className={styles.filler}></div>
                 <img className={styles.image} src={innovator.image.url}></img>
-                <div className={styles.info}>
-                    <text className={styles.name}>{innovator.name}</text>
+                <div className={styles.info}></div>
+                <div className={styles.filler2}>
+                <text className={styles.name}>{innovator.name}</text>
                     <text className={styles.caption}>
                         {innovator.description.substring(0, 115) + "..."}
-                    </text>
+                </text>
                 </div>
-                <div className={styles.filler2}></div>
             </div>
             <Modal large active={openModal} setActive={setOpenModal}>
                 <div className={styles.left}>
