@@ -188,6 +188,20 @@ const CulinaryGame = (props) => {
     return `${labels[0]}-${labels[1]}`;
   };
 
+  const parseIngredientName = (ingredient) => {
+    if (!ingredient.startsWith("ingredient")) {
+      return "";
+    }
+    const ingredientParts = ingredient.split("-");
+    const ingredientRes = ingredientParts[ingredientParts.length - 1];
+    return ingredientRes;
+  };
+
+  const getImageByName = (elementName) => {
+    const recipe = allRecipes.find((recipe) => recipe.name === elementName);
+    return recipe ? recipe.image : null;
+  };
+
   // Function to remove the Pixi.js sprite associated with the Matter.js body
   const removePixiSprite = (pixiApp, matterBody) => {
     // if (!app || !world) {
@@ -201,6 +215,80 @@ const CulinaryGame = (props) => {
     if (pixiSprite) {
       pixiApp.stage.removeChild(pixiSprite);
     }
+  };
+
+  const closePopup = (pixiApp, base, a, b, c) => {
+    console.log("close");
+    pixiApp.stage.removeChild(base);
+    pixiApp.stage.removeChild(a);
+    pixiApp.stage.removeChild(b);
+    pixiApp.stage.removeChild(c);
+  };
+
+  const makeNewRecipePopup = (
+    pixiApp,
+    ingredientA,
+    ingredientB,
+    ingredientC
+  ) => {
+    console.log(ingredientA, ingredientB);
+    const aImage = getImageByName(ingredientA);
+    const bImage = getImageByName(ingredientB);
+    const cImage = getImageByName(ingredientC);
+
+    // base texture
+    const base = PIXI.Texture.from("/newRecipe.png");
+    const sprite = new PIXI.Sprite(base);
+    sprite.scale.set(0.3);
+    sprite.anchor.set(0.5, 0.5);
+    sprite.eventMode = "static";
+    sprite.x = 420;
+    sprite.y = 300;
+    pixiApp.stage.addChild(sprite);
+    sprite.cursor = "pointer";
+
+    const a = PIXI.Texture.from(aImage);
+    const spriteA = new PIXI.Sprite(a);
+    spriteA.scale.set(0.15);
+    spriteA.anchor.set(0.5, 0.5);
+    spriteA.x = 270;
+    spriteA.y = 320;
+    spriteA.eventMode = "static";
+    spriteA.cursor = "pointer";
+    pixiApp.stage.addChild(spriteA);
+
+    const b = PIXI.Texture.from(bImage);
+    const spriteB = new PIXI.Sprite(b);
+    spriteB.scale.set(0.15);
+    spriteB.anchor.set(0.5, 0.5);
+    spriteB.x = 430;
+    spriteB.y = 320;
+    spriteB.eventMode = "static";
+    spriteB.cursor = "pointer";
+    pixiApp.stage.addChild(spriteB);
+
+    const c = PIXI.Texture.from(cImage);
+    const spriteC = new PIXI.Sprite(c);
+    spriteC.scale.set(0.15);
+    spriteC.anchor.set(0.5, 0.5);
+    spriteC.x = 570;
+    spriteC.y = 320;
+    spriteC.eventMode = "static";
+    spriteC.cursor = "pointer";
+    pixiApp.stage.addChild(spriteC);
+
+    sprite.on("pointerdown", () =>
+      closePopup(pixiApp, sprite, spriteA, spriteB, spriteC)
+    );
+    spriteA.on("pointerdown", () =>
+      closePopup(pixiApp, sprite, spriteA, spriteB, spriteC)
+    );
+    spriteB.on("pointerdown", () =>
+      closePopup(pixiApp, sprite, spriteA, spriteB, spriteC)
+    );
+    spriteC.on("pointerdown", () =>
+      closePopup(pixiApp, sprite, spriteA, spriteB, spriteC)
+    );
   };
 
   // initialize PIXI app
@@ -285,6 +373,15 @@ const CulinaryGame = (props) => {
             setPlayerRecipes((prevRecipes) => [...prevRecipes, recipeVal]);
             props.setSubmittedScore((prevScore) => prevScore + 1);
             prevRecipesRef.current = [...prevRecipesRef.current, recipeVal];
+            // show a popup to indicate the new recipe was made
+            const ingredientAName = parseIngredientName(objALabel);
+            const ingredientBName = parseIngredientName(objBLabel);
+            makeNewRecipePopup(
+              pixiApp,
+              ingredientAName,
+              ingredientBName,
+              recipeVal.name
+            );
           } else {
             createIngredientWithAppWorld(
               pixiApp,

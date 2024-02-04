@@ -18,4 +18,16 @@ export const allRecipes = [
     name: "element 3",
     image: "/element3.png",
   },
+  {
+    element1: "",
+    element2: "",
+    name: "element 1",
+    image: "/element1.png",
+  },
+  {
+    element1: "",
+    element2: "",
+    name: "element 2",
+    image: "/element2.png",
+  },
 ];
