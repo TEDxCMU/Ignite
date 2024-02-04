@@ -13,14 +13,14 @@ const CulinaryGame = (props) => {
   const [world, setWorld] = useState(null);
   const recipeMap = new Map();
 
+  const prevRecipesRef = useRef([...startingRecipes]);
+
   // initialize all the recipes into map so they can easily be checked
   for (let i = 0; i < allRecipes.length; i++) {
     const currRecipe = allRecipes[i];
     const key = `${currRecipe.element1}-${currRecipe.element2}`;
     recipeMap.set(key, currRecipe);
   }
-
-  // btw call props.setGameOver(true) when game over
 
   const createMenuButtons = () => {
     if (!app) {
@@ -56,6 +56,17 @@ const CulinaryGame = (props) => {
       setPage: page,
     });
     app.stage.addChild(prev);
+
+    // make submit score button
+    const submit = new PIXI.Sprite(texture);
+    submit.scale.set(0.4);
+    submit.anchor.set(0.5, 0.5);
+    submit.x = 50;
+    submit.y = 100 + 8 * 60;
+    submit.eventMode = "static";
+    submit.cursor = "pointer";
+    submit.on("pointerdown", submitScore);
+    app.stage.addChild(submit);
   };
 
   const showMenu = (page) => {
@@ -100,6 +111,12 @@ const CulinaryGame = (props) => {
     });
   };
 
+  const submitScore = () => {
+    console.log("Submitting Score:", score);
+    console.log("Submitted Score:", score);
+    props.setGameOver(true);
+  };
+
   const createIngredient = (x, y, image, name) => {
     if (!app || !world) {
       return;
@@ -141,6 +158,7 @@ const CulinaryGame = (props) => {
     body.pixiSprite = sprite;
 
     Matter.Composite.add(localWorld, body);
+    console.log(body);
 
     localApp.stage.addChild(sprite);
     localApp.ticker.add(() => {
@@ -185,8 +203,6 @@ const CulinaryGame = (props) => {
     }
   };
 
-  const prevRecipesRef = useRef([...startingRecipes]);
-
   // initialize PIXI app
   useEffect(() => {
     const pixiApp = new PIXI.Application({
@@ -196,7 +212,19 @@ const CulinaryGame = (props) => {
     });
     document.body.appendChild(pixiApp.view);
 
+    const renderOptions = {
+      // Other options...
+      showDebug: true,
+    };
+
     const engine = Matter.Engine.create();
+    const render = Matter.Render.create({
+      element: document.body,
+      engine: engine,
+      options: renderOptions,
+    });
+
+    Matter.Render.run(render);
     const matterWorld = engine.world;
 
     const ground = Matter.Bodies.rectangle(400, 550, 810, 40, {
@@ -246,19 +274,7 @@ const CulinaryGame = (props) => {
           Matter.Composite.remove(engine.world, pairs[0].bodyB);
           removePixiSprite(pixiApp, pairs[0].bodyB);
           // add the new element
-          // const tempGround = Matter.Bodies.rectangle(400, 500, 810, 40, {
-          //   isStatic: true,
-          // });
-          // Matter.Composite.add(matterWorld, tempGround);
-          createIngredientWithAppWorld(
-            pixiApp,
-            matterWorld,
-            objA.position.x,
-            objA.position.y - 150,
-            recipeVal.image,
-            recipeVal.name
-          );
-          // Matter.Composite.remove(matterWorld, tempGround);
+
           // update recipe list if not already in
           if (
             !prevRecipesRef.current.some(
@@ -267,10 +283,17 @@ const CulinaryGame = (props) => {
           ) {
             console.log("Adding new recipe:", recipeVal.name);
             setPlayerRecipes((prevRecipes) => [...prevRecipes, recipeVal]);
-            setScore((prevScore) => prevScore + 1);
+            props.setSubmittedScore((prevScore) => prevScore + 1);
             prevRecipesRef.current = [...prevRecipesRef.current, recipeVal];
           } else {
-            console.log("Recipe already in playerRecipes:", recipeVal.name);
+            createIngredientWithAppWorld(
+              pixiApp,
+              matterWorld,
+              objA.position.x,
+              objA.position.y - 150,
+              recipeVal.image,
+              recipeVal.name
+            );
           }
         }
       }
@@ -286,23 +309,26 @@ const CulinaryGame = (props) => {
   useEffect(() => {
     createMenuButtons();
     showMenu(page);
-  }, [app, playerRecipes]);
+  }, [app]);
 
   // update menu sprites when page changes
   useEffect(() => {
-    if (menuSprites.length > 0) {
-      menuSprites.forEach((sprite) => {
-        app.stage.removeChild(sprite);
-        sprite.destroy();
-      });
-    }
+    setTimeout(() => {
+      if (menuSprites.length > 0) {
+        menuSprites.forEach((sprite) => {
+          app.stage.removeChild(sprite);
+          sprite.destroy();
+        });
+      }
 
-    showMenu(page);
-  }, [page]);
+      showMenu(page);
+    }, 100);
+  }, [page, playerRecipes]);
 
   useEffect(() => {
     console.log("Updated Score:", score);
-  }, [score]);
+    props.setSubmittedScore(score);
+  }, [score, props.setSubmittedScore]);
 
   return null;
 };
