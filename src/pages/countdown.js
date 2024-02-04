@@ -8,6 +8,7 @@ function Countdown() {
       <Link href="/countdown/3DPhysicsDemo">3D Physics Demo</Link>
       <Link href="/countdown/3DAnimationDemo">3D Animation Demo</Link>
       <Link href="/countdown/2DDemo">2D Demo with Physics</Link>
+      <Link href="/countdown/fireworks">Fireworks</Link>
       <Leaderboard />
     </div>
   );
