@@ -1,37 +1,50 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import style from "./section4.module.css";
 
-function Section4() {
+function Section4(videoLink, bool) {
   const videoRef = useRef(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Play the video when the video element comes into view
-            videoRef.current.play();
-          } else {
-            videoRef.current.pause();
-          }
-        });
-      },
-      {
-        threshold: 0.5, // 50% of the video must be visible to trigger play
-        rootMargin: '0px', // Margin around the root
-      }
-    );
+  const [scrollPosition, setScrollPosition] = useState(0);
 
-    if (videoRef.current) {
-      observer.observe(videoRef.current);
-    }
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5,
+    };
+
+    const handleIntersection = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // setThresholdPosition(window.scrollY);
+          videoRef.current.play();
+        } else {
+          videoRef.current.pause();
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, options);
+    observer.observe(videoRef.current);
+
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      if (videoRef.current) {
-        observer.unobserve(videoRef.current);
-      }
+      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, [videoRef]);
+  }, []);
+
+  useEffect(() => {
+    const playbackRate = 0.1; // Adjust this value based on your desired speed
+    console.log(scrollPosition, videoLink, videoRef.current.currentTime)
+    videoRef.current.currentTime = (scrollPosition)/1000;
+  }, [scrollPosition]);
+
 
   return (
     <div className={style.container}>
@@ -39,15 +52,19 @@ function Section4() {
         ref={videoRef}
         width="100%"
         muted
-        loop
         playsInline
         preload="none"
         className={style.video}
       >
-        <source src="./placeholder-video.mp4" type="video/mp4" />
+        <source src={videoLink} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <div className={style.text}>It expands,<br></br>fluctuates,<br></br>grows,<br></br>transforms.</div>
+      {bool? (
+        <div className={style.text}>It expands,<br></br>fluctuates,<br></br>grows,<br></br>transforms.</div>
+      ):(
+        <></>
+      )
+      }
     </div>
   );
 }
