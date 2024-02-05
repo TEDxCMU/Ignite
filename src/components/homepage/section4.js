@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import style from "./section4.module.css";
 
-function Section4(videoLink, bool) {
+function Section4(videoLink, bool, start, speed) {
   const videoRef = useRef(null);
 
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -41,8 +41,8 @@ function Section4(videoLink, bool) {
 
   useEffect(() => {
     const playbackRate = 0.1; // Adjust this value based on your desired speed
-    console.log(scrollPosition, videoLink, videoRef.current.currentTime)
-    videoRef.current.currentTime = (scrollPosition)/1000;
+    console.log(scrollPosition-start, videoLink, videoRef.current.currentTime)
+    videoRef.current.currentTime = (scrollPosition-start)/speed;
   }, [scrollPosition]);
 
 
