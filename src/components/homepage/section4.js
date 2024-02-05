@@ -5,6 +5,7 @@ function Section4(videoLink, bool, start, speed) {
   const videoRef = useRef(null);
 
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [startPosition, setStartPosition] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +22,7 @@ function Section4(videoLink, bool, start, speed) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           // setThresholdPosition(window.scrollY);
+          setStartPosition(window.scrollY); 
           videoRef.current.play();
         } else {
           videoRef.current.pause();
@@ -41,8 +43,8 @@ function Section4(videoLink, bool, start, speed) {
 
   useEffect(() => {
     const playbackRate = 0.1; // Adjust this value based on your desired speed
-    console.log(scrollPosition-start, videoLink, videoRef.current.currentTime)
-    videoRef.current.currentTime = (scrollPosition-start)/speed;
+    console.log(scrollPosition, startPosition, speed, videoLink, videoRef.current.currentTime)
+    videoRef.current.currentTime = (scrollPosition-startPosition)/speed;
   }, [scrollPosition]);
 
 

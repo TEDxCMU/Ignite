@@ -10,7 +10,7 @@ function Home() {
       <Section1 />
       <Section2 />
       <Section3 />
-      {Section4("./Flower.mp4", true, 3000, 300)}
+      {Section4("./Flower.mp4", true, 3500, 300)}
       <Section5 />
       {/* <Section6 /> */}
     </div>
