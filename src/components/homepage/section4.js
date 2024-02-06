@@ -1,50 +1,61 @@
 import { useEffect, useState, useRef } from "react";
 import style from "./section4.module.css";
+import { throttle } from "lodash";
 
-function Section4(videoLink, bool, start, speed) {
+function Section4(props) {
+  const {videoLink, bool, speed} = props;
   const videoRef = useRef(null);
 
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [startPosition, setStartPosition] = useState(0);
+  const startPositionRef = useRef(0);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = throttle(() => {
       setScrollPosition(window.scrollY);
-    };
+    }, 50);
 
     const options = {
       root: null,
       rootMargin: '0px',
-      threshold: 0.5,
+      threshold: 0.7,
     };
 
     const handleIntersection = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          // setThresholdPosition(window.scrollY);
-          setStartPosition(window.scrollY); 
-          videoRef.current.play();
-        } else {
-          videoRef.current.pause();
+          if (startPositionRef.current === 0) {
+            startPositionRef.current = window.scrollY;
+          }
         }
       });
     };
 
     const observer = new IntersectionObserver(handleIntersection, options);
-    observer.observe(videoRef.current);
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+      videoRef.current.play().then(() => videoRef.current.pause());
+    }
 
     window.addEventListener('scroll', handleScroll);
 
     return () => {
-      observer.disconnect();
+      observer.unobserve(videoRef.current);
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   useEffect(() => {
     const playbackRate = 0.1; // Adjust this value based on your desired speed
-    console.log(scrollPosition, startPosition, speed, videoLink, videoRef.current.currentTime)
-    videoRef.current.currentTime = (scrollPosition-startPosition)/speed;
+    // console.log(scrollPosition, startPosition, speed, videoLink, videoRef.current.currentTime)
+    if (!videoRef.current) {
+      return;
+    }
+
+    if (scrollPosition < startPositionRef.current || startPositionRef.current === 0) {
+      videoRef.current.currentTime = 0;
+      return;
+    }
+    videoRef.current.currentTime = (scrollPosition-startPositionRef.current)/speed;
   }, [scrollPosition]);
 
 
@@ -55,7 +66,7 @@ function Section4(videoLink, bool, start, speed) {
         width="100%"
         muted
         playsInline
-        preload="none"
+        preload="auto"
         className={style.video}
       >
         <source src={videoLink} type="video/mp4" />

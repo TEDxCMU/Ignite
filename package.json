@@ -13,6 +13,7 @@
         "@prismicio/react": "^2.7.3",
         "@react-three/drei": "^9.97.0",
         "@svgr/webpack": "^6.2.1",
+        "lodash": "^4.17.21",
         "motion": "^10.17.0",
         "next": "14.0.4",
         "react": "18.2.0",
