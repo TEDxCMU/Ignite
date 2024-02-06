@@ -4,6 +4,7 @@ import JS from '../assets/headshots/JS.png'
 import I1 from '../assets/2D/Icon1.png'
 import styles from './schedule.module.css'
 import Image from 'next/image';
+import { Layout } from 'components/layouts';
 
 const firstCard = () =>{
     return(
@@ -86,7 +87,7 @@ function Schedule() {
 
 
     return (
-        <div className={styles.schedule}>
+        <div className='pageContainer'>
             {firstCard()}
             <div className={styles.cardWrap}>
                 {cards.map((card, idx) => {

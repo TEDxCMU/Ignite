@@ -22,24 +22,20 @@
   }
 }
 
-.headingFull {
+.pageName {
+  color: white; 
+  font-family: "pixer", sans-serif; 
+  text-transform: uppercase;
+  margin: 6rem 0 2rem 0 ;
+  font-size: 48px;  
+}
+
+.title {
   display: inline-block;
   font-weight: 600;
   /* margin: 80px 36px 0px 36px; */
   padding: 80px 36px 0px 36px;
   text-transform: capitalize;
   font-size: var(--t-large);
-  font-family: Bugrino, Inter, "Helvetica Neue";
-}
-
-.bg {
-  /* background-image: url("../assets/speaker_bg.png"); */
-
-  /* Full height */
-  width: 100%;
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  font-family: "Pixer", sans-serif;
 }

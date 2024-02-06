@@ -3,6 +3,7 @@ import { getSpeakers } from "utils/content";
 import SpeakerCard from "components/SpeakerCard";
 
 import styles from "./speakers.module.css";
+import { Layout } from "components/layouts";
 
 function Speakers() {
   const [data, setData] = useState(null);
@@ -27,15 +28,13 @@ function Speakers() {
 
   return (
     <div className="pageContainer">
-      <div className={styles.bg}>
-        <h2 className="title">Speakers</h2>
-        <div className={styles.grid}>
-          {loading ? (
-            <h1>Loading</h1>
-          ) : (
-            data.map((item, id) => <SpeakerCard key={id} speaker={item} />)
-          )}
-        </div>
+      <h2 className={styles.pageName}>Speakers</h2>
+      <div className={styles.grid}>
+        {loading ? (
+          <h1>Loading</h1>
+        ) : (
+          data.map((item, id) => <SpeakerCard key={id} speaker={item} />)
+        )}
       </div>
     </div>
   );
