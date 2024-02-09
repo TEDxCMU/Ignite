@@ -1,0 +1,47 @@
+.container {
+    /* margin: 5.0rem auto; */
+    min-width: 160rem;
+}
+
+.sidebarContainer {
+    margin: 3rem;
+}
+
+.header {
+    display: block;
+    margin-top: 10px;
+    margin-left: 50px;
+    font-family: Void, Bugrino, Inter, "Helvetica Neue";
+    font-size: 48px;
+    color: #E5E5E6;
+}
+
+.subheader {
+    display: block;
+    margin-top: 10px;
+    margin-left: 50px;
+    font-family: "Helvetica Neue";
+    font-size: 16px;
+    color: #E5E5E680;
+}
+
+.description {
+    margin-bottom: 3rem;
+    font-size: var(--t-small);
+    display: block;
+    opacity: 90%;
+}
+
+.background {
+    height: 80%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@media screen and (max-width: 720px) {
+    .container {
+        margin: 3rem;
+    }
+}

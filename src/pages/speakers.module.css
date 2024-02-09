@@ -1,0 +1,41 @@
+.description {
+  display: block;
+  grid-column: span 12;
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: var(--t-small);
+  margin: 0 36px 80px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-items: flex-start;
+  grid-column-gap: 10px;
+  min-width: 500px;
+}
+
+@media (max-width: 844px) {
+  .grid {
+    margin: 0;
+    min-width: auto;
+  }
+}
+
+.pageName {
+  color: white; 
+  font-family: "pixer", sans-serif; 
+  text-transform: uppercase;
+  margin: 6rem 0 2rem 0 ;
+  font-size: 48px;  
+}
+
+.title {
+  display: inline-block;
+  font-weight: 600;
+  /* margin: 80px 36px 0px 36px; */
+  padding: 80px 36px 0px 36px;
+  text-transform: capitalize;
+  font-size: var(--t-large);
+  font-family: "Pixer", sans-serif;
+}

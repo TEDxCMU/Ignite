@@ -10,9 +10,6 @@ function NavBar() {
                 <Link href="/" className={styles.link}>
                     Home
                 </Link>
-                <Link href="/stage" className={styles.link}>
-                    Stage
-                </Link>
                 <Link href="/schedule" className={styles.link}>
                     Schedule
                 </Link>
@@ -21,6 +18,9 @@ function NavBar() {
                 </Link>
                 <Link href="/expo" className={styles.link}>
                     Innovation Expo
+                </Link>
+                <Link href="/about" className={styles.link}>
+                    About
                 </Link>
             </div>
             {/* Empty div for spacing. */}
