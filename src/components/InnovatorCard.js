@@ -3,7 +3,7 @@ import styles from "components/InnovatorCard.module.css";
 import Modal from "./modal";
 import cn from "classnames";
 
-
+import Filler from "../assets/filler1.png";
 
 export default function InnovatorCard(props) {
     const { innovator, idx } = props;
@@ -14,14 +14,12 @@ export default function InnovatorCard(props) {
                 className={styles.container}
                 onClick={() => setOpenModal(true)}
             >
-                <div className={styles.filler}></div>
                 <img className={styles.image} src={innovator.image.url}></img>
-                <div className={styles.info}></div>
-                <div className={styles.filler2}>
-                <text className={styles.name}>{innovator.name}</text>
-                    <text className={styles.caption}>
+                <div className={styles.info}>
+                    <div className={styles.name}>{innovator.name}</div>
+                    <div className={styles.caption}>
                         {innovator.description.substring(0, 115) + "..."}
-                </text>
+                    </div>
                 </div>
             </div>
             <Modal large active={openModal} setActive={setOpenModal}>

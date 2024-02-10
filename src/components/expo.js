@@ -14,7 +14,7 @@ function Expo() {
     async function init() {
         const content = await getInnovators();
         const innovators = content.map(({ data }) => data);
-        setData(innovators);
+        setData(Array(5).fill(innovators).flat());
         console.log(data);
         setLoading(false);
     }
@@ -22,11 +22,10 @@ function Expo() {
     return (
         <div className="pageContainer">
             <div>
-                <text className={styles.header}>Innovation Expo</text>
-                <text className={styles.subheader}>The advertising industry has taken selfish giving and turned it into cause marketing</text>
-                <div className="grid">
+                <div className={styles.pageName}>Innovation Expo</div>
+                <div className={styles.grid}>
                     {loading ? (
-                        <text>Loading</text>
+                        <div>Loading</div>
                     ) : (
                         data?.map((item, id) => (
                             <InnovatorCard idx={id} innovator={item} />

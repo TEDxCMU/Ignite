@@ -2,7 +2,7 @@
   background: rgba(0, 0, 0, 0.6);
   grid-column: span 4;
   margin: 1em;
-  height: 425px;
+  height: 500px;
   position: relative;
   border-radius: 16px;
   border-color: white;
@@ -49,11 +49,12 @@
 }
 
 .number {
-  font-size: 40px;
+  font-size: 20px;
   position: absolute;
   bottom: 0;
   right: 0;
   margin: 20px;
+  font-family: "Pixer", sans-serif;
 }
 
 .modalImage {
