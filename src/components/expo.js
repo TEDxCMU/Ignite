@@ -14,8 +14,8 @@ function Expo() {
     async function init() {
         const content = await getInnovators();
         const innovators = content.map(({ data }) => data);
-        setData(Array(5).fill(innovators).flat());
-        console.log(data);
+        setData(innovators);
+        console.log(innovators);
         setLoading(false);
     }
 
@@ -28,7 +28,7 @@ function Expo() {
                         <div>Loading</div>
                     ) : (
                         data?.map((item, id) => (
-                            <InnovatorCard idx={id} innovator={item} />
+                            <InnovatorCard key={id} idx={id} innovator={item} />
                         ))
                     )}
                 </div>

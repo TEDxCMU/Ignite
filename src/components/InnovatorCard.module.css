@@ -1,8 +1,8 @@
 .container {
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0);
     grid-column: span 4;
     margin: 1em;
-    height: 425px;
+    height: 480px;
     position: relative;
     overflow: hidden;
     border-radius: 16px;
@@ -43,16 +43,20 @@
     hyphens: auto;
 }
 
+.imgContain {
+    object-fit: contain !important;
+}
+
 .image {
     width: 100%;
     object-fit: cover;
     border-bottom: 1px solid white;
-    height: 65%;
+    height: 60%;
 }
 
 .info {
     height: 30%;
-    padding: 35px 40px;
+    padding: 2rem;
 }
 
 .index {

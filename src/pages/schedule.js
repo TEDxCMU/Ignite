@@ -7,6 +7,13 @@ import Image from 'next/image';
 import { Layout } from 'components/layouts';
 import Background from 'components/background';
 
+function sortByTime(a, b) {
+    console.log(new Date(b.start_time) - new Date(a.start_time));
+    // Turn your strings into dates, and then subtract them
+    // to get a value that is either negative, positive, or zero.
+    return new Date(a.start_time) - new Date(b.start_time);
+}
+
 const firstCard = () =>{
     return(
         <div>
@@ -27,9 +34,19 @@ const firstCard = () =>{
 
 function ScheduleCard(props){
 
+    const startTime = new Date(props.startTime).toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+    });
+
+    const endTime = new Date(props.endTime).toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+    });
+
     return(
         <div>
-            <div className={styles.time}><p>{props.time}</p></div>
+            <div className={styles.time}><p>{`${startTime} - ${endTime}`}</p></div>
             <div className={styles.card}>
                 <div className={styles.cardLeft}>
                     <div className={styles.title}>
@@ -37,7 +54,7 @@ function ScheduleCard(props){
                     </div>
                     <div>
                         <div className={styles.intro}>
-                            <div className={styles.introLeft}><Image width={50} height={50} src={props.personImg} alt="speaker image"/></div>
+                            <div className={styles.introLeft}><Image width={50} height={50} style={{objectFit: "cover"}} src={props.personImg} alt="speaker image"/></div>
                             <div className={styles.introRight}> 
                                 <div><p className={styles.text}>{props.personName}</p></div>
                                 <div><p className={styles.text}>{props.personPos}</p></div>
@@ -49,7 +66,7 @@ function ScheduleCard(props){
                     </div>
                 </div>
                 <div className={styles.cardRight}>
-                    <Image width={200} height={200} src={props.icon} alt="event icon"/>
+                    <Image width={200} height={200} style={{objectFit: "cover"}} src={props.icon} alt="event icon"/>
                 </div>
             </div>
         </div> 
@@ -65,42 +82,27 @@ function Schedule() {
 
     async function init() {
         const content = await getSchedule();
-        setData(content);
+        const events = content.map(({ data }) => data).sort(sortByTime);
+        setData(events);
+        console.log(events);
     }
-
-    const cards = [
-        {time: "9:00AM - 9:30AM", title: "TRANSFORMING THE INCARCERATION SYSTEM", personImg: JS , personName: "JASON SPERLING", personPos: "Director of Facebook",
-        personDes: "The advertising industry has taken selfish giving and turned it into cause marketing, where companies promoting their socially conscious deeds has not only become accepted, but it has been expected by younger audiences. Jason Sperling examines his selfishness behind creating a video series for kids with cancer, but also how selfish is becoming the new selfless in his industry and in all of us.",
-        icon: I1}, 
-        {time: "9:00AM - 9:30AM", title: "TRANSFORMING THE INCARCERATION SYSTEM", personImg: JS , personName: "JASON SPERLING", personPos: "Director of Facebook",
-        personDes: "The advertising industry has taken selfish giving and turned it into cause marketing, where companies promoting their socially conscious deeds has not only become accepted, but it has been expected by younger audiences. Jason Sperling examines his selfishness behind creating a video series for kids with cancer, but also how selfish is becoming the new selfless in his industry and in all of us.", 
-        icon: I1}, 
-        {time: "9:00AM - 9:30AM", title: "TRANSFORMING THE INCARCERATION SYSTEM", personImg: JS , personName: "JASON SPERLING", personPos: "Director of Facebook",
-        personDes: "The advertising industry has taken selfish giving and turned it into cause marketing, where companies promoting their socially conscious deeds has not only become accepted, but it has been expected by younger audiences. Jason Sperling examines his selfishness behind creating a video series for kids with cancer, but also how selfish is becoming the new selfless in his industry and in all of us.", 
-        icon: I1}, 
-        {time: "9:00AM - 9:30AM", title: "TRANSFORMING THE INCARCERATION SYSTEM", personImg: JS , personName: "JASON SPERLING", personPos: "Director of Facebook",
-        personDes: "The advertising industry has taken selfish giving and turned it into cause marketing, where companies promoting their socially conscious deeds has not only become accepted, but it has been expected by younger audiences. Jason Sperling examines his selfishness behind creating a video series for kids with cancer, but also how selfish is becoming the new selfless in his industry and in all of us.", 
-        icon: I1}, 
-        {time: "9:00AM - 9:30AM", title: "TRANSFORMING THE INCARCERATION SYSTEM", personImg: JS , personName: "JASON SPERLING", personPos: "Director of Facebook",
-        personDes: "The advertising industry has taken selfish giving and turned it into cause marketing, where companies promoting their socially conscious deeds has not only become accepted, but it has been expected by younger audiences. Jason Sperling examines his selfishness behind creating a video series for kids with cancer, but also how selfish is becoming the new selfless in his industry and in all of us.", 
-        icon: I1}
-    ]
 
 
     return (
         <div className='pageContainer'>
             {firstCard()}
             <div className={styles.cardWrap}>
-                {cards.map((card, idx) => {
+                {data && data.map((card, idx) => {
                     return <ScheduleCard 
                         key = {idx}
-                        time = {card.time}
+                        startTime = {card.start_time}
+                        endTime = {card.end_time}
                         title = {card.title}
-                        personImg = {card.personImg}
-                        personName = {card.personName}
-                        personPos = {card.personPos}
-                        personDes = {card.personDes}
-                        icon = {card.icon}
+                        personDes = {card.description}
+                        personImg = {card.speaker.data.image.url}
+                        personName = {card.speaker.data.name}
+                        personPos = {card.speaker.data.title}
+                        icon = {card.image.url}
                     />
                     }            
                 )}

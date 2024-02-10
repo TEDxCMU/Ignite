@@ -1,9 +1,13 @@
-.container {
+/* .container {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: auto;
     row-gap: 10rem;
     margin: 10rem 0 10rem 0;
+} */
+
+.container {
+    background-color: var(--c-black);
 }
 
 .blurb1 {
@@ -57,5 +61,24 @@
 
 .bgImage2 {
     grid-column: 5 / span 1;
-    grid-row: 2 / span 1;
+    grid-row: 3 / span 1;
+}
+
+.bgImage3 {
+    grid-column: 6 / span 6;
+    grid-row: 3 / span 6;
+}
+
+.wrap{
+    display: flex; 
+    padding: 30rem 10rem 0 10rem; 
+    justify-content: space-between;
+}
+
+.text{
+    width: 20%
+}
+
+.video{
+    width: 70%; 
 }

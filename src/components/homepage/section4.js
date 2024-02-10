@@ -1,54 +1,100 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import style from "./section4.module.css";
+import { throttle } from "lodash";
+import { scroll, animate } from "motion";
 
-function Section4() {
+function Section4(props) {
+  const {videoLink, bool, speed} = props;
   const videoRef = useRef(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Play the video when the video element comes into view
-            videoRef.current.play();
-          } else {
-            videoRef.current.pause();
-          }
-        });
-      },
-      {
-        threshold: 0.5, // 50% of the video must be visible to trigger play
-        rootMargin: '0px', // Margin around the root
-      }
-    );
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const startPositionRef = useRef(0);
 
+  useEffect(() => {
+    const handleScroll = throttle(() => {
+      setScrollPosition(window.scrollY);
+    }, 50);
+
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.7,
+    };
+
+    const handleIntersection = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (startPositionRef.current === 0) {
+            startPositionRef.current = window.scrollY;
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, options);
     if (videoRef.current) {
       observer.observe(videoRef.current);
+      videoRef.current.play().then(() => videoRef.current.pause());
     }
+
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
       if (videoRef.current) {
         observer.unobserve(videoRef.current);
       }
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, [videoRef]);
+  }, []);
+
+  useEffect(() => {
+    const playbackRate = 0.1; // Adjust this value based on your desired speed
+    // console.log(scrollPosition, startPosition, speed, videoLink, videoRef.current.currentTime)
+    if (!videoRef.current) {
+      return;
+    }
+
+    if (scrollPosition < startPositionRef.current || startPositionRef.current === 0) {
+      videoRef.current.currentTime = 0;
+      return;
+    }
+    videoRef.current.currentTime = (scrollPosition-startPositionRef.current)/speed;
+  }, [scrollPosition]);
+
+  // useEffect(() => {
+  //   if (!videoRef.current) {
+  //     return;
+  //   }
+  //   const video = videoRef.current;
+
+  //   const scrollOptions = {
+  //     target: video,
+  //     offset: ["start end", "end start"]
+  //   }
+
+  //   scroll(({ y }) => {
+  //     video.currentTime = video.duration * y.progress
+  //   }, scrollOptions);
+  // });
 
   return (
+    <>
+    {bool && <div className={style.spacer}></div>}
     <div className={style.container}>
       <video
         ref={videoRef}
         width="100%"
         muted
-        loop
         playsInline
-        preload="none"
+        preload="auto"
         className={style.video}
       >
-        <source src="./placeholder-video.mp4" type="video/mp4" />
+        <source src={videoLink} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <div className={style.text}>It expands,<br></br>fluctuates,<br></br>grows,<br></br>transforms.</div>
+      {bool && <div className={style.text}>It expands,<br></br>fluctuates,<br></br>grows,<br></br>transforms.</div>}
     </div>
+    </>
   );
 }
 
