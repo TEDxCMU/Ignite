@@ -11,6 +11,7 @@
   --c-off-black: #020202;
   --c-green: #1DFFAD;
   --c-red: #FF3216;
+  --c-black-80: rgba(0, 0, 0, 0.8);
 
   --t-title--large: 96px;
   --t-title: 64px;
@@ -48,10 +49,14 @@ html {
   scroll-behavior: smooth;
 }
 
-body,
-#__next {
+body {
   box-sizing: border-box;
   background-color: var(--c-black);
+  color: var(--c-white);
+}
+
+#__next {
+  box-sizing: border-box;
   color: var(--c-white);
 }
 
@@ -80,6 +85,8 @@ a:hover {
 .pageContainer {
   padding: 0px var(--grid-margin);
   margin: 5rem auto;
+  z-index: 20;
+  position: relative;
 }
 
 @font-face {

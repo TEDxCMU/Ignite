@@ -4,6 +4,8 @@
     align-items: center;
     padding: 2rem;
     border-bottom: 0.1rem solid var(--c-white);
+    z-index: 50;
+    position: relative;
 }
 
 .logo {

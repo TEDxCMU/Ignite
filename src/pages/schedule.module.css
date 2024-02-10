@@ -6,7 +6,8 @@
     border: 1px solid white; 
     display: flex; 
     border-radius: 10px; 
-    margin-bottom: 8rem
+    margin-bottom: 8rem;
+    background-color: var(--c-black-80);
 }
 
 .cardLeft{

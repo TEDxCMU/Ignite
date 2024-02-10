@@ -5,11 +5,12 @@ import I1 from '../assets/2D/Icon1.png'
 import styles from './schedule.module.css'
 import Image from 'next/image';
 import { Layout } from 'components/layouts';
+import Background from 'components/background';
 
 const firstCard = () =>{
     return(
         <div>
-             <h1 className={styles.pageName}>Schedule</h1>
+            <h1 className={styles.pageName}>Schedule</h1>
             <div className={styles.time}><p>9:30-10:00AM</p></div>
             <div className={styles.card}>
                 <div className={styles.cardLeft}>
@@ -92,6 +93,7 @@ function Schedule() {
             <div className={styles.cardWrap}>
                 {cards.map((card, idx) => {
                     return <ScheduleCard 
+                        key = {idx}
                         time = {card.time}
                         title = {card.title}
                         personImg = {card.personImg}
