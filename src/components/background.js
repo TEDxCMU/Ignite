@@ -14,6 +14,7 @@ function Background(props) {
   const mushroomPieces = [mushroom1, mushroom2, mushroom3, mushroom4, mushroom5]
   const [mushrooms, setMushrooms] = useState([]);
   const [mushroomProperties, setMushroomProperties] = useState([]);
+  const [bgHeight, setBgHeight] = useState(0);
   const bgRef = useRef(null);
   const router = useRouter();
 
@@ -32,6 +33,34 @@ function Background(props) {
   }, []);
 
   useEffect(() => {
+    function handleResize() {
+      setBgHeight(document.documentElement.offsetHeight);
+    }
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    const observer = new MutationObserver(handleResize);
+    observer.observe(document.body, {
+      childList: true, // Observe direct children
+      subtree: true, // Observe all descendants
+      attributes: true, // Observe attributes changes
+      characterData: true, // Observe text changes
+    });
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      observer.disconnect();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (bgRef.current) {
+      const bgHeight = Math.max(document.documentElement.offsetHeight, document.documentElement.clientHeight);
+      bgRef.current.style.height = `${bgHeight}px`;
+    }
+  }, [bgHeight]);
+
+  useEffect(() => {
     const newMushroomProperties = mushrooms.map((mushroom) => {
       const x = Math.random() * window.innerWidth - 100;
       const y = document.documentElement.scrollHeight * Math.random() - 100;
@@ -42,11 +71,6 @@ function Background(props) {
     });
     
     setMushroomProperties(newMushroomProperties);
-
-    if (bgRef.current) {
-      const bgHeight = document.documentElement.offsetHeight;
-      bgRef.current.style.height = `${bgHeight}px`;
-    }
     
   }, [mushrooms]);
 
@@ -54,6 +78,7 @@ function Background(props) {
     const handleRouteChange = (url) => {
       const mushrooms = generateMushroomPieces(props.count || 5);
       setMushrooms(mushrooms);
+      setBgHeight(document.documentElement.offsetHeight);
     };
     router.events.on('routeChangeComplete', handleRouteChange);
     return () => {
