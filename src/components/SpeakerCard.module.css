@@ -1,0 +1,118 @@
+.container {
+  background: rgba(0, 0, 0, 0.6);
+  grid-column: span 4;
+  margin: 1em;
+  height: 500px;
+  position: relative;
+  border-radius: 16px;
+  border-color: white;
+  border-width: 1px;
+  border-style: solid;
+  cursor: pointer;
+  overflow: hidden;
+  margin-left: 0;
+}
+
+.name {
+  font-family: "Pixer", sans-serif;
+  color: var(--c-green);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.caption {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.title {
+  display: block;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  margin: 15px 0px;
+  color: var(--c-gray-4);
+}
+
+.image {
+  width: 100%;
+  height: 65%;
+  object-fit: cover;
+  border-bottom: 1px solid white;
+}
+
+.info {
+  height: 30%;
+  padding: 20px;
+}
+
+.number {
+  font-size: 20px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 20px;
+  font-family: "Pixer", sans-serif;
+}
+
+.modalImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.left {
+  padding: 7rem 6rem;
+  width: 450px;
+  border-right: 1px solid var(--c-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.right {
+  width: 400px;
+}
+
+.body {
+  font-size: var(--t-xsmall);
+  color: var(--c-off-white);
+}
+
+.header {
+  font-size: var(--t-large);
+  padding-bottom: 20px;
+  text-transform: capitalize;
+  font-family: Bugrino, Inter, "Helvetica Neue";
+}
+
+.icon {
+  margin-right: 1rem;
+}
+
+.modal {
+  padding: 0;
+}
+
+@media (max-width: 844px) {
+  .container {
+    grid-column: span 12;
+    height: auto;
+  }
+  .image {
+    height: 270px;
+  }
+  .modalImage,
+  .right,
+  .number {
+    display: none;
+  }
+  .left {
+    width: auto;
+  }
+  .body {
+    max-height: 45vh;
+    overflow: scroll;
+  }
+}

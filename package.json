@@ -16,6 +16,7 @@
         "@svgr/webpack": "^6.2.1",
         "glslify": "^7.1.1",
         "lodash": "^4.17.21",
+        "classnames": "^2.5.1",
         "motion": "^10.17.0",
         "next": "14.0.4",
         "react": "18.2.0",
