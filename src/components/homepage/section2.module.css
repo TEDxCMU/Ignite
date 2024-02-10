@@ -1,8 +1,6 @@
 .container {
     background-color: var(--c-green);
     height: 8rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
     display: flex;
     align-items: center;
     overflow: hidden;

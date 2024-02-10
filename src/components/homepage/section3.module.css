@@ -1,9 +1,13 @@
-.container {
+/* .container {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: auto;
     row-gap: 10rem;
     margin: 10rem 0 10rem 0;
+} */
+
+.container {
+    background-color: var(--c-black);
 }
 
 .blurb1 {
@@ -67,7 +71,7 @@
 
 .wrap{
     display: flex; 
-    margin: 30rem 10rem 0 10rem; 
+    padding: 30rem 10rem 0 10rem; 
     justify-content: space-between;
 }
 

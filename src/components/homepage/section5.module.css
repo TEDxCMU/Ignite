@@ -32,7 +32,6 @@
     grid-column: 3 / span 1;
     align-self: flex-end;
     position: absolute;
-    transform: translate(-100px, 50px);
     opacity: 0;
 }
 
@@ -40,7 +39,6 @@
     grid-column: 2 / span 1;
     align-self: flex-end;
     position: absolute;
-    transform: translate(-100px, 100px);
     opacity: 0;
 }
 
@@ -48,6 +46,5 @@
     grid-column: 1 / span 1;
     align-self: flex-end;
     position: absolute;
-    transform: translate(-250px, 200px);
     opacity: 0;
 }

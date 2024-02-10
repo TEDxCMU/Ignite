@@ -25,14 +25,14 @@ function Section5() {
     inView(`.${style.itIgnites} img`, ({ target }) => {
       animate(
       `.${style.m1}`, 
-      { opacity: [0, 1] },
+      { opacity: [0, 1], rotateZ: [-90, 0], x: [0, -100], y: [0, 50] },
       { duration: 1.0 }
     )});
 
     inView(`.${style.itIgnites} img`, ({ target }) => {
       animate(
       `.${style.m2}`, 
-      { opacity: [0, 1] },
+      { opacity: [0, 1], rotateZ: [-90, 0], x: [0, -100], y: [0, 100]},
       { duration: 1.0, 
         delay: 0.2 }
     )});
@@ -40,7 +40,7 @@ function Section5() {
     inView(`.${style.itIgnites} img`, ({ target }) => {
       animate(
       `.${style.m3}`, 
-      { opacity: [0, 1] },
+      { opacity: [0, 1], rotateZ: [-90, 0], x: [0, -250], y: [0, 200]},
       { duration: 1.0,
         delay: 0.4}
     )});

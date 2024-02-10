@@ -1,15 +1,9 @@
 import style from "./section3.module.css";
-import Image from "next/image";
-import mushroom1 from "../../assets/2D/Mushroom Piece1.png";
-import mushroom2 from "../../assets/2D/Mushroom Piece2.png";
-import mushroom3 from "../../assets/2D/Mushroom Piece3.png";
-import mushroom4 from "../../assets/2D/Mushroom Piece4.png";
-import mushroom5 from "../../assets/2D/Mushroom Piece5.png";
 import Section4 from "./section4";
 
 function Section3() {
   return (
-  <div>
+  <div className={style.container}>
       <div className={style.wrap}>
         <div className={style.video}>
           <Section4 videoLink={"./Mushroom.mp4"} bool={false} speed={300} />
