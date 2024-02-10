@@ -22,7 +22,7 @@ function Speakers() {
     const speakers = content.map(({ data }) => data);
     const speakersOrdered = speakers.sort(compareOrder);
 
-    setData(Array(5).fill(speakersOrdered).flat());
+    setData(speakersOrdered);
     setLoading(false);
   }
 

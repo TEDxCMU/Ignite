@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import style from "./section4.module.css";
 import { throttle } from "lodash";
+import { scroll, animate } from "motion";
 
 function Section4(props) {
   const {videoLink, bool, speed} = props;
@@ -60,6 +61,21 @@ function Section4(props) {
     videoRef.current.currentTime = (scrollPosition-startPositionRef.current)/speed;
   }, [scrollPosition]);
 
+  // useEffect(() => {
+  //   if (!videoRef.current) {
+  //     return;
+  //   }
+  //   const video = videoRef.current;
+
+  //   const scrollOptions = {
+  //     target: video,
+  //     offset: ["start end", "end start"]
+  //   }
+
+  //   scroll(({ y }) => {
+  //     video.currentTime = video.duration * y.progress
+  //   }, scrollOptions);
+  // });
 
   return (
     <>

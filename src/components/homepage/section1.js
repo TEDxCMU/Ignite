@@ -13,20 +13,20 @@ function Section1() {
   useEffect(() => {
     animate(
       `.${style.name}`, 
-      { opacity: [0, 0] },
-      { duration: 10.0 }
+      { opacity: [0, 1] },
+      { delay: 4.0, duration: 1.0 }
     );
 
     animate(
       `.${style.tedx}`, 
-      { opacity: [0, 0] },
-      { duration: 10.0 }
+      { opacity: [0, 1] },
+      { delay: 5.0, duration: 1.0 }
     );
 
     animate(
       `.${style.datetime}`, 
-      { opacity: [0, 0] },
-      { duration: 10.0 }
+      { opacity: [0, 1] },
+      { delay: 5.0, duration: 1.0 }
     );
   });
 
@@ -41,24 +41,6 @@ function Section1() {
   const onVideoEnded = () => {
     if (videoRef.current) {
       console.log(videoRef.current, "ended");
-
-      animate(
-        `.${style.name}`, 
-        { opacity: [0, 1] },
-        { duration: 1.0 }
-      );
-
-      animate(
-        `.${style.tedx}`, 
-        { opacity: [0, 1] },
-        { delay: 1.0, duration: 1.0 }
-      );
-
-      animate(
-        `.${style.datetime}`, 
-        { opacity: [0, 1] },
-        { delay: 1.0, duration: 1.0 }
-      );
     }
   };
 

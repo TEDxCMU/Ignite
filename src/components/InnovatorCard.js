@@ -14,7 +14,9 @@ export default function InnovatorCard(props) {
                 className={styles.container}
                 onClick={() => setOpenModal(true)}
             >
-                <img className={styles.image} src={innovator.image.url}></img>
+                <img className={
+                    cn(styles.image, innovator.name === "CarnegieGPT" && styles.imgContain)} 
+                    src={innovator.image.url}></img>
                 <div className={styles.info}>
                     <div className={styles.name}>{innovator.name}</div>
                     <div className={styles.caption}>
@@ -29,8 +31,6 @@ export default function InnovatorCard(props) {
                         className={cn(
                             "title",
                             styles.header,
-                            innovator.name.includes("NeuroMechatronics") &&
-                                styles.hyphen
                         )}
                     >
                         About {innovator.name}

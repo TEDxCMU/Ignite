@@ -65,7 +65,7 @@ function Background(props) {
       const x = Math.random() * window.innerWidth - 100;
       const y = document.documentElement.scrollHeight * Math.random() - 100;
       const rotation = Math.random() * 360; // Random rotation between 0 and 360 degrees
-      const scale = Math.random() * 1.0 + 1.5; // Random scale between 0.5 and 1
+      const scale = Math.random() * 1.5 + 0.5; // Random scale between 0.5 and 1
   
       return { x, y, rotation, scale };
     });
