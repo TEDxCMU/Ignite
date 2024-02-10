@@ -3,9 +3,11 @@ import fullMushroom from "../../assets/2D/Mushroom Full Piece.png";
 import Image from "next/image";
 import { use, useEffect, useRef, useState } from "react";
 import { animate } from "motion";
+import DistortionEffect from "./distortionEffect";
 
 function Section1() {
   const videoRef = useRef(null);
+  const [videoEnded, setVideoEnded] = useState(false);
 
   // init opacities
   useEffect(() => {
@@ -63,7 +65,10 @@ function Section1() {
   return (
     <div className={style.container}>
       <div className={style.bgImage}>
-        <video
+        { 
+        // videoEnded ? 
+        //   <DistortionEffect /> :
+          <video
           ref={videoRef}
           width="100%"
           muted
@@ -72,7 +77,7 @@ function Section1() {
         >
           <source src="./mushroom_animated.mp4" type="video/mp4" />
           Your browser does not support the video tag.
-        </video>
+        </video>}
       </div>
       <div className={style.name}>Ignite</div>
       <div className={style.tedx}>TEDxCMU 2024: Ignite</div>

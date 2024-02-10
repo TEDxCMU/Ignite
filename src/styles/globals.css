@@ -18,9 +18,14 @@ html {
     scroll-behavior: smooth;
 }
 
-body, #__next {
+body {
     box-sizing: border-box;
     background-color: var(--c-black);
+    color: var(--c-white);
+}
+
+#__next {
+    box-sizing: border-box;
     color: var(--c-white);
 }
 

@@ -34,6 +34,11 @@ const DistortionShaderMaterial = shaderMaterial(
     uniform float uRadius;
     uniform float uStrength;
     varying vec2 vUv;
+
+    vec4 sRGBToLinear( in vec4 value ) {
+      return vec4( mix( pow( value.rgb * 0.9478672986 + vec3( 0.0521327014 ), vec3( 2.4 ) ), value.rgb * 0.0773993808, vec3( lessThanEqual( value.rgb, vec3( 0.04045 ) ) ) ), value.a );
+    }
+
     void main() {
       vec2 newUV = (vUv - vec2(0.5)) + vec2(0.5);
       vec2 mousePos = uMouse / uResolution;
@@ -41,14 +46,11 @@ const DistortionShaderMaterial = shaderMaterial(
       float dist = distance(pos, mousePos);
       vec4 color = texture2D(uTexture,vUv);
       vec4 offset = texture2D(uDataTexture,vUv);
-      if (dist < uRadius) {
-        gl_FragColor = texture2D(uTexture,newUV - uStrength * offset.rg * (uRadius - dist)); // Blue color within the circle
-      } else {
-        // vec4 textureColor = texture2D(uTexture,newUV - 0.02*offset.rg);
-        gl_FragColor = color; // Original texture color outside the circle
-      }
 
+      // gl_FragColor = color;
       gl_FragColor = texture2D(uTexture,newUV - uStrength * offset.rg);
+
+      #include <colorspace_fragment> 
     }
   `
 );
@@ -58,7 +60,7 @@ extend({ DistortionShaderMaterial });
 // Create a component that uses the shader material
 const DistortionEffect = () => {
   const { size } = useThree();
-  const texture = useLoader(TextureLoader, './Mushroom Full Piece.png'); // Load the texture
+  const texture = useLoader(TextureLoader, './mushrooms.jpg'); // Load the texture
   const materialRef = useRef(null);
   const [dataTexture, setDataTexture] = useState(null);
   const gridSize = 32;
@@ -73,6 +75,7 @@ const DistortionEffect = () => {
       data[i + 3] = 255;
     }
     const texture = new THREE.DataTexture(data, gridSize, gridSize, THREE.RGBAFormat);
+    THREE.ColorManagement.enabled = true;
     texture.magFilter = texture.minFilter = THREE.NearestFilter;
     texture.needsUpdate = true;
     setDataTexture(texture);
@@ -119,7 +122,7 @@ const DistortionEffect = () => {
 
   return (
     <mesh>
-      <planeGeometry args={[10, 10]} />
+      <planeGeometry args={[10 * 3024/2150, 10]} />
       {dataTexture && <distortionShaderMaterial ref={materialRef} uTexture={texture} uDataTexture={dataTexture} />}
     </mesh>
   );
@@ -128,11 +131,9 @@ const DistortionEffect = () => {
 // Your Canvas component where you render the scene
 const Scene = () => {
   return (
-    <div className={styles.background}>
-      <Canvas>
-        <DistortionEffect />
-      </Canvas>
-    </div>
+    <Canvas>
+      <DistortionEffect />
+    </Canvas>
   )
 };
 

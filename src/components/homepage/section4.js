@@ -39,7 +39,9 @@ function Section4(props) {
     window.addEventListener('scroll', handleScroll);
 
     return () => {
-      observer.unobserve(videoRef.current);
+      if (videoRef.current) {
+        observer.unobserve(videoRef.current);
+      }
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
@@ -60,6 +62,8 @@ function Section4(props) {
 
 
   return (
+    <>
+    {bool && <div className={style.spacer}></div>}
     <div className={style.container}>
       <video
         ref={videoRef}
@@ -72,13 +76,9 @@ function Section4(props) {
         <source src={videoLink} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      {bool? (
-        <div className={style.text}>It expands,<br></br>fluctuates,<br></br>grows,<br></br>transforms.</div>
-      ):(
-        <></>
-      )
-      }
+      {bool && <div className={style.text}>It expands,<br></br>fluctuates,<br></br>grows,<br></br>transforms.</div>}
     </div>
+    </>
   );
 }
 
