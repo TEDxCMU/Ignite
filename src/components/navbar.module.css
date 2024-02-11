@@ -28,3 +28,13 @@
     border: 0.1rem solid var(--c-white);
     border-radius: 60px;
 }
+
+@media (max-width: 812px) {
+    .links {
+        display: none;
+    }
+
+    .btn {
+        display: none;
+    }
+}
