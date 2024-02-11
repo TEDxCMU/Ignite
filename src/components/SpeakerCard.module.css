@@ -104,7 +104,10 @@
     height: 270px;
   }
   .modalImage,
-  .right,
+    .right,
+    .number {
+        display: none;
+    }
   .left {
     width: auto;
   }
