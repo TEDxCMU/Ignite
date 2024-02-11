@@ -55,6 +55,7 @@ function Section1() {
           width="100%"
           muted
           playsInline
+          preload="auto"
           onEnded={onVideoEnded}
         >
           <source src="./mushroom_animated.mp4" type="video/mp4" />
