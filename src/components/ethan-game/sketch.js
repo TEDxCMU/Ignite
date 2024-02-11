@@ -178,6 +178,7 @@ const sketch = (p5) => {
     const setupPhysics = () => {
         engine = Matter.Engine.create();
         world = engine.world;
+        Matter.World.gravity= 1; 
 
         Matter.World.add(world, grounds);
     };
@@ -194,7 +195,7 @@ const sketch = (p5) => {
     //applying force on object when jumping
     const applyJumpForce = (player) => {
         // Apply an upward force to the circular body
-        const force = { x: 0, y: -0.017 }; // Adjust the force as needed
+        const force = { x: 0, y: -0.02 }; // Adjust the force as needed
         Matter.Body.applyForce(player.body, player.body.position, force);
       };
 
@@ -234,7 +235,7 @@ const sketch = (p5) => {
             {
                 gameOne = false; 
                 gameTwo = true; 
-                createBoardTwo(); 
+                createBoardThree(); 
             }
 
             else if (gameTwo)
@@ -448,12 +449,12 @@ const sketch = (p5) => {
 
                 else if (i == 5)
                 {
-                    grounds.push(createBoundary(p5.width/8, i * 20, p5.width/12, 20, "g"));
-                    grounds.push(createBoundary(p5.width/4, i * 20, p5.width/12, 20, "g"));
-                    grounds.push(createBoundary(3*p5.width/8, i * 20, p5.width/12, 20, "g"));
-                    grounds.push(createBoundary(p5.width/2, i * 20, p5.width/12, 20, "g"));
-                    grounds.push(createBoundary(5*p5.width/8, i * 20, p5.width/12, 20, "g"));
-                    grounds.push(createBoundary(3*p5.width/4, i * 20, p5.width/12, 20, "g"));
+                    grounds.push(createBoundary(p5.width/8, i * 20, p5.width/16, 20, "g"));
+                    grounds.push(createBoundary(p5.width/4, i * 20, p5.width/16, 20, "g"));
+                    grounds.push(createBoundary(3*p5.width/8, i * 20, p5.width/16, 20, "g"));
+                    grounds.push(createBoundary(p5.width/2, i * 20, p5.width/16, 20, "g"));
+                    grounds.push(createBoundary(5*p5.width/8, i * 20, p5.width/16, 20, "g"));
+                    grounds.push(createBoundary(3*p5.width/4, i * 20, p5.width/16, 20, "g"));
                 }
 
                 else if (i == 10)
@@ -500,21 +501,33 @@ const sketch = (p5) => {
         grounds.push(createBoundary(p5.width/2, 0, p5.width, 40));
         grounds.push(createBoundary(p5.width/2, p5.height, p5.width, 40));
 
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 40; i++) {
 
-            if (i%5 == 0)
-            {                   
-
-                if (i%2 == 0)
-                {
-                    grounds.push(createBoundary(p5.width/3, i * 20, p5.width, 20, "g"));
-                }
-
-                else
-                {
-                    grounds.push(createBoundary((2*p5.width)/3, i * 20, p5.width, 20, "g"));
-                }                  
+            if (i == 11)
+            {
+                levers.push(createBoundary(i * 20, 570, 10, 5, "l"));
             }
+
+            if (i == 16)
+            {
+                ramps.push(createBoundary(i * 20, 100, 140, 10, "r"));
+            }
+
+            if (i == 37)
+            {
+                doors.push(createBoundary(i* 20, 13*p5.height/14, 40, 60, "d")); 
+            }
+          
+
+            if (i==20)
+            {
+                grounds.push(createBoundary(i*20, p5.height/3, 20, p5.height, "g"));
+            }
+
+            else if (i == 12 || i == 28)
+            {
+                grounds.push(createBoundary(i*20, 2*(p5.height/3), 20, p5.height, "g"));
+            }                  
 
             updatePhysicsCirclePosition(player, 40, 560); 
         }
