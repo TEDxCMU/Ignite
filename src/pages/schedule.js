@@ -14,18 +14,27 @@ function sortByTime(a, b) {
     return new Date(a.start_time) - new Date(b.start_time);
 }
 
-const firstCard = () =>{
+function FirstCard(props){
+
+    const startTime = new Date(props.startTime).toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+    });
+
+    const endTime = new Date(props.endTime).toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+    });
+
     return(
         <div>
-            <h1 className={styles.pageName}>Schedule</h1>
-            <div className={styles.time}><p>9:30-10:00AM</p></div>
+            <div className={styles.time}><p>{`${startTime} - ${endTime}`}</p></div>
             <div className={styles.card}>
                 <div className={styles.cardLeft}>
                     <div className={styles.titleFirst}>
-                        <h1 className={styles.titleText}>INTRODUCTION</h1>
+                        <h1 className={styles.titleText}>{props.title}</h1>
                     </div>
                 </div>
-                <div className={styles.cardRight}/>
             </div>
         </div> 
     )
@@ -90,20 +99,32 @@ function Schedule() {
 
     return (
         <div className='pageContainer'>
-            {firstCard()}
             <div className={styles.cardWrap}>
                 {data && data.map((card, idx) => {
-                    return <ScheduleCard 
-                        key = {idx}
-                        startTime = {card.start_time}
-                        endTime = {card.end_time}
-                        title = {card.title}
-                        personDes = {card.description}
-                        personImg = {card.speaker.data.image.url}
-                        personName = {card.speaker.data.name}
-                        personPos = {card.speaker.data.title}
-                        icon = {card.image.url}
-                    />
+                    console.log(card); 
+                    if (card.description != null)
+                    {
+                        return <ScheduleCard 
+                            key = {idx}
+                            startTime = {card.start_time}
+                            endTime = {card.end_time}
+                            title = {card.title}
+                            personDes = {card.description}
+                            personImg = {card.speaker.data.image.url}
+                            personName = {card.speaker.data.name}
+                            personPos = {card.speaker.data.title}
+                            icon = {card.image.url}
+                        />
+                    }
+                    else
+                    {
+                        return <FirstCard
+                            key = {idx}
+                            title = {card.title}
+                            startTime = {card.start_time}
+                            endTime = {card.end_time}
+                        />
+                    }
                     }            
                 )}
             </div>
