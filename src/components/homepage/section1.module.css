@@ -31,6 +31,7 @@
     font-weight: 400;
     line-height: 1.29375rem;
     text-transform: uppercase;
+    text-align: left;
 }
 
 .datetime {
@@ -42,6 +43,7 @@
     font-weight: 400;
     line-height: 1.29375rem;
     text-transform: uppercase;
+    text-align: left;
 }
 
 .bgImage {
@@ -71,5 +73,23 @@
         grid-column: 6 / span 1;
         writing-mode: vertical-lr;
         text-orientation: upright;
+        letter-spacing: 0em;
+        font-size: 8em;
+    }
+
+    .bgImage video, .bgImage canvas {
+        object-position: 75% 50%;
+    }
+
+    .tedx{
+        grid-column: 7 / span 4;
+        grid-row: 6;
+        font-size: 1.5rem;
+    }
+
+    .datetime{
+        grid-column: 7 / span 4;
+        grid-row: 7;
+        font-size: 1.5rem;
     }
 }
