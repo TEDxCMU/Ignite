@@ -14,7 +14,7 @@ function sortByTime(a, b) {
     return new Date(a.start_time) - new Date(b.start_time);
 }
 
-function FirstCard(props){
+function DetailCard(props){
 
     const startTime = new Date(props.startTime).toLocaleTimeString("en-US", {
         hour: "numeric",
@@ -118,7 +118,7 @@ function Schedule() {
                     }
                     else
                     {
-                        return <FirstCard
+                        return <DetailCard
                             key = {idx}
                             title = {card.title}
                             startTime = {card.start_time}
