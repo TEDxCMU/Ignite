@@ -5,7 +5,6 @@
     align-items: center;
     height: 100vh; /* 7rem is the height of the navbar */
     padding: 2rem;
-    background-color: var(--c-white);
     position: relative;
 }
 
@@ -25,9 +24,16 @@
     position: absolute;
     top: 0;
     left: 0;
+    background-color: var(--c-black);
 }
 
 .spacer {
     height: 70vh;
     background-color: var(--c-black);
+}
+
+@media (max-width: 768px) {
+    .video {
+        object-fit: cover;
+    }
 }
