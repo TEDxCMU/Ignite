@@ -13,14 +13,18 @@
     height: 3rem;
 }
 
-.links {
-    text-transform: uppercase;
-}
 
 .link {
+    text-transform: uppercase;
     font-size: 1.5rem;
 }
 
 .link:not(:last-child) {
     margin-right: 1.5rem;
+}
+
+.btn {
+    padding: 8px 20px;
+    border: 0.1rem solid var(--c-white);
+    border-radius: 60px;
 }
