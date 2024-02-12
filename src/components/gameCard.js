@@ -8,20 +8,19 @@ export default function GameCard(props) {
     const { game } = props;
 
     return (
-        <>
+        <div className={styles.container}>
             <Link 
                 href={game.link.url}
-                className={styles.container}
             >
                 <Image
-                  className={styles.image}
-                  style={{ objectFit: "contain", padding: "7% 5%" }}
-                  src={filler}
+                    className={styles.image}
+                    style={{ objectFit: "contain", padding: "7% 5%" }}
+                    src={filler}
                 />
                 <div className={styles.info}>
                     <h1 className={styles.name}>{game.name}</h1>
                 </div>
             </Link>
-        </>
+        </div>
     );
 }

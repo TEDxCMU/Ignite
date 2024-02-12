@@ -27,32 +27,22 @@ function CountdownGames() {
 
     return (
         <div className="pageContainer">
-            <div className={styles.bg}>
-                <h2 className="title">Countdown</h2>
-
-                { loading ? <h1>Loading</h1> :
-                <div className={styles.outerContainer}>
-                    <div className={styles.innerContainer}>
-                      <div className={styles.countdownList}>
-                          {data.map((item, id) => (
-                                  <GameCard key={id} game={item} />
-                              ))}
-                      </div>
-                      <Leaderboard />
-                  </div>
-                  <div>
-                    <DayOfEvent />
-                  </div>
+            <div className={styles.pageName}>Countdown</div>
+            { loading ? <div>Loading</div> :
+                <div className={styles.container}>
+                    <div className={styles.countdownList}>
+                        {data.map((item, id) => (
+                                <GameCard key={id} game={item} />
+                            ))}
+                        <div className={styles.lastCol}>
+                            <DayOfEvent />
+                            <Leaderboard />
+                        </div>
+                    </div>
                 </div>
-                }
-
-            </div>
+            }
         </div>
     );
 }
-
-// Speakers.getLayout = function getLayout(page) {
-//     return <Layout>{page}</Layout>;
-// };
 
 export default CountdownGames;
