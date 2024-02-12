@@ -1,8 +1,8 @@
 import style from "./section5.module.css";
 import ignites from "../../assets/2D/It-Ignites.png";
-// import mushroom1 from "../../assets/2D/Mushroom Piece1.png";
-// import mushroom2 from "../../assets/2D/Mushroom Piece2.png";
-// import mushroom3 from "../../assets/2D/Mushroom Piece3.png";
+import mushroom1 from "../../assets/2D/Mushroom Piece1.png";
+import mushroom2 from "../../assets/2D/Mushroom Piece2.png";
+import mushroom3 from "../../assets/2D/Mushroom Piece3.png";
 import Image from "next/image";
 import { useEffect } from "react";
 import { animate, scroll, inView } from "motion";
@@ -50,9 +50,9 @@ function Section5() {
   return (
     <div>
       <div className={style.container}>
-        <Image className={style.m1} width={700} height={700} src={"/Mushroom Piece1.png"} alt="Mushroom1"/>
-        <Image className={style.m2} width={700} height={700} src={"/Mushroom Piece2.png"} alt="Mushroom2"/>
-        <Image className={style.m3} width={700} height={700} src={"/Mushroom Piece3.png"} alt="Mushroom3"/>
+        <Image className={style.m1} src={mushroom1} alt="Mushroom1"/>
+        <Image className={style.m2} src={mushroom2} alt="Mushroom2"/>
+        <Image className={style.m3} src={mushroom3} alt="Mushroom3"/>
         <div className={style.itIgnites}>
           <div>It</div>
           <Image src={ignites} alt="Ignites"/>
