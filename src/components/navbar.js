@@ -27,6 +27,9 @@ function NavBar() {
                 <Link href="/expo" className={styles.link}>
                     Innovation Expo
                 </Link>
+                <Link href="/countdown" className={styles.link}>
+                    Countdown
+                </Link>
                 <Link href="/about" className={styles.link}>
                     About
                 </Link>
@@ -48,5 +51,6 @@ function NavBar() {
         </nav>
     );
 }
+
 
 export default NavBar;

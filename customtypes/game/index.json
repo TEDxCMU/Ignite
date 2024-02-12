@@ -48,6 +48,13 @@
           "placeholder": "",
           "select": null
         }
+      },
+      "description": {
+        "type": "Text",
+        "config": {
+          "label": "description",
+          "placeholder": ""
+        }
       }
     }
   }
