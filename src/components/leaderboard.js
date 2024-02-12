@@ -27,7 +27,7 @@ export default function Leaderboard() {
             <Modal large active={openModal} setActive={setOpenModal}>
                 <div className={styles.container}>
                     <div className={styles.header}>Leaderboard</div>
-                    <button onClick={addLeaderboardScore}>Add Score</button>
+                    {/* <button onClick={addLeaderboardScore}>Add Score</button> */}
                     <table className={styles.table}>
                         <thead className={styles.tableHeader}>
                             <tr>

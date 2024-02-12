@@ -33,7 +33,7 @@ export default function GameCard(props) {
                     />
                     <div className={styles.info}>
                         <div className={styles.name}>{game.name}</div>
-                        <div className={styles.body}>a game about xyz made by abc :) wahhoohohoho</div>
+                        <div className={styles.body}>{game.description}</div>
                     </div>
                 </Link>
             </div>

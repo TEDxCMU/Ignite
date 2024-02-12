@@ -32,7 +32,7 @@ function CountdownGames() {
                     <div className={styles.countdownList}>
                         {data.map((item, id) => {
                             const currentDate = new Date();
-                            const targetDate = new Date("February 14, 2024");
+                            const targetDate = new Date("February 24, 2024");
                             targetDate.setDate(targetDate.getDate() - item.daysleft);
                             const differenceInDays = Math.floor((targetDate - currentDate) / (1000 * 60 * 60 * 24));
                             console.log("current date", currentDate)
