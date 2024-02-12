@@ -15,3 +15,29 @@
   opacity: 0.5;
 
 }
+
+.container {
+  width: 100%;
+  max-height: 500px;
+  padding: 7rem 6rem 0 6rem;
+  overflow-y: scroll;
+}
+
+.header {
+  font-size: var(--t-large);
+  padding-bottom: 20px;
+  text-transform: capitalize;
+  font-family: "Pixer", sans-serif;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  font-size: 1.7rem;
+}
+
+.tableHeader {
+  text-align: left;
+  border-bottom: 1px solid var(--c-border);
+}
