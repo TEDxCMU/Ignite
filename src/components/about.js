@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Twitter from '../assets/twitter.svg';
 import Linkedin from '../assets/linkedin.svg';
 import styles from 'components/about.module.css';
-import Mushroom from '../assets/2D/Mushroom Full Piece.png';
+import Mushroom from '../assets/2D/Mushroom-Full-Piece.png';
 
 function About() {
     return (

@@ -1,5 +1,5 @@
 import style from "./section1.module.css";
-import fullMushroom from "../../assets/2D/Mushroom Full Piece.png";
+import fullMushroom from "../../assets/2D/Mushroom-Full-Piece.png";
 import Image from "next/image";
 import { use, useEffect, useRef, useState } from "react";
 import { animate } from "motion";

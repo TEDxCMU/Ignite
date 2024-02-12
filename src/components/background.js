@@ -1,17 +1,17 @@
 import Image from 'next/image';
-// import mushroomfull from '../assets/2D/Mushroom Full Piece.png';
-// import mushroom1 from '../assets/2D/Mushroom Piece1.png';
-// import mushroom2 from '../assets/2D/Mushroom Piece2.png';
-// import mushroom3 from '../assets/2D/Mushroom Piece3.png';
-// import mushroom4 from '../assets/2D/Mushroom Piece4.png';
-// import mushroom5 from '../assets/2D/Mushroom Piece5.png';
+import mushroomfull from '../assets/2D/Mushroom-Full-Piece.png';
+import mushroom1 from '../assets/2D/Mushroom-Piece1.png';
+import mushroom2 from '../assets/2D/Mushroom-Piece2.png';
+import mushroom3 from '../assets/2D/Mushroom-Piece3.png';
+import mushroom4 from '../assets/2D/Mushroom-Piece4.png';
+import mushroom5 from '../assets/2D/Mushroom-Piece5.png';
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './background.module.css';
 import { useRouter } from 'next/router';
 
 
 function Background(props) {
-  const mushroomPieces = ['/Mushroom Piece1.png', '/Mushroom Piece2.png', '/Mushroom Piece3.png', '/Mushroom Piece4.png', '/Mushroom Piece5.png']
+  const mushroomPieces = [mushroom1, mushroom2, mushroom3, mushroom4, mushroom5];
   const [mushrooms, setMushrooms] = useState([]);
   const [mushroomProperties, setMushroomProperties] = useState([]);
   const [bgHeight, setBgHeight] = useState(0);
