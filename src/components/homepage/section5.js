@@ -1,8 +1,8 @@
 import style from "./section5.module.css";
 import ignites from "../../assets/2D/It-Ignites.png";
-import mushroom1 from "../../assets/2D/Mushroom Piece1.png";
-import mushroom2 from "../../assets/2D/Mushroom Piece2.png";
-import mushroom3 from "../../assets/2D/Mushroom Piece3.png";
+import mushroom1 from "../../assets/2D/Mushroom-Piece1.png";
+import mushroom2 from "../../assets/2D/Mushroom-Piece2.png";
+import mushroom3 from "../../assets/2D/Mushroom-Piece3.png";
 import Image from "next/image";
 import { useEffect } from "react";
 import { animate, scroll, inView } from "motion";
