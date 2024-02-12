@@ -1,0 +1,134 @@
+.container {
+    background: rgba(0, 0, 0);
+    grid-column: span 4;
+    margin: 1em;
+    height: 480px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    border-color: white;
+    border-width: 1px;
+    border-style: solid;
+    cursor: pointer;
+    margin-left: 0;
+}
+
+.name {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    margin: 0;
+    word-break: break-word;
+    font-family: "pixer", sans-serif;
+    color: var(--c-green);
+}
+
+.caption {
+    display: block;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--c-gray-4);
+    padding-top: 2vh;
+}
+
+.header {
+    font-size: var(--t-large);
+    padding-bottom: 20px;
+    text-transform: none;
+    font-family: "pixer", sans-serif;
+}
+
+.hyphen {
+    hyphens: auto;
+}
+
+.imgContain {
+    object-fit: contain !important;
+}
+
+.image {
+    width: 100%;
+    object-fit: cover;
+    border-bottom: 1px solid white;
+    height: 60%;
+}
+
+.info {
+    height: 30%;
+    padding: 2rem;
+}
+
+.index {
+    font-weight: 500;
+    font-size: 30px;
+    float: right;
+    position: absolute;
+    bottom: var(--space-6x);
+    right: var(--space-6x);
+}
+
+.modalImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.left {
+    padding: 7rem 6rem;
+    width: 55rem;
+    border-right: 1px solid var(--c-border);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.right {
+    width: 400px;
+}
+
+.body {
+    font-size: var(--t-xsmall);
+}
+
+.header {
+    font-size: var(--t-large);
+}
+
+.icon {
+    margin-right: 1rem;
+}
+
+.modal {
+    padding: 0;
+}
+
+@media (max-width: 844px) {
+    .container {
+        grid-column: span 12;
+        height: auto;
+    }
+    .index,
+    .modalImage {
+        display: none;
+    }
+    .caption,
+    .name {
+        margin: 0;
+    }
+    .caption {
+        padding: 10px 0;
+    }
+    .image {
+        height: 270px;
+      }
+    .info {
+        height: auto;
+    }
+    .header {
+        word-break: break-word;
+    }
+    .left {
+        width: 100%;
+    }
+}

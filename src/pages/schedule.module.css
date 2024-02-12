@@ -1,0 +1,114 @@
+.schedule{
+    padding: 4rem; 
+}
+
+.card{
+    border: 1px solid white; 
+    display: flex; 
+    border-radius: 10px; 
+    margin-bottom: 8rem;
+    background-color: var(--c-black-80);
+}
+
+.cardLeft{
+    width: 65%; 
+}
+
+.cardRight{
+    border-left: 1px solid white; 
+    width: 35%; 
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.time{
+    padding-bottom: 2rem; 
+    font-size: 16px; 
+    font-family: "Helvetica"
+}
+
+.title{
+    border-bottom: 1px solid white; 
+    padding: 3rem 2rem 2rem 2rem; 
+    color: #41FFA4; 
+    font-family: "pixer"; 
+}
+
+.titleFirst{
+    padding: 3rem 2rem 2rem 2rem; 
+    color: #41FFA4; 
+    font-family: "pixer"; 
+}
+
+.pageName{
+    color: white; 
+    font-family: "pixer", sans-serif;
+    text-transform: uppercase;
+    margin: 6rem 0 2rem 0 ;
+    font-size: 48px;  
+}
+
+p.text{
+    font-size: 16px; 
+    font-family: "Helvetica"
+}
+
+h1.titleText{
+    font-size: 36px; 
+}
+
+.intro{
+    display: flex; 
+    padding: 2rem; 
+    color: rgb(163, 163, 163); 
+}
+
+.introRight{
+    padding-left: 2rem; 
+    display: flex; 
+    flex-flow: column;
+    align-items: left;
+    justify-content: center;
+}
+
+.des{
+    display: flex; 
+    padding: 2rem; 
+    font-family: "Helvetica"
+}
+
+.personDes{
+    width: 60%; 
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .card{
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+    }
+    .cardLeft{
+        width: 100%; 
+    }
+    .cardRight{
+        border-left: none; 
+    }
+    .cardRight img {
+        margin-top: 2rem;
+        margin-bottom: 4rem;
+    }
+    .introRight{
+        padding-left: 0; 
+    }
+    .introLeft {
+        display: none;
+    }
+    .des {
+        padding-top: 0;
+    }
+    .personDes{
+        width: 100%; 
+    }
+}

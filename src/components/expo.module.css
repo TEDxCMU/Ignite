@@ -1,0 +1,45 @@
+.container {
+    /* margin: 5.0rem auto; */
+    min-width: 160rem;
+}
+
+.sidebarContainer {
+    margin: 3rem;
+}
+
+.pageName {
+    color: white; 
+    font-family: "pixer", sans-serif; 
+    text-transform: uppercase;
+    margin: 6rem 0 2rem 0 ;
+    font-size: 48px;  
+  }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    align-items: flex-start;
+    grid-column-gap: 10px;
+}
+
+.description {
+    margin-bottom: 3rem;
+    font-size: var(--t-small);
+    display: block;
+    opacity: 90%;
+    font-family: "Helvetica", sans-serif;
+}
+
+.background {
+    height: 80%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@media screen and (max-width: 720px) {
+    .container {
+        margin: 3rem;
+    }
+}
