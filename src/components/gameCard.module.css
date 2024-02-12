@@ -1,14 +1,19 @@
 .container {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0);
   height: 425px;
   border-radius: 6px;
   border-color: white;
   border-style: solid;
+  border-width: 1px;
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .name {
+  color: var(--c-green);
   font-family: "Pixer", sans-serif;
+  font-size: 28px;
 }
 
 .image {
@@ -16,6 +21,19 @@
   height: 65%;
   object-fit: cover;
   border-bottom: 1px solid white;
+}
+
+.day {
+  font-family: "pixer", sans-serif;
+  color: var(--c-green);
+  font-size: 20rem;
+  margin-top: 5rem;
+}
+
+.daysleft {
+  text-align: center;
+  font-family: "Helvetica Neue";
+  font-size: 2rem;
 }
 
 .info {

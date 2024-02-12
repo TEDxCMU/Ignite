@@ -5,10 +5,15 @@ import filler from "../assets/filler1.png";
 import Link from "next/link";
 
 export default function GameCard(props) {
-    const { game } = props;
+    const { game, locked } = props;
 
     return (
         <div className={styles.container}>
+            {locked ? 
+            <div>
+                <div className={styles.day}>{game.daysleft}</div>
+                <div className={styles.daysleft}>day{game.daysleft > 1 && "s"} left</div>
+            </div> :
             <Link 
                 href={game.link.url}
             >
@@ -18,9 +23,10 @@ export default function GameCard(props) {
                     src={filler}
                 />
                 <div className={styles.info}>
-                    <h1 className={styles.name}>{game.name}</h1>
+                    <div className={styles.name}>{game.name}</div>
                 </div>
             </Link>
+            }
         </div>
     );
 }
