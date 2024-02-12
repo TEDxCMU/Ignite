@@ -20,6 +20,7 @@
     letter-spacing: 12rem;
     text-transform: uppercase;
     justify-self: center;
+    z-index: 5;
 }
 
 .tedx{
@@ -32,6 +33,7 @@
     line-height: 1.29375rem;
     text-transform: uppercase;
     text-align: left;
+    z-index: 5;
 }
 
 .datetime {
@@ -44,6 +46,7 @@
     line-height: 1.29375rem;
     text-transform: uppercase;
     text-align: left;
+    z-index: 5;
 }
 
 .bgImage {
