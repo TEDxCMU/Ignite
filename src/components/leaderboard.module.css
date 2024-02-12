@@ -1,6 +1,11 @@
 .leaderboardButton {
-  padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--c-white);
   border-radius: 5px;
   flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-family: "Pixer", sans-serif;
+  background-color: var(--c-black);
 }

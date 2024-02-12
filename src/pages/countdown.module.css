@@ -18,10 +18,6 @@
   column-gap: 2rem;
 }
 
-.countDownList > * {
-  flex-grow: 1;
-}
-
 .lastCol {
   width: 100%;
   height: 425px;
@@ -29,4 +25,5 @@
   flex-direction: column;
   row-gap: 2rem;
   justify-content: space-between;
+  flex-grow: 0.5;
 }

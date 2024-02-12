@@ -5,7 +5,9 @@ export default function DayOfEvent(props) {
 
     return (
         <div className={styles.card}>
-          DAY OF EVENT
+          <div className={styles.dayof}>DAY OF EVENT</div>
+          <div className={styles.month}>February</div>
+          <div className={styles.date}>24</div>
         </div>
     );
 }
