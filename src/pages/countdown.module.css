@@ -24,6 +24,23 @@
   display: flex;
   flex-direction: column;
   row-gap: 2rem;
+  column-gap: 2rem;
   justify-content: space-between;
   flex-grow: 0.5;
+}
+
+@media (max-width: 844px) {
+  .countdownList {
+    flex-direction: column;
+    row-gap: 2rem;
+  }
+  .lastCol {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    row-gap: 2rem;
+    justify-content: space-between;
+    flex-grow: 0.5;
+  }
 }

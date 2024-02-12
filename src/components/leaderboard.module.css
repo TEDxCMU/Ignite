@@ -8,4 +8,10 @@
   font-size: 2rem;
   font-family: "Pixer", sans-serif;
   background-color: var(--c-black);
+  transition: opacity 0.3s;
+}
+
+.leaderboardButton:hover {
+  opacity: 0.5;
+
 }
