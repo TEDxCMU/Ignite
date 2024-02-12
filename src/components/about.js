@@ -3,6 +3,7 @@ import Twitter from '../assets/twitter.svg';
 import Linkedin from '../assets/linkedin.svg';
 import styles from 'components/about.module.css';
 import Mushroom from '../assets/2D/Mushroom-Full-Piece.png';
+import Image from 'next/image';
 
 function About() {
     return (
@@ -34,9 +35,13 @@ function About() {
                         </div>
                     </div>
                     <div className={styles.image}>
-                        <img
+                        <Image
                             src={Mushroom.src}
                             alt="TEDxCMU Momentum Graphic"
+                            styles={{objectFit: "contain"}}
+                            width={0}
+                            height={0}
+                            sizes="50vw"
                         />
                     </div>
                 </section>
