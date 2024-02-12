@@ -76,7 +76,7 @@
         grid-column: 6 / span 1;
         writing-mode: vertical-lr;
         text-orientation: upright;
-        letter-spacing: 0em;
+        letter-spacing: 0.5em;
         font-size: 8em;
     }
 
