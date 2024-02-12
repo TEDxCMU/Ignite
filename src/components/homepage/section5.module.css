@@ -48,3 +48,9 @@
     position: absolute;
     opacity: 0;
 }
+
+@media (max-width: 768px) {
+    .itIgnites img {
+        width: 40rem;
+    }
+}
