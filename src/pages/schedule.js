@@ -63,7 +63,7 @@ function ScheduleCard(props){
                     </div>
                     <div>
                         <div className={styles.intro}>
-                            <div className={styles.introLeft}><Image width={50} height={50} style={{objectFit: "cover"}} src={props.personImg} alt="speaker image"/></div>
+                            <div className={styles.introLeft}><Image width={50} height={50} style={{objectFit: "cover", borderRadius: "50px"}} src={props.personImg} alt="speaker image"/></div>
                             <div className={styles.introRight}> 
                                 <div><p className={styles.text}>{props.personName}</p></div>
                                 <div><p className={styles.text}>{props.personPos}</p></div>
