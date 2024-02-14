@@ -47,6 +47,11 @@
     object-fit: contain !important;
 }
 
+.imgContainModal {
+    object-fit: contain !important;
+    border-bottom: 0px !important;
+}
+
 .image {
     width: 100%;
     object-fit: cover;
@@ -85,6 +90,11 @@
 
 .right {
     width: 400px;
+}
+
+.rightContain {
+    display: flex !important;
+    align-items: center !important;
 }
 
 .body {

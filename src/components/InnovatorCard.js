@@ -37,9 +37,9 @@ export default function InnovatorCard(props) {
                     </h1>
                     <p className={styles.body}>{innovator.description}</p>
                 </div>
-                <div className={styles.right}>
+                <div className={cn(styles.right, innovator.name === "CarnegieGPT" && styles.rightContain)}>
                     <img
-                        className={styles.modalImage}
+                        className={cn(styles.modalImage, innovator.name === "CarnegieGPT" && styles.imgContainModal)}
                         src={innovator.image.url}
                         alt={innovator.name}
                     />

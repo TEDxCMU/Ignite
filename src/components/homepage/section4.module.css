@@ -28,12 +28,12 @@
 }
 
 .spacer {
-    height: 70vh;
+    height: 10rem;
     background-color: var(--c-black);
 }
 
 @media (max-width: 768px) {
     .video {
-        object-fit: cover;
+        object-fit: contain;
     }
 }

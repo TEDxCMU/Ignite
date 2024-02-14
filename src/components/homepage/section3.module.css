@@ -72,13 +72,13 @@
 
 .wrap{
     display: flex; 
-    padding: 30rem 10rem 0 0; 
+    padding: 20rem 10rem 0 0; 
     justify-content: space-between;
 }
 
 .wrap2 {
     display: flex; 
-    padding: 30rem 0 0 10rem; 
+    padding: 5rem 0 0 10rem; 
     justify-content: space-between;
 }
 
@@ -97,7 +97,7 @@
         padding: 10rem 0 0 0;
     }
     .wrap2 {
-        margin-top: 30rem;
+        margin-top: 10rem;
         flex-direction: column-reverse;
         row-gap: 10rem;
         padding: 0;
