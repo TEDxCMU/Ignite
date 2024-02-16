@@ -33,6 +33,13 @@ function NavBar() {
                 <Link href="/about" className={styles.link}>
                     About
                 </Link>
+                <Link
+                    target="_blank"
+                    className={cn(styles.link, styles.btn)}
+                    href="https://carnegiemellontickets.universitytickets.com/w/event.aspx?id=2451&p=1"
+                >
+                    Purchase Tickets
+                </Link>
             </div>
             <Link
                 target="_blank"

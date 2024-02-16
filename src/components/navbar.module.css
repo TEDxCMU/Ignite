@@ -37,4 +37,8 @@
     .btn {
         display: none;
     }
+
+    .links .btn {
+        display: block;
+    }
 }
