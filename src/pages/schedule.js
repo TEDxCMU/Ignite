@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'react';
 import { getSchedule } from 'utils/content'; 
-import JS from '../assets/headshots/JS.png'
-import I1 from '../assets/2D/Icon1.png'
 import styles from './schedule.module.css'
 import Image from 'next/image';
-import { Layout } from 'components/layouts';
-import Background from 'components/background';
+import cn from 'classnames';
 
 function sortByTime(a, b) {
     console.log(new Date(b.start_time) - new Date(a.start_time));
@@ -65,7 +62,7 @@ function ScheduleCard(props){
                         <div className={styles.intro}>
                             <div className={styles.introLeft}><Image width={50} height={50} style={{objectFit: "cover", borderRadius: "50px"}} src={props.personImg} alt="speaker image"/></div>
                             <div className={styles.introRight}> 
-                                <div><p className={styles.text}>{props.personName}</p></div>
+                                <div><p className={cn(styles.text, styles.personName)}>{props.personName}</p></div>
                                 <div><p className={styles.text}>{props.personPos}</p></div>
                             </div>
                         </div>
