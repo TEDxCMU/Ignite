@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Twitter from '../assets/twitter.svg';
 import Linkedin from '../assets/linkedin.svg';
 import styles from 'components/about.module.css';
-import Mushroom from '../assets/2D/Mushroom-Full-Piece.png';
+import Mushroom from '../assets/2D/About-Page-Image.png';
 import Image from 'next/image';
 
 function About() {
@@ -16,10 +16,10 @@ function About() {
                     <div className={styles.content}>
                         <div>
                             <p className={styles.text}>
-                                Momentum is what drives something still into an unstoppable force of motion, power, energy and most importantly, change. It fuels motivation, defies stagnancy and demands the spurring of action. People who are constantly in momentum are those that make change, those that pursue something more and those that see in the world the potential for something better.
+                                Where does it all begin? With an idea, starting from a single origin. This idea is not static; it expands, fluctuates, and undergoes a mesmerizing transformation. It is the moment it ignites.
                             </p>
                             <p className={styles.text}>
-                                Momentum pushes us to keep moving in spite of the challenges we face. TEDxCMU Momentum hopes to teach the power of striving for more and taking the step that allows momentum to thrive—the first one forward.
+                            Every idea has the power to not only challenge the established but to illuminate new pathways of thought. By sharing these stories, you become the key to unlocking a cascade of ideas in others. TEDxIgnite is more than a conference; it's a place where answers for the uncharted future are forged in the present. Tomorrow is up to those who prepare for it today. Are you ready to light up the world?
                             </p>
                         </div>
                         <div className={styles.links}>
