@@ -6,6 +6,7 @@ import mushroom3 from "../../assets/2D/Mushroom-Piece3.png";
 import Image from "next/image";
 import { useEffect } from "react";
 import { animate, scroll, inView } from "motion";
+import Section4 from "./section4";
 
 function Section5() {
 
@@ -22,28 +23,28 @@ function Section5() {
       { backgroundColor: ["#000000", "#FF3216"] }
     ), scrollOptions);
 
-    inView(`.${style.itIgnites} img`, ({ target }) => {
-      animate(
-      `.${style.m1}`, 
-      { opacity: [0, 1]}, //, rotateZ: [-90, 0], x: [0, -100], y: [0, 50] },
-      { duration: 1.0 }
-    )});
+    // inView(`.${style.itIgnites} img`, ({ target }) => {
+    //   animate(
+    //   `.${style.m1}`, 
+    //   { opacity: [0, 1]}, //, rotateZ: [-90, 0], x: [0, -100], y: [0, 50] },
+    //   { duration: 1.0 }
+    // )});
 
-    inView(`.${style.itIgnites} img`, ({ target }) => {
-      animate(
-      `.${style.m2}`, 
-      { opacity: [0, 1]}, //, rotateZ: [-90, 0], x: [0, -100], y: [0, 100]},
-      { duration: 1.0, 
-        delay: 0.2 }
-    )});
+    // inView(`.${style.itIgnites} img`, ({ target }) => {
+    //   animate(
+    //   `.${style.m2}`, 
+    //   { opacity: [0, 1]}, //, rotateZ: [-90, 0], x: [0, -100], y: [0, 100]},
+    //   { duration: 1.0, 
+    //     delay: 0.2 }
+    // )});
 
-    inView(`.${style.itIgnites} img`, ({ target }) => {
-      animate(
-      `.${style.m3}`, 
-      { opacity: [0, 1]}, //, rotateZ: [-90, 0], x: [0, -250], y: [0, 200]},
-      { duration: 1.0,
-        delay: 0.4}
-    )});
+    // inView(`.${style.itIgnites} img`, ({ target }) => {
+    //   animate(
+    //   `.${style.m3}`, 
+    //   { opacity: [0, 1]}, //, rotateZ: [-90, 0], x: [0, -250], y: [0, 200]},
+    //   { duration: 1.0,
+    //     delay: 0.4}
+    // )});
 
   }, []);
 
