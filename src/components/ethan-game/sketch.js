@@ -191,6 +191,8 @@ const sketch = (p5) => {
         Matter.Body.setPosition(ramp.body, {x: dx, y: dy });
     };
 
+    
+
 
     //applying force on object when jumping
     const applyJumpForce = (player) => {
@@ -230,7 +232,6 @@ const sketch = (p5) => {
           if (doorId.includes(bodyA.id) || doorId.includes(bodyB.id)) {
             console.log("door")
             console.log(gameTwo); 
-            // Perform actions when boxes collide
             if (gameOne)
             {
                 gameOne = false; 
@@ -503,16 +504,6 @@ const sketch = (p5) => {
 
         for (let i = 0; i < 40; i++) {
 
-            if (i == 11)
-            {
-                levers.push(createBoundary(i * 20, 570, 10, 5, "l"));
-            }
-
-            if (i == 16)
-            {
-                ramps.push(createBoundary(i * 20, 100, 140, 10, "r"));
-            }
-
             if (i == 37)
             {
                 doors.push(createBoundary(i* 20, 13*p5.height/14, 40, 60, "d")); 
@@ -521,16 +512,58 @@ const sketch = (p5) => {
 
             if (i==20)
             {
-                grounds.push(createBoundary(i*20, p5.height/3, 20, p5.height, "g"));
+                grounds.push(createBoundary(i*20, p5.height/3, 20, p5.height+10, "g"));
             }
 
             else if (i == 12 || i == 28)
             {
                 grounds.push(createBoundary(i*20, 2*(p5.height/3), 20, p5.height, "g"));
             }                  
-
-            updatePhysicsCirclePosition(player, 40, 560); 
         }
+
+        for (let i = 0; i < 30; i++) {
+            if (i==29)
+            {
+                waters.push(createBoundary(300, (i + 0.25) * 20, p5.width/10, 10, "w"));
+            }
+
+            if (i==26)
+            {
+                grounds.push(createBoundary(p5.width/4, i * 20, p5.width/12, 20, "g"));
+                grounds.push(createBoundary(530, (i-2) * 20, p5.width/12, 20, "g"));
+                levers.push(createBoundary(400, (i-0.5)*20, 5, 10, "l"));
+            }
+
+            if (i==25)
+            {
+                ramps.push(createBoundary(480, i*20, p5.width/6, 10, "r"));
+            }
+            
+            if (i==21)
+            {
+                grounds.push(createBoundary(p5.width/16, i * 20, p5.width/12, 20, "g"));
+                grounds.push(createBoundary(440, (i-2) * 20, p5.width/12, 20, "g"));
+            }
+
+            if (i==16)
+            {
+                grounds.push(createBoundary(p5.width/4, i * 20, p5.width/12, 20, "g"));
+                grounds.push(createBoundary(530, (i-2) * 20, p5.width/12, 20, "g"));
+            }
+
+            if (i==11)
+            {
+                grounds.push(createBoundary(p5.width/16, i * 20, p5.width/12, 20, "g"));
+                grounds.push(createBoundary(440, (i-2) * 20, p5.width/12, 20, "g"));
+            }
+
+            if (i==6)
+            {
+                grounds.push(createBoundary(p5.width/4, i * 20, p5.width/12, 20, "g"));
+                grounds.push(createBoundary(530, (i-1) * 20, p5.width/10, 20, "g"));
+            }           
+        }
+        updatePhysicsCirclePosition(player, 40, 560); 
     }
 
 
