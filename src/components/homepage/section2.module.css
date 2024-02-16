@@ -1,0 +1,22 @@
+.container {
+    background-color: var(--c-green);
+    height: 8rem;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.begin {
+    font-family: Pixer, sans-serif;
+    text-transform: uppercase;
+}
+
+.blurb {
+    color: var(--c-black);
+    font-family: Helvetica;
+    font-size: 4rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    margin-right: 50px;
+}

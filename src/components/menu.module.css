@@ -1,0 +1,21 @@
+.menu {
+  min-height: 100vh !important;
+  flex-direction: column;
+}
+
+.menuItems {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menuItems a {
+  margin-right: 0 !important;
+  margin-bottom: 3rem;
+}
+
+@media screen and (min-width: 812px) {
+  .container {
+      display: none;
+  }
+}

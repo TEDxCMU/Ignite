@@ -1,0 +1,53 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+    background-color: var(--c-black);
+    height: 250vh;
+    padding-bottom: 10rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.itIgnites {
+    grid-column: 9 / span 3;
+    color: var(--c-white);
+    font-family: Pixer;
+    font-size: 8rem;
+    line-height: 85%;
+    text-transform: uppercase;
+    justify-self: end;
+    align-self: flex-end;
+    position: relative;
+    z-index: 10;
+}
+
+.itIgnites img {
+    width: 50rem;
+    height: auto;
+    object-fit: contain;
+}
+
+.m1 {
+    grid-column: 3 / span 1;
+    align-self: flex-end;
+    position: absolute;
+}
+
+.m2 {
+    grid-column: 2 / span 1;
+    align-self: flex-end;
+    position: absolute;
+}
+
+.m3 {
+    grid-column: 1 / span 1;
+    align-self: flex-end;
+    position: absolute;
+}
+
+@media (max-width: 768px) {
+    .itIgnites img {
+        width: 40rem;
+    }
+}
