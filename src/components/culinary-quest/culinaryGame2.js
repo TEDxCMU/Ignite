@@ -154,12 +154,22 @@ const CulinaryGame = (props) => {
     const newSprites = [];
     for (let i = start; i < start + 8; i++) {
       if (i >= playerRecipes.length) break;
+      const container = new PIXI.Container();
+      container.sortableChildren = true;
+      const menu = createPixiIngredient("/ui_tile.jpeg", {
+        index: i - start,
+        scale: 2,
+        zIndex: 0,
+      });
+      container.addChild(menu);
       const ingredient = playerRecipes[i];
       const sprite = createPixiIngredient(ingredient.image, {
         index: i - start,
+        zIndex: 1,
       });
       sprite.on("pointerdown", () => onClick(ingredient));
-      app.stage.addChild(sprite);
+      container.addChild(sprite);
+      app.stage.addChild(container);
       newSprites.push(sprite);
     }
     setMenuSprites(newSprites);
@@ -173,6 +183,7 @@ const CulinaryGame = (props) => {
     sprite.anchor.set(0.5, 0.5);
     sprite.x = options.x || 50;
     sprite.y = options.y || 50 + (options.index || 0) * 60;
+    sprite.zIndex = options.zIndex || 1;
     sprite.eventMode = "static";
     sprite.cursor = "pointer";
     return sprite;
