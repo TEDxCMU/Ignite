@@ -123,6 +123,8 @@ const CulinaryGame = () => {
       height: 600,
       backgroundColor: 0x1099bb,
     });
+    PIXI.BaseTexture.SCALE_MODE.DEFAULT = PIXI.BaseTexture.SCALE_MODE.NEAREST;
+
     // appRef.current = app;
     document.body.appendChild(app.view);
     // set up matterjs world

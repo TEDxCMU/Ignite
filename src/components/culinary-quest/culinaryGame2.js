@@ -93,7 +93,7 @@ const CulinaryGame = (props) => {
   const createPixiIngredient = (image, options = {}) => {
     const texture = PIXI.Texture.from(image);
     const sprite = new PIXI.Sprite(texture);
-    sprite.scale.set(0.1);
+    sprite.scale.set(options.scale || 1.5);
     sprite.anchor.set(0.5, 0.5);
     sprite.x = options.x || 50;
     sprite.y = options.y || 50 + (options.index || 0) * 60;
@@ -122,7 +122,7 @@ const CulinaryGame = (props) => {
       return;
     }
 
-    const sprite = createPixiIngredient(image, { x, y });
+    const sprite = createPixiIngredient(image, { x, y, scale: 3 });
     const body = Matter.Bodies.rectangle(x, y, sprite.width, sprite.height, {
       restitution: 0.8,
       label: `ingredient-${name}`,
@@ -249,7 +249,7 @@ const CulinaryGame = (props) => {
 
     const a = PIXI.Texture.from(aImage);
     const spriteA = new PIXI.Sprite(a);
-    spriteA.scale.set(0.15);
+    spriteA.scale.set(1.5);
     spriteA.anchor.set(0.5, 0.5);
     spriteA.x = 270;
     spriteA.y = 320;
@@ -259,7 +259,7 @@ const CulinaryGame = (props) => {
 
     const b = PIXI.Texture.from(bImage);
     const spriteB = new PIXI.Sprite(b);
-    spriteB.scale.set(0.15);
+    spriteB.scale.set(1.5);
     spriteB.anchor.set(0.5, 0.5);
     spriteB.x = 430;
     spriteB.y = 320;
@@ -269,7 +269,7 @@ const CulinaryGame = (props) => {
 
     const c = PIXI.Texture.from(cImage);
     const spriteC = new PIXI.Sprite(c);
-    spriteC.scale.set(0.15);
+    spriteC.scale.set(1.5);
     spriteC.anchor.set(0.5, 0.5);
     spriteC.x = 570;
     spriteC.y = 320;
