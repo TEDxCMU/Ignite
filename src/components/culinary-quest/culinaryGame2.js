@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import * as PIXI from "pixi.js";
-import Matter from "matter-js";
+import Matter, { use } from "matter-js";
 import { startingRecipes } from "./startingRecipes";
 import { allRecipes } from "./allRecipes";
 
@@ -11,6 +11,7 @@ const CulinaryGame = (props) => {
   const [score, setScore] = useState(0);
   const [playerRecipes, setPlayerRecipes] = useState([...startingRecipes]);
   const [world, setWorld] = useState(null);
+  const [text, setText] = useState();
   const recipeMap = new Map();
 
   const prevRecipesRef = useRef([...startingRecipes]);
@@ -21,6 +22,77 @@ const CulinaryGame = (props) => {
     const key = `${currRecipe.element1}-${currRecipe.element2}`;
     recipeMap.set(key, currRecipe);
   }
+
+  const createPixiSprite = (container, url, options = {}) => {
+    const texture = PIXI.Texture.from(url);
+    const sprite = new PIXI.Sprite(texture);
+    sprite.scale.set(options.scale || 1.25);
+    sprite.anchor.set(0.5, 0.5);
+    sprite.x = options.x || 450;
+    sprite.y = options.y || 350;
+    sprite.zIndex = 2;
+    container.addChild(sprite);
+  };
+
+  const createPixiGif = (container, url) => {
+    PIXI.Assets.load("/spritesheet.json").then((spritesheet) => {
+      const textures = [];
+      let i;
+
+      for (i = 0; i < 8; i++) {
+        const texture = PIXI.Texture.from(`frame_${i + 1}_delay-0.08s.png`);
+
+        textures.push(texture);
+      }
+      // Create the AnimatedSprite
+      const animatedSprite1 = new PIXI.AnimatedSprite(textures);
+      animatedSprite1.anchor.set(0.5, 0.5);
+      animatedSprite1.height = 125;
+      animatedSprite1.width = 100;
+
+      // Set the animation speed and play it
+      animatedSprite1.animationSpeed = 0.1;
+      animatedSprite1.play();
+      animatedSprite1.x = 450;
+      animatedSprite1.y = 480;
+      animatedSprite1.zIndex = 1;
+
+      // Add the AnimatedSprite to the stage
+      container.addChild(animatedSprite1);
+
+      // Create the AnimatedSprite
+      const animatedSprite2 = new PIXI.AnimatedSprite(textures);
+      animatedSprite2.anchor.set(0.5, 0.5);
+      animatedSprite2.height = 125;
+      animatedSprite2.width = 100;
+
+      // Set the animation speed and play it
+      animatedSprite2.animationSpeed = 0.1;
+      animatedSprite2.play();
+      animatedSprite2.x = 375;
+      animatedSprite2.y = 480;
+      animatedSprite2.zIndex = 0;
+
+      // Add the AnimatedSprite to the stage
+      container.addChild(animatedSprite2);
+
+      // Create the AnimatedSprite
+      const animatedSprite3 = new PIXI.AnimatedSprite(textures);
+      animatedSprite3.anchor.set(0.5, 0.5);
+      animatedSprite3.height = 125;
+      animatedSprite3.width = 100;
+
+      // Set the animation speed and play it
+      animatedSprite3.animationSpeed = 0.1;
+      animatedSprite3.play();
+      animatedSprite3.x = 525;
+      animatedSprite3.y = 480;
+      animatedSprite3.zIndex = 0;
+
+      // Add the AnimatedSprite to the stage
+      container.addChild(animatedSprite3);
+    });
+  };
 
   const createMenuButtons = () => {
     if (!app) {
@@ -299,7 +371,7 @@ const CulinaryGame = (props) => {
       backgroundColor: 0x1099bb,
     });
     document.body.appendChild(pixiApp.view);
-    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+    PIXI.BaseTexture.defaultOptions.scaleMode = PIXI.SCALE_MODES.NEAREST;
 
     const renderOptions = {
       // Other options...
@@ -316,10 +388,18 @@ const CulinaryGame = (props) => {
     Matter.Render.run(render);
     const matterWorld = engine.world;
 
-    const ground = Matter.Bodies.rectangle(400, 550, 810, 40, {
+    const bottomPot = Matter.Bodies.rectangle(450, 450, 350, 40, {
       isStatic: true,
     });
-    Matter.Composite.add(matterWorld, ground);
+    Matter.Composite.add(matterWorld, bottomPot);
+    const leftPot = Matter.Bodies.rectangle(300, 400, 40, 150, {
+      isStatic: true,
+    });
+    Matter.Composite.add(matterWorld, leftPot);
+    const rightPot = Matter.Bodies.rectangle(600, 400, 40, 150, {
+      isStatic: true,
+    });
+    Matter.Composite.add(matterWorld, rightPot);
 
     // mouse constraint to add mouse interaction
     const mouse = Matter.Mouse.create(pixiApp.view);
@@ -336,6 +416,23 @@ const CulinaryGame = (props) => {
 
     setApp(pixiApp);
     setWorld(matterWorld);
+    const bgContainer = new PIXI.Container();
+    bgContainer.sortableChildren = true;
+    pixiApp.stage.addChild(bgContainer);
+
+    createPixiGif(bgContainer, "/flame.gif");
+    createPixiSprite(bgContainer, "/cookingPot.png");
+
+    // const scoreText = new PIXI.Text(score, {
+    //   fontFamily: "Pixelify Sans",
+    //   fontSize: 20,
+    //   fill: "white",
+    //   align: "center",
+    // });
+    // scoreText.x = 700;
+    // scoreText.y = 40;
+    // pixiApp.stage.addChild(scoreText);
+    // setText(scoreText);
 
     // check for ingredient collisions
     Matter.Events.on(engine, "collisionStart", function (event) {
@@ -374,6 +471,19 @@ const CulinaryGame = (props) => {
             setPlayerRecipes((prevRecipes) => [...prevRecipes, recipeVal]);
             props.setSubmittedScore((prevScore) => prevScore + 1);
             prevRecipesRef.current = [...prevRecipesRef.current, recipeVal];
+            // update score text
+            // pixiApp.stage.removeChild(text);
+            // const newText = new PIXI.Text(score, {
+            //   fontFamily: "Pixelify Sans",
+            //   fontSize: 24,
+            //   fill: 0xff1010,
+            //   align: "center",
+            // });
+            // console.log(newText);
+            // newText.x = 50;
+            // newText.y = 220;
+            // pixiApp.stage.addChild(newText);
+            // setText(newText);
             // show a popup to indicate the new recipe was made
             const ingredientAName = parseIngredientName(objALabel);
             const ingredientBName = parseIngredientName(objBLabel);

@@ -25,6 +25,8 @@
         "pixi.js": "^7.3.3",
         "react": "18.2.0",
         "react-dom": "18.2.0",
-        "three": "^0.160.0"
+        "react-font-loader": "^2.0.0",
+        "three": "^0.160.0",
+        "webfontloader": "^1.6.28"
     }
 }
