@@ -299,6 +299,7 @@ const CulinaryGame = (props) => {
       backgroundColor: 0x1099bb,
     });
     document.body.appendChild(pixiApp.view);
+    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
     const renderOptions = {
       // Other options...
