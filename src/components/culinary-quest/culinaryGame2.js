@@ -30,7 +30,7 @@ const CulinaryGame = (props) => {
     sprite.anchor.set(0.5, 0.5);
     sprite.x = options.x || 450;
     sprite.y = options.y || 350;
-    sprite.zIndex = 2;
+    sprite.zIndex = options.zIndex || 0;
     container.addChild(sprite);
   };
 
@@ -55,7 +55,7 @@ const CulinaryGame = (props) => {
       animatedSprite1.play();
       animatedSprite1.x = 450;
       animatedSprite1.y = 480;
-      animatedSprite1.zIndex = 1;
+      animatedSprite1.zIndex = 2;
 
       // Add the AnimatedSprite to the stage
       container.addChild(animatedSprite1);
@@ -71,7 +71,7 @@ const CulinaryGame = (props) => {
       animatedSprite2.play();
       animatedSprite2.x = 375;
       animatedSprite2.y = 480;
-      animatedSprite2.zIndex = 0;
+      animatedSprite2.zIndex = 1;
 
       // Add the AnimatedSprite to the stage
       container.addChild(animatedSprite2);
@@ -87,7 +87,7 @@ const CulinaryGame = (props) => {
       animatedSprite3.play();
       animatedSprite3.x = 525;
       animatedSprite3.y = 480;
-      animatedSprite3.zIndex = 0;
+      animatedSprite3.zIndex = 1;
 
       // Add the AnimatedSprite to the stage
       container.addChild(animatedSprite3);
@@ -100,10 +100,11 @@ const CulinaryGame = (props) => {
     }
 
     // make the arrows to switch pages
-    const texture = PIXI.Texture.from("/eee.png");
-    const next = new PIXI.Sprite(texture);
-    next.scale.set(0.3);
+    const rightTexture = PIXI.Texture.from("/rightArrow.jpeg");
+    const next = new PIXI.Sprite(rightTexture);
+    next.scale.set(1.5);
     next.anchor.set(0.5, 0.5);
+    next.angle = 180;
     next.x = 30;
     next.y = 50 + 8 * 60;
     next.eventMode = "static";
@@ -115,8 +116,10 @@ const CulinaryGame = (props) => {
     });
     app.stage.addChild(next);
 
-    const prev = new PIXI.Sprite(texture);
-    prev.scale.set(0.3);
+    const leftTexture = PIXI.Texture.from("/leftArrow.jpeg");
+    const prev = new PIXI.Sprite(rightTexture);
+    prev.scale.set(1.5);
+
     prev.anchor.set(0.5, 0.5);
     prev.x = 70;
     prev.y = 50 + 8 * 60;
@@ -130,6 +133,7 @@ const CulinaryGame = (props) => {
     app.stage.addChild(prev);
 
     // make submit score button
+    const texture = PIXI.Texture.from("/eee.png");
     const submit = new PIXI.Sprite(texture);
     submit.scale.set(0.4);
     submit.anchor.set(0.5, 0.5);
@@ -420,8 +424,9 @@ const CulinaryGame = (props) => {
     bgContainer.sortableChildren = true;
     pixiApp.stage.addChild(bgContainer);
 
+    createPixiSprite(bgContainer, "/background.png", { scale: 0.5, zIndex: 0 });
     createPixiGif(bgContainer, "/flame.gif");
-    createPixiSprite(bgContainer, "/cookingPot.png");
+    createPixiSprite(bgContainer, "/cookingPot.png", { zIndex: 3 });
 
     // const scoreText = new PIXI.Text(score, {
     //   fontFamily: "Pixelify Sans",

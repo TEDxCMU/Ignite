@@ -11,6 +11,7 @@ function GameCulinaryQuest() {
     <>
       {gameOver && <GameOver score={submittedScore} />}
       <p>Try to make as many recipes as possible!</p>
+      <p>Current Score: {submittedScore}</p>
       <FontLoader
         fontProvider="google"
         fontFamilies={["Pixelify Sans"]}
