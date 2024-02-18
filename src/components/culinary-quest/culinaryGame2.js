@@ -236,7 +236,7 @@ const CulinaryGame = (props) => {
     image,
     name
   ) => {
-    const sprite = createPixiIngredient(image, { x, y });
+    const sprite = createPixiIngredient(image, { x, y, scale: 3 });
     const body = Matter.Bodies.rectangle(x, y, sprite.width, sprite.height, {
       restitution: 0.8,
       label: `ingredient-${name}`,
