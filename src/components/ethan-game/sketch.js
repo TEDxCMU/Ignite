@@ -1,4 +1,5 @@
 import * as Matter from 'matter-js';
+import { GameOver } from 'components/gameover';
 
 const sketch = (p5) => {
 
@@ -21,6 +22,9 @@ const sketch = (p5) => {
     var engine = Matter.Engine.create();
     let world; 
 
+    let time = 0; 
+    let timeSwitch = true; 
+
     //player
     let player;
     let bear; 
@@ -28,12 +32,23 @@ const sketch = (p5) => {
     let sideBearR;  
     let boulderImg; 
     let doorImg; 
+    let water; 
+    let lava; 
+    let ramp; 
+    let ground; 
+    let plat; 
+    let stepImg; 
+    let rgImg; 
 
     //player position
     let pos = [40,560]; 
 
     //board
+    let borders = []; 
     let grounds = []; 
+    let platforms = []; 
+    let steps = []; 
+    let rGrounds=[]; 
 
     //obstacles
     let waters = []; 
@@ -58,7 +73,9 @@ const sketch = (p5) => {
     let gameTwo = false;
     let gameThree = false;  
 
+    let score = 0; 
     let endGame = false; 
+
 
     //updating position of player
     const updatePhysicsCirclePosition = (physicsCircle, x, y) => {
@@ -113,20 +130,59 @@ const sketch = (p5) => {
   
         if (type === "g")
         {
+            p5.noFill()
+            p5.noStroke(); // No outline
+            p5.imageMode(p5.CENTER);
+            p5.image(ground, pos.x, pos.y, boundary.w, boundary.height);
+        }
+
+        if (type==="bord")
+        {
             p5.fill(128, 128, 51);
         }
 
         if (type === "w")
         {
-            p5.fill(0, 0, 255);
+            p5.noFill()
+            p5.noStroke(); // No outline
+            p5.imageMode(p5.CENTER);
+            p5.image(water, pos.x, pos.y, boundary.w, boundary.height);
         }
 
         if (type === "f")
         {
-            p5.fill(255, 0, 0); 
+            p5.noFill()
+            p5.noStroke(); // No outline
+            p5.imageMode(p5.CENTER);
+            p5.image(lava, pos.x, pos.y, boundary.w, boundary.height);
         }
 
-        if (type === "r" || type ==="l")
+        if (type === "r")
+        {
+            p5.noFill()
+            p5.noStroke(); // No outline
+            p5.imageMode(p5.CENTER);
+            p5.image(ramp, pos.x, pos.y, boundary.w, boundary.height);
+        }
+
+
+        if (type === "rg")
+        {
+            p5.noFill()
+            p5.noStroke(); // No outline
+            p5.imageMode(p5.CENTER);
+            p5.image(rgImg, pos.x, pos.y, boundary.w, boundary.height);
+        }
+        
+        if (type === "s")
+        {
+            p5.noFill()
+            p5.noStroke(); // No outline
+            p5.imageMode(p5.CENTER);
+            p5.image(stepImg, pos.x, pos.y, boundary.w, boundary.height);
+        }
+        
+        if (type ==="l")
         {
             p5.fill(249, 166, 2); 
         }
@@ -171,6 +227,7 @@ const sketch = (p5) => {
         // Draw the image within the rectangular boundary
         p5.imageMode(p5.CENTER);
         p5.image(img, rectangle.body.position.x, rectangle.body.position.y, rectangle.width, rectangle.height);
+        
     }
 
 
@@ -236,7 +293,7 @@ const sketch = (p5) => {
             {
                 gameOne = false; 
                 gameTwo = true; 
-                createBoardThree(); 
+                createBoardTwo(); 
             }
 
             else if (gameTwo)
@@ -244,6 +301,11 @@ const sketch = (p5) => {
                 gameTwo = false; 
                 gameThree = true; 
                 createBoardThree(); 
+            }
+            else if (gameThree)
+            {
+                gameThree = false; 
+                endGame = true; 
             }
           }
         }
@@ -281,16 +343,24 @@ const sketch = (p5) => {
         for (let w of waters){
             Matter.Composite.remove(engine.world, w.body);
         }
+
+        for (let s of steps){
+            Matter.Composite.remove(engine.world, s.body);
+        }
+
+        for (let p of platforms){
+            Matter.Composite.remove(engine.world, p.body);
+        }
     }
 
 
     //creating the first board
     const createBoardOne = () => {
 
-        grounds.push(createBoundary(0, p5.height / 2, 40, p5.height));
-        grounds.push(createBoundary(p5.width, p5.height / 2, 40, p5.height));
-        grounds.push(createBoundary(p5.width/2, 0, p5.width, 40));
-        grounds.push(createBoundary(p5.width/2, p5.height, p5.width, 40));
+        borders.push(createBoundary(0, p5.height / 2, 40, p5.height));
+        borders.push(createBoundary(p5.width, p5.height / 2, 40, p5.height));
+        borders.push(createBoundary(p5.width/2, 0, p5.width, 40));
+        borders.push(createBoundary(p5.width/2, p5.height, p5.width, 40));
 
         for (let i = 0; i < 30; i++) {
 
@@ -301,7 +371,7 @@ const sketch = (p5) => {
 
             if (i == 10)
             {
-                ramps.push(createBoundary(p5.width/10, i * 20, 120, 10, "r"));
+                ramps.push(createBoundary(p5.width/10.5, i * 20, 120, 10, "r"));
             }
 
             if (i == 7)
@@ -311,8 +381,8 @@ const sketch = (p5) => {
 
             if (i == 9)
             {
-                grounds.push(createBoundary(p5.width/2, i * 20, 80, 20, "g"));
-                grounds.push(createBoundary(520, i * 20, 80, 20, "g"));
+                platforms.push(createBoundary(p5.width/2, i * 20, 80, 20, "g"));
+                platforms.push(createBoundary(520, i * 20, 80, 20, "g"));
             }
 
             if (i == 14)
@@ -328,7 +398,7 @@ const sketch = (p5) => {
 
             if (i == 20)
             {
-                ramps.push(createBoundary(p5.width/10, i * 20, 120, 10, "r"));
+                ramps.push(createBoundary(p5.width/10.5, i * 20, 120, 10, "r"));
             }
 
             if (i == 24)
@@ -340,20 +410,20 @@ const sketch = (p5) => {
             {
                 waters.push(createBoundary(500, (i+0.25) * 20, 50, 10, "w"));
                 fires.push(createBoundary(350, (i+0.25) * 20, 50, 10, "f"));
-                doors.push(createBoundary(p5.width/3, i * 20, 40, 60, "d")); 
+                // doors.push(createBoundary(p5.width/3, i * 20, 40, 60, "d")); 
             }
 
             else if (i%5 == 0)
             {                   
                 if (i%2 == 1)
                 {
-                    grounds.push(createBoundary(p5.width/3, i * 20, p5.width, 20, "g"));
+                    grounds.push(createBoundary(0.425*p5.width, i * 20, p5.width * 0.8, 20, "g"));
                 }
 
                 else
                 {
-                    grounds.push(createBoundary((2*p5.width)/3, i * 20, p5.width, 20, "g"));
-                    grounds.push(createBoundary(760, (i-1) * 20, 60, 60, "g"));
+                    grounds.push(createBoundary((0.575*p5.width), i * 20, p5.width * 0.8, 20, "g"));
+                    steps.push(createBoundary(760, (i-1) * 20, 40, 60, "g"));
                 }
                 
             }
@@ -382,7 +452,9 @@ const sketch = (p5) => {
         waterId = []; 
         ramps = []; 
         levers = []; 
-        leverId = []; 
+        leverId = [];
+        platforms = [];  
+        steps = []; 
 
 
 
@@ -400,12 +472,17 @@ const sketch = (p5) => {
 
             if (i==10)
             {
-                waters.push(createBoundary(100, (i-0.25) * 20, p5.width, 10, "w")); 
+                waters.push(createBoundary(260, (i-0.25) * 20, 0.6*p5.width, 10, "w")); 
+            }
+
+            if (i == 14)
+            {
+                steps.push(createBoundary(760, (i-0.5) * 20, 40, 100, "z"));
             }
 
             if (i == 12)
             {
-                grounds.push(createBoundary(p5.width, i * 20, p5.width/4, 100, "g"));
+                steps.push(createBoundary(760, (i-0.5) * 20, 40, 60, "z"));
             }
 
             if (i == 15)
@@ -420,17 +497,17 @@ const sketch = (p5) => {
                 levers.push(createBoundary(200, (i+0.25) * 20, 5, 10, "l"));
             }
 
-            if (i == 27)
+            if (i == 28)
             {
-                grounds.push(createBoundary(p5.width, i * 20, p5.width/4, 100, "g"));
+                steps.push(createBoundary(760, (i-0.5) * 20, 40, 60, "z"));
                 // doors.push(createBoundary(p5.width/4, i * 20, 40, 60, "d")); 
             }
 
 
             if (i == 26)
             {
-                grounds.push(createBoundary(p5.width/3, i * 20, p5.width/8, 20, "g"));
-                grounds.push(createBoundary(2*p5.width/3, i * 20, p5.width/8, 20, "g"));
+                platforms.push(createBoundary(p5.width/3, i * 20, p5.width/10, 20, "g"));
+                platforms.push(createBoundary(2*p5.width/3, i * 20, p5.width/16, 20, "g"));
             }
 
 
@@ -445,17 +522,17 @@ const sketch = (p5) => {
 
                 if (i%2 == 0 && i !=10)
                 {
-                    grounds.push(createBoundary(p5.width/3, i * 20, p5.width, 20, "g"));
+                   grounds.push(createBoundary(p5.width/3, i * 20, p5.width, 20, "g"));
                 }
 
                 else if (i == 5)
                 {
-                    grounds.push(createBoundary(p5.width/8, i * 20, p5.width/16, 20, "g"));
-                    grounds.push(createBoundary(p5.width/4, i * 20, p5.width/16, 20, "g"));
-                    grounds.push(createBoundary(3*p5.width/8, i * 20, p5.width/16, 20, "g"));
-                    grounds.push(createBoundary(p5.width/2, i * 20, p5.width/16, 20, "g"));
-                    grounds.push(createBoundary(5*p5.width/8, i * 20, p5.width/16, 20, "g"));
-                    grounds.push(createBoundary(3*p5.width/4, i * 20, p5.width/16, 20, "g"));
+                    platforms.push(createBoundary(p5.width/8, i * 20, p5.width/16, 20, "g"));
+                    platforms.push(createBoundary(p5.width/4, i * 20, p5.width/16, 20, "g"));
+                    platforms.push(createBoundary(3*p5.width/8, i * 20, p5.width/16, 20, "g"));
+                    platforms.push(createBoundary(p5.width/2, i * 20, p5.width/16, 20, "g"));
+                    platforms.push(createBoundary(5*p5.width/8, i * 20, p5.width/16, 20, "g"));
+                    platforms.push(createBoundary(3*p5.width/4, i * 20, p5.width/16, 20, "g"));
                 }
 
                 else if (i == 10)
@@ -494,6 +571,8 @@ const sketch = (p5) => {
         ramps = []; 
         levers = []; 
         leverId = []; 
+        platforms = [];  
+        steps = []; 
 
 
 
@@ -512,26 +591,27 @@ const sketch = (p5) => {
 
             if (i==20)
             {
-                grounds.push(createBoundary(i*20, p5.height/3, 20, p5.height+10, "g"));
+                rGrounds.push(createBoundary(i*20, 250, 20, 0.85*p5.height+10, "g"));
             }
 
             else if (i == 12 || i == 28)
             {
-                grounds.push(createBoundary(i*20, 2*(p5.height/3), 20, p5.height, "g"));
+                rGrounds.push(createBoundary(i*20, 350, 20, 0.85*p5.height, "g"));
             }                  
         }
 
         for (let i = 0; i < 30; i++) {
             if (i==29)
             {
-                waters.push(createBoundary(300, (i + 0.25) * 20, p5.width/10, 10, "w"));
+                waters.push(createBoundary(290, (i + 0.25) * 20, p5.width/10, 10, "w"));
             }
 
             if (i==26)
             {
-                grounds.push(createBoundary(p5.width/4, i * 20, p5.width/12, 20, "g"));
-                grounds.push(createBoundary(530, (i-2) * 20, p5.width/12, 20, "g"));
+                platforms.push(createBoundary(p5.width/4, i * 20, p5.width/12, 20, "g"));
+                platforms.push(createBoundary(530, (i-2) * 20, p5.width/12, 20, "g"));
                 levers.push(createBoundary(400, (i-0.5)*20, 5, 10, "l"));
+                waters.push(createBoundary(745, (i-2) * 20, p5.width/12, 10, "w"))
             }
 
             if (i==25)
@@ -541,26 +621,30 @@ const sketch = (p5) => {
             
             if (i==21)
             {
-                grounds.push(createBoundary(p5.width/16, i * 20, p5.width/12, 20, "g"));
-                grounds.push(createBoundary(440, (i-2) * 20, p5.width/12, 20, "g"));
+                platforms.push(createBoundary(p5.width/16, i * 20, p5.width/12, 20, "g"));
+                platforms.push(createBoundary(440, (i-2) * 20, p5.width/12, 20, "g"));
+                waters.push(createBoundary(605, (i-2) * 20, p5.width/12, 10, "w"))
             }
 
             if (i==16)
             {
-                grounds.push(createBoundary(p5.width/4, i * 20, p5.width/12, 20, "g"));
-                grounds.push(createBoundary(530, (i-2) * 20, p5.width/12, 20, "g"));
+                platforms.push(createBoundary(p5.width/4, i * 20, p5.width/12, 20, "g"));
+                platforms.push(createBoundary(530, (i-2) * 20, p5.width/12, 20, "g"));
+                waters.push(createBoundary(745, (i-2) * 20, p5.width/12, 10, "w"))
+                waters.push(createBoundary(355, (i-2) * 20, p5.width/12, 10, "w"))
             }
 
             if (i==11)
             {
-                grounds.push(createBoundary(p5.width/16, i * 20, p5.width/12, 20, "g"));
-                grounds.push(createBoundary(440, (i-2) * 20, p5.width/12, 20, "g"));
+                platforms.push(createBoundary(p5.width/16, i * 20, p5.width/12, 20, "g"));
+                platforms.push(createBoundary(440, (i-2) * 20, p5.width/12, 20, "g"));
+                waters.push(createBoundary(605, (i-2) * 20, p5.width/12, 10, "w"))
             }
 
             if (i==6)
             {
-                grounds.push(createBoundary(p5.width/4, i * 20, p5.width/12, 20, "g"));
-                grounds.push(createBoundary(530, (i-1) * 20, p5.width/10, 20, "g"));
+                platforms.push(createBoundary(p5.width/4, i * 20, p5.width/12, 20, "g"));
+                platforms.push(createBoundary(530, (i-1) * 20, p5.width/10, 20, "g"));
             }           
         }
         updatePhysicsCirclePosition(player, 40, 560); 
@@ -569,7 +653,6 @@ const sketch = (p5) => {
 
     const gameOver = () => {
         console.log("over"); 
-        endGame = true; 
         updatePhysicsCirclePosition(player, 40, 560); 
     }
 
@@ -581,6 +664,13 @@ const sketch = (p5) => {
         sideBearR = p5.loadImage('/SBR.png');
         boulderImg = p5.loadImage('/rock.png');
         doorImg = p5.loadImage('/door.png'); 
+        water = p5.loadImage('/water.png'); 
+        lava = p5.loadImage('/lava.png'); 
+        ramp = p5.loadImage('/ramp.png'); 
+        ground = p5.loadImage('/ground.png'); 
+        plat = p5.loadImage('/plat.png'); 
+        stepImg = p5.loadImage('/stepImg.png');
+        rgImg = p5.loadImage('/rotGround.png');
     };
 
 
@@ -634,11 +724,21 @@ const sketch = (p5) => {
         }
       }
 
+    const takeTime = (t) =>
+    {
+        if (timeSwitch)
+        {
+            score = t; 
+            timeSwitch = false; 
+        }
+        return score; 
+    }
   
     //draw function 
     p5.draw = () => {
 
-        p5.background(64,64,40);
+        p5.background(38,33,63);
+        time = (p5.frameCount)/60; 
 
         Engine.update(engine);
 
@@ -658,7 +758,35 @@ const sketch = (p5) => {
         for (let ground of grounds) {
             showBoundary("g", ground);
         }
-    
+
+        for (let lever of levers){
+            showBoundary("l", lever);
+        }
+
+        for (let boulder of boulders){
+            showObstacles("b", boulder, boulderImg);
+        }
+
+        for (let platform of platforms){
+            showObstacles("b", platform, plat);
+        }
+
+        for (let door of doors){
+            showObstacles("d", door, doorImg);
+        }   
+
+        for (let step of steps){
+            showBoundary("s", step);
+        }
+
+        for (let rg of rGrounds) {
+            showBoundary("rg", rg);
+        }
+
+        for (let border of borders) {
+            showBoundary("b", border);
+        }
+
         for (let water of waters) {
             showBoundary("w", water);
         }
@@ -671,17 +799,7 @@ const sketch = (p5) => {
             showBoundary("r", ramp);
         }
 
-        for (let lever of levers){
-            showBoundary("l", lever);
-        }
 
-        for (let boulder of boulders){
-            showObstacles("b", boulder, boulderImg);
-        }
-
-        for (let door of doors){
-            showObstacles("d", door, doorImg);
-        }   
         
         if (front)
         {
@@ -696,6 +814,16 @@ const sketch = (p5) => {
         if (right)
         {
             showCircle(player, sideBearR);
+        }
+
+        if (endGame)
+        {
+            var score = p5.round(takeTime(time), 2); 
+            console.log(score); 
+            p5.fill(0,255,0);
+            p5.rect(0,0,p5.width, p5.height); 
+            p5.fill(0,0,0);
+            p5.text(score, 400, 300); 
         }
       
     };
