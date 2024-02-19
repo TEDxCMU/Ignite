@@ -17,6 +17,7 @@
         "@react-three/fiber": "^8.15.14",
         "@svgr/webpack": "^6.2.1",
         "@types/three": "^0.160.0",
+        "howler": "^2.2.4",
         "lerp": "^1.0.3",
         "lodash": "^4.17.21",
         "matter-js": "^0.19.0",

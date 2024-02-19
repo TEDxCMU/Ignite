@@ -1,6 +1,8 @@
 import React from "react";
 import { NextReactP5Wrapper } from "@p5-wrapper/next";
 import styles from "../game.module.css"
+import Matter from "matter-js";
+import { Howl, Howler } from "howler";
 
 // define your sketch here
 const sketch = (p5) => {
@@ -10,6 +12,11 @@ const sketch = (p5) => {
   let score = 0;
   let currTyping = false;
   let curr;
+  let buf = 2000;
+  let num = 0;
+  let lvl = 1;
+  let sfx1 = new Howl({ src: ['/sounds/firework.mp3'] });
+  let sfx2 = new Howl({ src: ['/sounds/sfx2.wav'] });
   const arr = [
     "Spark",
     "Fire",
@@ -38,6 +45,10 @@ const sketch = (p5) => {
     "Illuminate"
   ];
   let allSprites = [];
+  let exploded = [];
+  let img;
+  let bg;
+  let ex;
 
   function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -45,7 +56,13 @@ const sketch = (p5) => {
     return Math.floor(Math.random() * (max - min) + min);
   }
 
+  p5.preload = () => {
+    img = p5.loadImage('/imgs/bubble.png');
+    ex = p5.loadImage('/imgs/explode.gif')
+  }
+
   p5.setup = () => {
+    bg = p5.loadImage('/imgs/fbg.png');
     p5.createCanvas(800, 600);
     spr = new Sprite(
       600, 500, 40, 40);
@@ -57,12 +74,12 @@ const sketch = (p5) => {
   }
 
   p5.draw = () => {
-    p5.background(50);
+    p5.background(bg);
     p5.fill("white");
     p5.textSize(25);
     p5.text("Score: " + score, 15, 25);
-    if (p5.millis() >= 2000+timer) {
-      p5.print("new sprite created")
+    p5.text("Level " + lvl, 15, 55);
+    if (p5.millis() >= buf+timer) {
       spr = new Sprite(getRandomInt(100, 760), 500, 40, 40);
       spr.shapeColor = p5.color(255);
       spr.velocity.y = -2;
@@ -70,6 +87,13 @@ const sketch = (p5) => {
       spr.textSize = 20;
       allSprites.push(spr);
       timer = p5.millis();
+      num += 1;
+      if(num == 10){
+        lvl += 1;
+        buf *= (3/4);
+        num = 0;
+        playSoundEffect(sfx2);
+      }
     }
     for (let i = 0; i < allSprites.length; i++) {
       allSprites[i].update();
@@ -80,6 +104,10 @@ const sketch = (p5) => {
         p5.textSize(50);
         p5.text("Game Over", 280, 300);
       }
+    }
+    for(let i = 0; i < exploded.length; i++){
+      exploded[i].draw();
+      exploded[i].update();
     }
 
   }
@@ -121,33 +149,56 @@ const sketch = (p5) => {
       this.w = w;
       this.h = h;
 
-      this.shapeColor = p5.color(255);
+      this.shapeColor = p5.color(100);
       this.velocity = {
         x: 0,
         y: 0
       };
       this.text = "";
       this.textSize = 20;
+      this.img = img;
+      this.time = 0;
     }
 
     update() {
-      this.position.x += this.velocity.x;
-      this.position.y += this.velocity.y;
+      if(allSprites.includes(this)){
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+      }else{
+        this.img = ex;
+        this.w = 60;
+        this.h = 60;
+        if(p5.millis() - this.time > 1000){
+          exploded.splice(exploded.indexOf(this), 1);
+        }
+      }
+      
     }
 
     draw() {
-      p5.fill(this.shapeColor);
+      p5.fill('rgba(0,255,0, 0)');
+      p5.noStroke()
       p5.rect(this.position.x, this.position.y, this.w, this.h);
       p5.fill("white");
+      p5.image(this.img, this.position.x, this.position.y, this.w, this.h)
       p5.textSize(this.textSize);
       p5.text(this.text, this.position.x, this.position.y);
     }
 
     remove() {
-      allSprites.splice(allSprites.indexOf(this), 1);
+      this.img = ex;
+      this.time = p5.millis();
+      exploded = exploded.concat(allSprites.splice(allSprites.indexOf(this), 1));
+      this.position.x -= 10;
+      this.position.y -= 10;
+      playSoundEffect(sfx1);
     }
   }
 };
+
+let playSoundEffect = (sfx) => {
+  sfx.play();
+}
   
 // wrap with NextReactP5Wrapper
 function Fireworks() {
