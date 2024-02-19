@@ -100,12 +100,12 @@ const CulinaryGame = (props) => {
     }
 
     // make the arrows to switch pages
-    const rightTexture = PIXI.Texture.from("/rightArrow.jpeg");
+    const rightTexture = PIXI.Texture.from("/arrow.png");
     const next = new PIXI.Sprite(rightTexture);
-    next.scale.set(1.5);
+    next.scale.set(2);
     next.anchor.set(0.5, 0.5);
-    next.angle = 180;
-    next.x = 30;
+    next.angle = 90;
+    next.x = 34;
     next.y = 50 + 8 * 60;
     next.eventMode = "static";
     next.cursor = "pointer";
@@ -116,13 +116,14 @@ const CulinaryGame = (props) => {
     });
     app.stage.addChild(next);
 
-    const leftTexture = PIXI.Texture.from("/leftArrow.jpeg");
+    const leftTexture = PIXI.Texture.from("/arrow.png");
     const prev = new PIXI.Sprite(rightTexture);
-    prev.scale.set(1.5);
+    prev.scale.set(2);
 
     prev.anchor.set(0.5, 0.5);
-    prev.x = 70;
+    prev.x = 66;
     prev.y = 50 + 8 * 60;
+    prev.angle = 270;
     prev.eventMode = "static";
     prev.cursor = "pointer";
     prev.on("pointerdown", changePage, {
@@ -133,12 +134,12 @@ const CulinaryGame = (props) => {
     app.stage.addChild(prev);
 
     // make submit score button
-    const texture = PIXI.Texture.from("/eee.png");
+    const texture = PIXI.Texture.from("/submit.png");
     const submit = new PIXI.Sprite(texture);
-    submit.scale.set(0.4);
+    submit.scale.set(2);
     submit.anchor.set(0.5, 0.5);
     submit.x = 50;
-    submit.y = 100 + 8 * 60;
+    submit.y = 80 + 8 * 60;
     submit.eventMode = "static";
     submit.cursor = "pointer";
     submit.on("pointerdown", submitScore);
@@ -326,40 +327,40 @@ const CulinaryGame = (props) => {
     // base texture
     const base = PIXI.Texture.from("/newRecipe.png");
     const sprite = new PIXI.Sprite(base);
-    sprite.scale.set(0.3);
+    sprite.scale.set(4);
     sprite.anchor.set(0.5, 0.5);
     sprite.eventMode = "static";
-    sprite.x = 420;
+    sprite.x = 450;
     sprite.y = 300;
     pixiApp.stage.addChild(sprite);
     sprite.cursor = "pointer";
 
     const a = PIXI.Texture.from(aImage);
     const spriteA = new PIXI.Sprite(a);
-    spriteA.scale.set(1.5);
+    spriteA.scale.set(2);
     spriteA.anchor.set(0.5, 0.5);
-    spriteA.x = 270;
-    spriteA.y = 320;
+    spriteA.x = 290;
+    spriteA.y = 332;
     spriteA.eventMode = "static";
     spriteA.cursor = "pointer";
     pixiApp.stage.addChild(spriteA);
 
     const b = PIXI.Texture.from(bImage);
     const spriteB = new PIXI.Sprite(b);
-    spriteB.scale.set(1.5);
+    spriteB.scale.set(2);
     spriteB.anchor.set(0.5, 0.5);
-    spriteB.x = 430;
-    spriteB.y = 320;
+    spriteB.x = 452;
+    spriteB.y = 332;
     spriteB.eventMode = "static";
     spriteB.cursor = "pointer";
     pixiApp.stage.addChild(spriteB);
 
     const c = PIXI.Texture.from(cImage);
     const spriteC = new PIXI.Sprite(c);
-    spriteC.scale.set(1.5);
+    spriteC.scale.set(2);
     spriteC.anchor.set(0.5, 0.5);
-    spriteC.x = 570;
-    spriteC.y = 320;
+    spriteC.x = 615;
+    spriteC.y = 332;
     spriteC.eventMode = "static";
     spriteC.cursor = "pointer";
     pixiApp.stage.addChild(spriteC);
