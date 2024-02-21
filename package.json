@@ -36,6 +36,9 @@
     },
     "devDependencies": {
         "@slicemachine/adapter-next": "^0.3.34",
-        "slice-machine-ui": "^1.23.1"
+        "slice-machine-ui": "^1.23.1",
+        "react-font-loader": "^2.0.0",
+        "three": "^0.160.0",
+        "webfontloader": "^1.6.28"
     }
 }

@@ -32,6 +32,11 @@ export async function getGames() {
     return client.getAllByType('game');
 }
 
+export async function getGameByName(name) {
+    const games = await getGames();
+    return games.find(game => game.data.name === name);
+}
+
 export function getScores() {
     return fetch('/api/getScores')
         .then(res => {

@@ -8,7 +8,10 @@ export default function Leaderboard() {
     const [openModal, setOpenModal] = useState(false);
 
     useEffect(() => {
-        getScores().then(data => setScores(data));
+        getScores().then(data => {
+            setScores(data)
+            console.log(data)
+        });
     }, []);
 
     const addLeaderboardScore = async () => {

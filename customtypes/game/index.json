@@ -55,6 +55,13 @@
           "label": "description",
           "placeholder": ""
         }
+      },
+      "instructions": {
+        "type": "Text",
+        "config": {
+          "label": "instructions",
+          "placeholder": ""
+        }
       }
     }
   }
