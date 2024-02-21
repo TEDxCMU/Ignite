@@ -419,6 +419,9 @@ const CulinaryGame = (props) => {
 
     // mouse constraint to add mouse interaction
     const mouse = Matter.Mouse.create(pixiApp.view);
+    let scale = 0.8;
+    let mouseScale = 1 + (1 / (scale / (1 - scale)));
+    Matter.Mouse.setScale(mouse, Matter.Vector.create(mouseScale, mouseScale));
     const mouseConstraint = Matter.MouseConstraint.create(engine, {
       mouse: mouse,
       constraint: {
