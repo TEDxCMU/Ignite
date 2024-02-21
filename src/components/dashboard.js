@@ -36,7 +36,8 @@ export function DashBoard(props) {
             <div className={styles.right}>
                 <div className={styles.gameWrapper}>
                     <div className={styles.game}>
-                        <h2 className={styles.ins}>{props.game}</h2>
+                        {props.children}
+                        {/* <h2 className={styles.ins}>{props.game}</h2> */}
                     </div>
                 </div>
             </div>

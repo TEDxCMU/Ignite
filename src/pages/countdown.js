@@ -8,7 +8,7 @@ import DayOfEvent from 'components/dayOfEvent';
 import { getGames } from 'utils/content';
 
 import { GameOver } from 'components/gameover';
-import { DashBoard } from './dashboard';
+import { DashBoard } from '../components/dashboard';
 
 function CountdownGames() {
     const [data, setData] = useState(null);

@@ -41,7 +41,6 @@
 
 .gameWrapper{
     display: flex; 
-    padding: 4rem; 
     width: 100%; 
     justify-content: center;
     border-style: solid;
