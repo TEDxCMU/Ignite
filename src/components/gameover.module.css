@@ -1,0 +1,62 @@
+.gameOver
+{
+    font-size: 10rem; 
+    color: #41FFA4; 
+    font-family: "pixer"; 
+}
+
+.stats
+{
+    font-size: 6rem; 
+    font-family: "pixer"; 
+}
+
+.wrapper
+{
+    display: block; 
+}
+
+.inputWrapper
+{
+    padding: 4rem 0 4rem 0; 
+}
+
+.inputs
+{
+    border: none; 
+    margin-left: 1rem; 
+    padding: 0 0.5rem 0.25rem 0.75rem; 
+    font-size: 2rem; 
+    font-family: "pixer"; 
+    background-color: black;
+    border-style: solid;
+    border-color: white;
+    border-radius: 0.5rem;
+}
+
+.type
+{
+    display: block; 
+    padding: 0.5rem 0rem 0.5rem 0rem; 
+    font-size: 2rem; 
+    font-family: "pixer"; 
+}
+
+.buttons
+{
+    margin-right: 2rem; 
+    padding: 1rem 2rem 1rem 2rem; 
+    border-radius: 0;
+    border: none; 
+    font-size: 2rem; 
+    font-family: "pixer"; 
+    background-color: #41FFA4; 
+    color: black; 
+    border-radius: 0.5rem;
+    transition: 0.3s;
+}
+
+.buttons:hover
+{
+    opacity: 0.8; 
+}

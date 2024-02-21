@@ -1,0 +1,57 @@
+.title{
+    padding: 2rem 2rem 2rem 2rem; 
+    color: #41FFA4; 
+    font-family: "pixer"; 
+    font-size: 5rem; 
+    text-transform: uppercase;
+}
+
+.insWrapper{
+    padding: 2rem 2rem 2rem 2rem; 
+}
+
+.ins{
+    font-family: "pixer"; 
+    font-size: 3rem; 
+    padding-bottom: 1rem; 
+    color: white; 
+}
+
+.text{
+    font-size: 1.5rem; 
+}
+
+.dashboard{
+    display: flex; 
+}
+
+.left{
+    width: 25%; 
+    padding: 4rem; 
+    margin-right: 5%; 
+    border-style: solid;
+    border-color: white;
+    background-color: rgba(0, 0, 0, 0.75); 
+    border-radius: 5px; 
+}
+
+.right{
+    width: 70%; 
+}
+
+.gameWrapper{
+    display: flex; 
+    padding: 4rem; 
+    width: 100%; 
+    justify-content: center;
+    border-style: solid;
+    border-color: white;
+    border-radius: 5px 5px 0 0; 
+}
+
+.game{
+    width: 800px; 
+    height: 600px; 
+    border-style: solid;
+    border-color: #41FFA4;
+}

@@ -7,9 +7,21 @@ import styles from "./countdown.module.css";
 import DayOfEvent from 'components/dayOfEvent';
 import { getGames } from 'utils/content';
 
+import { GameOver } from 'components/gameover';
+import { DashBoard } from './dashboard';
+
 function CountdownGames() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const games = [
+        {
+            title:"Firebear", 
+            instructions:
+            "Try to stay clear of water and navigate firebear to the doors as fast as possible!\nPress UP to jump\nLEFT to move left\nRIGHT to move right",
+            game: "Insert Game Here",
+        }
+    ]
 
     useEffect(() => {
         init();
@@ -45,8 +57,13 @@ function CountdownGames() {
                         <div className={styles.lastCol}>
                             <DayOfEvent />
                             <Leaderboard />
+                            {/* Uncomment for Gameover pop-up */}
+                            {/* <GameOver /> */}
+                            
                         </div>
                     </div>
+                    {/* Uncomment for game dashboard */}
+                    {/* <DashBoard title={games[0].title} instructions={games[0].instructions} game={games[0].game}/> */}
                 </div>
             }
         </div>
