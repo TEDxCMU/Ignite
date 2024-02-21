@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import GameCard from "components/gameCard";
-
+import cn from "classnames";
 import styles from "./dashboard.module.css";
 
 export function DashBoard(props) {
@@ -30,6 +30,9 @@ export function DashBoard(props) {
                     <h2 className={styles.ins}>Instructions</h2>
                     <p className={styles.text}>
                         {props.instructions}
+                    </p>
+                    <p className={cn(styles.text, styles.mobile)}>
+                        <i>Unfortunately, these games are not supported on mobile. Please use a desktop or laptop to play.</i>
                     </p>
                 </div>
             </div>

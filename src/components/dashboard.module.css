@@ -54,3 +54,21 @@
     border-style: solid;
     border-color: #41FFA4;
 }
+
+.mobile{
+    display: none;
+}
+
+@media (max-width: 800px) {
+    .right {
+        display: none;
+    }
+    .left {
+        width: 100%;
+        height: 100%;
+    }
+    .mobile {
+        margin-top: 2rem;
+        display: block;
+    }
+}
