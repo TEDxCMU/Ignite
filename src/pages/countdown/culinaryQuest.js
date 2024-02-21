@@ -12,13 +12,14 @@ function GameCulinaryQuest() {
 
   useEffect(() => {
     getGameByName("Culinary Quest").then((data) => {
-      setInfo(data);
+      setInfo(data.data);
+      console.log(data);
     });
     
   }, []);
 
   return (
-    <DashBoard title={"Culinary Quest"} instructions={info && info}>
+    <DashBoard title={"Culinary Quest"} instructions={info && info.instructions}>
       {gameOver && <GameOver score={submittedScore} />}
       <FontLoader
         fontProvider="google"

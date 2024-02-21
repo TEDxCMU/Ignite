@@ -211,7 +211,7 @@ const CulinaryGame = (props) => {
     }
 
     const sprite = createPixiIngredient(image, { x, y, scale: 3 });
-    const body = Matter.Bodies.rectangle(x, y, sprite.width, sprite.height, {
+    const body = Matter.Bodies.rectangle(x, y, sprite.width/1.5, sprite.height/1.5, {
       restitution: 0.8,
       label: `ingredient-${name}`,
       isStatic: false,
@@ -238,7 +238,7 @@ const CulinaryGame = (props) => {
     name
   ) => {
     const sprite = createPixiIngredient(image, { x, y, scale: 3 });
-    const body = Matter.Bodies.rectangle(x, y, sprite.width, sprite.height, {
+    const body = Matter.Bodies.rectangle(x, y, sprite.width/1.5, sprite.height/1.5, {
       restitution: 0.8,
       label: `ingredient-${name}`,
     });
@@ -486,7 +486,7 @@ const CulinaryGame = (props) => {
           ) {
             console.log("Adding new recipe:", recipeVal.name);
             setPlayerRecipes((prevRecipes) => [...prevRecipes, recipeVal]);
-            props.setSubmittedScore((prevScore) => prevScore + 1);
+            props.setSubmittedScore((prevScore) => prevScore + 100);
             prevRecipesRef.current = [...prevRecipesRef.current, recipeVal];
             // update score text
             // pixiApp.stage.removeChild(text);
