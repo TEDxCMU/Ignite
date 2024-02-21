@@ -1,0 +1,74 @@
+.title{
+    padding: 2rem 2rem 2rem 2rem; 
+    color: #41FFA4; 
+    font-family: "pixer"; 
+    font-size: 4rem; 
+    text-transform: uppercase;
+}
+
+.insWrapper{
+    padding: 2rem 2rem 2rem 2rem; 
+}
+
+.ins{
+    font-family: "pixer"; 
+    font-size: 2rem; 
+    padding-bottom: 1rem; 
+    color: white; 
+}
+
+.text{
+    font-size: 1.5rem; 
+}
+
+.dashboard{
+    display: flex;
+}
+
+.left{
+    width: 25%; 
+    padding: 2rem; 
+    margin: 5rem; 
+    border-style: solid;
+    border-color: white;
+    background-color: rgba(0, 0, 0, 0.75); 
+    border-radius: 5px; 
+}
+
+.right{
+    width: 70%; 
+}
+
+.gameWrapper{
+    display: flex; 
+    width: 100%; 
+    justify-content: center;
+    border-style: solid;
+    border-color: white;
+    border-radius: 5px 5px 0 0; 
+}
+
+.game{
+    width: 800px; 
+    height: 600px; 
+    border-style: solid;
+    border-color: #41FFA4;
+}
+
+.mobile{
+    display: none;
+}
+
+@media (max-width: 800px) {
+    .right {
+        display: none;
+    }
+    .left {
+        width: 100%;
+        height: 100%;
+    }
+    .mobile {
+        margin-top: 2rem;
+        display: block;
+    }
+}
