@@ -386,22 +386,22 @@ const CulinaryGame = (props) => {
       height: 600,
       backgroundColor: 0x1099bb,
     });
-    document.body.appendChild(pixiApp.view);
+    document.getElementById("pixi-container").appendChild(pixiApp.view);
     PIXI.BaseTexture.defaultOptions.scaleMode = PIXI.SCALE_MODES.NEAREST;
 
-    const renderOptions = {
-      // Other options...
-      showDebug: true,
-    };
+    // const renderOptions = {
+    //   // Other options...
+    //   showDebug: true,
+    // };
 
     const engine = Matter.Engine.create();
-    const render = Matter.Render.create({
-      element: document.body,
-      engine: engine,
-      options: renderOptions,
-    });
+    // const render = Matter.Render.create({
+    //   element: document.body,
+    //   engine: engine,
+    //   options: renderOptions,
+    // });
 
-    Matter.Render.run(render);
+    // Matter.Render.run(render);
     const matterWorld = engine.world;
 
     const bottomPot = Matter.Bodies.rectangle(450, 450, 350, 40, {
@@ -422,7 +422,7 @@ const CulinaryGame = (props) => {
     const mouseConstraint = Matter.MouseConstraint.create(engine, {
       mouse: mouse,
       constraint: {
-        render: { visible: false },
+        // render: { visible: false },
         stiffness: 0.2,
       },
     });
@@ -555,7 +555,9 @@ const CulinaryGame = (props) => {
     props.setSubmittedScore(score);
   }, [score, props.setSubmittedScore]);
 
-  return null;
+  return (
+    <div id="pixi-container" style={{zIndex:10, position:"relative", width: "100%", height: "100%"}}></div>
+  );
 };
 
 export default CulinaryGame;

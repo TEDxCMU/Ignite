@@ -22,13 +22,13 @@
 }
 
 .dashboard{
-    display: flex; 
+    display: flex;
 }
 
 .left{
     width: 25%; 
-    padding: 4rem; 
-    margin-right: 5%; 
+    padding: 2rem; 
+    margin: 5rem; 
     border-style: solid;
     border-color: white;
     background-color: rgba(0, 0, 0, 0.75); 
