@@ -37,6 +37,7 @@
 
 .right{
     width: 70%; 
+    transform: scale(80%, 80%);
 }
 
 .gameWrapper{
