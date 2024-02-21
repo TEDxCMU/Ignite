@@ -8,7 +8,10 @@ export default function Leaderboard() {
     const [openModal, setOpenModal] = useState(false);
 
     useEffect(() => {
-        getScores().then(data => setScores(data));
+        getScores().then(data => {
+            setScores(data)
+            console.log(data)
+        });
     }, []);
 
     const addLeaderboardScore = async () => {
@@ -37,13 +40,13 @@ export default function Leaderboard() {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {scores.map((score, index) => (
+                            {scores.map((score, index) => (
                                 <tr key={score._id}>
                                     <td style={{textAlign: "center"}}>{index + 1}</td>
                                     <td>{score.name}</td>
                                     <td style={{textAlign: "right"}}>{score.score}</td>
                                 </tr>
-                            ))} */}
+                            ))}
                         </tbody>
                     </table>
                 </div>
