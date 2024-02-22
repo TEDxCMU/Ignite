@@ -820,7 +820,7 @@ function EthanGame(props) {
 
         if (endGame)
         {
-            var score = p5.map(p5.round(takeTime(time), 2), 10, 300, 2900, 0) + 100; 
+            var score = p5.map(p5.round(takeTime(time), 2), 10, 300, 2400, 0) + 100; 
             console.log(score); 
             // p5.fill(0,255,0);
             // p5.rect(0,0,p5.width, p5.height); 
