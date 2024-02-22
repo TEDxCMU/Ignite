@@ -19,7 +19,7 @@ function GameCulinaryQuest() {
   }, []);
 
   return (
-    <DashBoard title={"Culinary Quest"} instructions={info && info.instructions}>
+    <DashBoard title={info && info.name} instructions={info && info.instructions}>
       {gameOver && <GameOver score={submittedScore} />}
       <FontLoader
         fontProvider="google"

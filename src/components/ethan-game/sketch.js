@@ -1,7 +1,9 @@
 import * as Matter from 'matter-js';
-import { GameOver } from 'components/gameover';
+import { NextReactP5Wrapper } from '@p5-wrapper/next';
 
-const sketch = (p5) => {
+function EthanGame(props) {
+
+    const sketch = (p5) => {
 
     var Engine = Matter.Engine,
     //    Render = Matter.Render,
@@ -282,7 +284,7 @@ const sketch = (p5) => {
 
           if (waterId.includes(bodyA.id) || waterId.includes(bodyB.id)) {
             // Perform actions when boxes collide
-            gameOver(); 
+            // gameOver(); 
             console.log('Collision between two boxes!');
           }
 
@@ -410,7 +412,7 @@ const sketch = (p5) => {
             {
                 waters.push(createBoundary(500, (i+0.25) * 20, 50, 10, "w"));
                 fires.push(createBoundary(350, (i+0.25) * 20, 50, 10, "f"));
-                // doors.push(createBoundary(p5.width/3, i * 20, 40, 60, "d")); 
+                doors.push(createBoundary(p5.width/3, i * 20, 40, 60, "d")); 
             }
 
             else if (i%5 == 0)
@@ -818,15 +820,22 @@ const sketch = (p5) => {
 
         if (endGame)
         {
-            var score = p5.round(takeTime(time), 2); 
+            var score = p5.map(p5.round(takeTime(time), 2), 10, 300, 2900, 0) + 100; 
             console.log(score); 
-            p5.fill(0,255,0);
-            p5.rect(0,0,p5.width, p5.height); 
-            p5.fill(0,0,0);
-            p5.text(score, 400, 300); 
+            // p5.fill(0,255,0);
+            // p5.rect(0,0,p5.width, p5.height); 
+            // p5.fill(0,0,0);
+            // p5.text(score, 400, 300); 
+
+            props.setGameOver(true);
+            props.setSubmittedScore(score);
         }
       
     };
   };
 
-export default sketch; 
+  return <NextReactP5Wrapper sketch={sketch} />
+
+}
+
+export default EthanGame;

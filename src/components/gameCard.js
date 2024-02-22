@@ -32,7 +32,7 @@ export default function GameCard(props) {
                         src={game.image.url}
                     />
                     <div className={styles.info}>
-                        <div className={styles.name}>{game.name}</div>
+                        <div className={styles.name}>{`${game.daysleft} Days Left`}</div>
                         <div className={styles.body}>{game.description}</div>
                     </div>
                 </Link>
