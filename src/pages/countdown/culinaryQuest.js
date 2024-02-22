@@ -38,3 +38,4 @@ function GameCulinaryQuest() {
 }
 
 export default GameCulinaryQuest;
+
