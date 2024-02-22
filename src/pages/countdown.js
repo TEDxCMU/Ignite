@@ -14,15 +14,6 @@ function CountdownGames() {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const games = [
-        {
-            title:"Firebear", 
-            instructions:
-            "Try to stay clear of water and navigate firebear to the doors as fast as possible!\nPress UP to jump\nLEFT to move left\nRIGHT to move right",
-            game: "Insert Game Here",
-        }
-    ]
-
     useEffect(() => {
         init();
     }, []);
@@ -44,12 +35,9 @@ function CountdownGames() {
                     <div className={styles.countdownList}>
                         {data.map((item, id) => {
                             const currentDate = new Date();
-                            const targetDate = new Date("February 24, 2024");
+                            const targetDate = new Date("February 23, 2024");
                             targetDate.setDate(targetDate.getDate() - item.daysleft);
                             const differenceInDays = Math.floor((targetDate - currentDate) / (1000 * 60 * 60 * 24));
-                            console.log("current date", currentDate)
-                            console.log("target date", targetDate)
-                            console.log("diff in days", differenceInDays)
                             let locked = differenceInDays >= 0;
 
                             return <GameCard key={id} game={item} locked={locked} />
