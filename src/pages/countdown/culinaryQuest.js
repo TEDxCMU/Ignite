@@ -19,8 +19,8 @@ function GameCulinaryQuest() {
   }, []);
 
   return (
-    <DashBoard title={info && info.name} instructions={info && info.instructions}>
-      {gameOver && <GameOver score={submittedScore} gameName={"culinaryQuest"}/>}
+    <DashBoard title={"Culinary Quest"} instructions={info && "Sorry, we're currently having some bugs with this game. Check back another time!"}>
+      {/* {gameOver && <GameOver score={submittedScore} />}
       <FontLoader
         fontProvider="google"
         fontFamilies={["Pixelify Sans"]}
@@ -32,10 +32,9 @@ function GameCulinaryQuest() {
       <CulinaryGame
         setGameOver={setGameOver}
         setSubmittedScore={setSubmittedScore}
-      />
+      /> */}
     </DashBoard>
   );
-  return null;
 }
 
 export default GameCulinaryQuest;
