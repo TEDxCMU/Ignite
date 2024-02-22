@@ -2,8 +2,8 @@
 import nextCors from 'next-cors';
 import { MongoClient } from 'mongodb';
 
-// const uri = process.env.MONGODB_URI;
-// const client = new MongoClient(uri);
+const uri = process.env.MONGODB_URI;
+const client = new MongoClient(uri);
 
 async function getScores(req, res) {
     // Run the CORS middleware
@@ -29,4 +29,4 @@ async function getScores(req, res) {
     }
 }
 
-// export default getScores;
+export default getScores;

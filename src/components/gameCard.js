@@ -30,6 +30,7 @@ export default function GameCard(props) {
                         sizes="30vw"
                         style={{ objectFit: "cover"}}
                         src={game.image.url}
+                        alt={game.image.alt}
                     />
                     <div className={styles.info}>
                         <div className={styles.name}>{`${game.daysleft} Days Left`}</div>

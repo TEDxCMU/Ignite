@@ -284,7 +284,7 @@ function EthanGame(props) {
 
           if (waterId.includes(bodyA.id) || waterId.includes(bodyB.id)) {
             // Perform actions when boxes collide
-            // gameOver(); 
+            gameOver(); 
             console.log('Collision between two boxes!');
           }
 
@@ -412,7 +412,7 @@ function EthanGame(props) {
             {
                 waters.push(createBoundary(500, (i+0.25) * 20, 50, 10, "w"));
                 fires.push(createBoundary(350, (i+0.25) * 20, 50, 10, "f"));
-                doors.push(createBoundary(p5.width/3, i * 20, 40, 60, "d")); 
+                // doors.push(createBoundary(p5.width/3, i * 20, 40, 60, "d")); 
             }
 
             else if (i%5 == 0)
