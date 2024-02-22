@@ -40,7 +40,7 @@ export default function Leaderboard() {
                             </tr>
                         </thead>
                         <tbody>
-                            {scores.map((score, index) => (
+                            {scores && scores.map((score, index) => (
                                 <tr key={score._id}>
                                     <td style={{textAlign: "center"}}>{index + 1}</td>
                                     <td>{score.name}</td>

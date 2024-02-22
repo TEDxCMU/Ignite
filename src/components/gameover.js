@@ -20,7 +20,7 @@ export function GameOver(props) {
     };
 
     const submitScore = () => {
-        addScore(displayName, andrewid, props.score);
+        addScore(displayName, andrewid, props.score, props.gameName);
         router.push("/countdown");
     }
 

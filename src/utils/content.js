@@ -50,11 +50,11 @@ export function getScores() {
         });
 }
 
-export async function addScore(name, andrewid, score) {
+export async function addScore(name, andrewid, score, gameName) {
     console.log(name, andrewid, score);
     await fetch('/api/addScore', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, andrewid, score })
+        body: JSON.stringify({ name, andrewid, score, gameName })
     });
 }
