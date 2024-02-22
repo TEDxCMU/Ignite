@@ -20,7 +20,7 @@ function GameCulinaryQuest() {
 
   return (
     <DashBoard title={info && info.name} instructions={info && info.instructions}>
-      {gameOver && <GameOver score={submittedScore} />}
+      {gameOver && <GameOver score={submittedScore} gameName={"culinaryQuest"}/>}
       <FontLoader
         fontProvider="google"
         fontFamilies={["Pixelify Sans"]}

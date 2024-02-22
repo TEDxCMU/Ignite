@@ -18,7 +18,7 @@ function FireBear() {
   }, []);
   return (
     <DashBoard title={info && info.name} instructions={info && info.instructions}>
-      {gameOver && <GameOver score={submittedScore} />}
+      {gameOver && <GameOver score={submittedScore} gameName={"fireBear"} />}
       <EthanGame setGameOver={setGameOver} setSubmittedScore={setSubmittedScore}/>
     </DashBoard>
   );
