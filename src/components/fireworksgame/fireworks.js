@@ -45,13 +45,40 @@ const sketch = (p5) => {
     "Firestorm",
     "Spontaneous",
     "Fiery",
-    "Illuminate"
+    "Illuminate",
+    "Fervent",
+  "Cinder",
+  "Bonfire",
+  "Pyromania",
+  "Burning",
+  "Combustion",
+  "Enkindle",
+  "Singe",
+  "Flambeau",
+  "Volcano",
+  "Emblaze",
+  "Scald",
+  "Sparkle",
+  "Radiant",
+  "Fuel",
+  "Wildfire",
+  "Consume",
+  "Embroil",
+  "Sear",
+  "Explosion",
+  "Conflagrant",
+  "Fireshow",
+  "Erupt",
+  "Flamboyant",
   ];
   let allSprites = [];
+  let allAmmo = [];
   let exploded = [];
   let img;
+  let fire;
   let bg;
   let ex;
+  let a;
 
   function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -61,7 +88,8 @@ const sketch = (p5) => {
 
   p5.preload = () => {
     img = p5.loadImage('/imgs/bubble.png');
-    ex = p5.loadImage('/imgs/explode.gif')
+    ex = p5.loadImage('/imgs/explode.gif');
+    fire = p5.loadImage('/imgs/fire.png');
   }
 
   p5.setup = () => {
@@ -86,7 +114,7 @@ const sketch = (p5) => {
       spr = new Sprite(getRandomInt(100, 760), 500, 40, 40);
       spr.shapeColor = p5.color(255);
       spr.velocity.y = -2;
-      spr.text = arr[getRandomInt(0, 25)].toLowerCase();
+      spr.text = arr[getRandomInt(0, 49)].toLowerCase();
       spr.textSize = 20;
       allSprites.push(spr);
       timer = p5.millis();
@@ -110,6 +138,10 @@ const sketch = (p5) => {
         props.setSubmittedScore(score);
       }
     }
+    for(let i = 0; i < allAmmo.length; i++){
+      allAmmo[i].draw();
+      allAmmo[i].update();
+    }
     for(let i = 0; i < exploded.length; i++){
       exploded[i].draw();
       exploded[i].update();
@@ -123,7 +155,9 @@ const sketch = (p5) => {
     if(currTyping){
       if(k == curr.text[0]){
         curr.text = curr.text.substring(1);
-        score += 2;
+        score += 4;
+        a = new Ammo(curr);
+        allAmmo.push(a);
         if(curr.text == ""){
           curr.remove();
           currTyping = false;
@@ -137,7 +171,9 @@ const sketch = (p5) => {
           curr = allSprites[i];
           curr.text = curr.text.substring(1);
           curr.shapeColor = p5.color(120);
-            score += 2;
+          score += 4;
+          a = new Ammo(allSprites[i]);
+          allAmmo.push(a);
           return;
         }
       }
@@ -199,7 +235,48 @@ const sketch = (p5) => {
       playSoundEffect(sfx1);
     }
   }
+  class Ammo {
+    constructor(spr) {
+      this.position = {
+        x: 400,
+        y: 590
+      };
+      this.count = 0;
+      this.dx = spr.position.x - this.position.x;
+      this.dy = spr.position.y - this.position.y;
+      this.shapeColor = p5.color(100);
+      this.velocity = {
+        x: this.dx/10,
+        y: this.dy/10 - 5
+      };
+      this.img = fire;
+      this.time = 0;
+      this.w = 40;
+      this.h = 40;
+    }
+  
+    update() {
+      this.position.x += this.velocity.x;
+      this.position.y += this.velocity.y;
+      this.count += 1;
+      for(let i = 0; i < allAmmo.length; i++){
+        if (allAmmo[i].count >= 10){
+          allAmmo.splice(i, 1);
+        }
+      }
+    }
+  
+    draw() {
+      p5.fill('rgba(0,255,0, 0)');
+      p5.noStroke()
+      p5.rect(this.position.x, this.position.y, this.w, this.h);
+      p5.image(this.img, this.position.x, this.position.y, this.w, this.h)
+    }
+  
+  }
 };
+
+
 
 let playSoundEffect = (sfx) => {
   sfx.play();
