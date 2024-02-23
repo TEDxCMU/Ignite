@@ -3,8 +3,11 @@ import { NextReactP5Wrapper } from "@p5-wrapper/next";
 import styles from "../game.module.css"
 import Matter from "matter-js";
 import { Howl, Howler } from "howler";
+  
+// wrap with NextReactP5Wrapper
+function Fireworks(props) {
 
-// define your sketch here
+  // define your sketch here
 const sketch = (p5) => {
   let spr;
   let k = "";
@@ -15,8 +18,8 @@ const sketch = (p5) => {
   let buf = 2000;
   let num = 0;
   let lvl = 1;
-  let sfx1 = new Howl({ src: ['/sounds/firework.mp3'] });
-  let sfx2 = new Howl({ src: ['/sounds/sfx2.wav'] });
+  let sfx1 = new Howl({ src: ['/sounds/firework.mp3'], volume: 0.1});
+  let sfx2 = new Howl({ src: ['/sounds/sfx2.wav'], volume: 0.1});
   const arr = [
     "Spark",
     "Fire",
@@ -103,6 +106,8 @@ const sketch = (p5) => {
         p5.fill("red");
         p5.textSize(50);
         p5.text("Game Over", 280, 300);
+        props.setGameOver(true);
+        props.setSubmittedScore(score);
       }
     }
     for(let i = 0; i < exploded.length; i++){
@@ -118,7 +123,7 @@ const sketch = (p5) => {
     if(currTyping){
       if(k == curr.text[0]){
         curr.text = curr.text.substring(1);
-        score += 1;
+        score += 2;
         if(curr.text == ""){
           curr.remove();
           currTyping = false;
@@ -132,7 +137,7 @@ const sketch = (p5) => {
           curr = allSprites[i];
           curr.text = curr.text.substring(1);
           curr.shapeColor = p5.color(120);
-            score += 1;
+            score += 2;
           return;
         }
       }
@@ -199,9 +204,7 @@ const sketch = (p5) => {
 let playSoundEffect = (sfx) => {
   sfx.play();
 }
-  
-// wrap with NextReactP5Wrapper
-function Fireworks() {
+
   return (
       <NextReactP5Wrapper sketch={sketch} />
   );
