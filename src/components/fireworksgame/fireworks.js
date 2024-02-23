@@ -77,6 +77,9 @@ const sketch = (p5) => {
   }
 
   p5.draw = () => {
+    if (props.gameOver) {
+      p5.noLoop();
+    }
     p5.background(bg);
     p5.fill("white");
     p5.textSize(25);
@@ -102,12 +105,12 @@ const sketch = (p5) => {
       allSprites[i].update();
       allSprites[i].draw();
       if (allSprites[i].position.y < 0) {
+        props.setGameOver(true);
+        props.setSubmittedScore(score);
         p5.noLoop();
         p5.fill("red");
         p5.textSize(50);
         p5.text("Game Over", 280, 300);
-        props.setGameOver(true);
-        props.setSubmittedScore(score);
       }
     }
     for(let i = 0; i < exploded.length; i++){
