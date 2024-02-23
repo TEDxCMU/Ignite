@@ -88,12 +88,12 @@ const sketch = (p5) => {
 
   p5.preload = () => {
     img = p5.loadImage('/imgs/bubble.png');
-    ex = p5.loadImage('/imgs/explode.gif');
+    ex = p5.loadImage('/imgs/firework2.gif');
     fire = p5.loadImage('/imgs/fire.png');
   }
 
   p5.setup = () => {
-    bg = p5.loadImage('/imgs/fbg.png');
+    bg = p5.loadImage('/imgs/fajrbackground.png');
     p5.createCanvas(800, 600);
     spr = new Sprite(
       600, 500, 40, 40);
@@ -210,8 +210,8 @@ const sketch = (p5) => {
         this.position.y += this.velocity.y;
       }else{
         this.img = ex;
-        this.w = 60;
-        this.h = 60;
+        this.w = 120;
+        this.h = 120;
         if(p5.millis() - this.time > 1000){
           exploded.splice(exploded.indexOf(this), 1);
         }
