@@ -33,7 +33,7 @@ export default function GameCard(props) {
                         alt={game.image.alt}
                     />
                     <div className={styles.info}>
-                        <div className={styles.name}>{`${game.daysleft} Days Left`}</div>
+                        <div className={styles.name}>{`${game.daysleft} Day${game.daysleft > 1 ? "s" : ""} Left`}</div>
                         <div className={styles.body}>{game.description}</div>
                     </div>
                 </Link>
