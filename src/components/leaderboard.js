@@ -44,7 +44,7 @@ export default function Leaderboard() {
                                 <tr key={score._id}>
                                     <td style={{textAlign: "center"}}>{index + 1}</td>
                                     <td>{score.name}</td>
-                                    <td style={{textAlign: "right"}}>{score.score}</td>
+                                    <td style={{textAlign: "right"}}>{Math.round(score.score)}</td>
                                 </tr>
                             ))}
                         </tbody>
