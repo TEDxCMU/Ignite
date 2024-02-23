@@ -7,7 +7,6 @@ import { Howl, Howler } from "howler";
 // define your sketch here
 const sketch = (p5) => {
   let spr;
-  let f;
   let k = "";
   let timer = 0;
   let score = 0;
@@ -43,7 +42,31 @@ const sketch = (p5) => {
     "Firestorm",
     "Spontaneous",
     "Fiery",
-    "Illuminate"
+    "Illuminate",
+    "Fervent",
+  "Cinder",
+  "Bonfire",
+  "Pyromania",
+  "Burning",
+  "Combustion",
+  "Enkindle",
+  "Singe",
+  "Flambeau",
+  "Volcano",
+  "Emblaze",
+  "Scald",
+  "Sparkle",
+  "Radiant",
+  "Fuel",
+  "Wildfire",
+  "Consume",
+  "Embroil",
+  "Sear",
+  "Explosion",
+  "Conflagrant",
+  "Fireshow",
+  "Erupt",
+  "Flamboyant",
   ];
   let allSprites = [];
   let allAmmo = [];
@@ -76,8 +99,6 @@ const sketch = (p5) => {
     spr.text = arr[getRandomInt(0, 25)].toLowerCase();
     spr.textSize = 20;
     allSprites.push(spr);
-    f = new Ammo(spr);
-    allAmmo.push(f);
   }
 
   p5.draw = () => {
@@ -90,7 +111,7 @@ const sketch = (p5) => {
       spr = new Sprite(getRandomInt(100, 760), 500, 40, 40);
       spr.shapeColor = p5.color(255);
       spr.velocity.y = -2;
-      spr.text = arr[getRandomInt(0, 25)].toLowerCase();
+      spr.text = arr[getRandomInt(0, 49)].toLowerCase();
       spr.textSize = 20;
       allSprites.push(spr);
       timer = p5.millis();
