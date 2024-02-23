@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { NextReactP5Wrapper } from "@p5-wrapper/next";
 import EthanGame from "components/ethan-game/sketch";
 import { DashBoard } from "components/dashboard";
 import { getGameByName } from "utils/content";
@@ -22,6 +21,7 @@ function FireBear() {
       <EthanGame setGameOver={setGameOver} setSubmittedScore={setSubmittedScore}/>
     </DashBoard>
   );
+  // return null;
 }
 
 export default FireBear;

@@ -20,7 +20,7 @@ function Fireworks1() {
   return (
     <DashBoard title={info && info.name} instructions={info && info.instructions}>
       {gameOver && <GameOver score={submittedScore} gameName={"fireworkFrenzy"} />}
-      <Fireworks setGameOver={setGameOver} setSubmittedScore={setSubmittedScore}/>
+      <Fireworks setGameOver={setGameOver} setSubmittedScore={setSubmittedScore} gameOver={gameOver}/>
     </DashBoard>
   );
 }
