@@ -123,7 +123,7 @@ const sketch = (p5) => {
     if(currTyping){
       if(k == curr.text[0]){
         curr.text = curr.text.substring(1);
-        score += 2;
+        score += 4;
         if(curr.text == ""){
           curr.remove();
           currTyping = false;
@@ -137,7 +137,7 @@ const sketch = (p5) => {
           curr = allSprites[i];
           curr.text = curr.text.substring(1);
           curr.shapeColor = p5.color(120);
-            score += 2;
+            score += 4;
           return;
         }
       }
